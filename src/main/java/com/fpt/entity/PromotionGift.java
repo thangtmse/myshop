@@ -1,5 +1,5 @@
-package com.fpt.entity;
-
-public class PromotionGift {
-
-}
+//package com.fpt.entity;
+//
+//public class PromotionGift {
+//
+//}

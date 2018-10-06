@@ -1,6 +1,8 @@
 package com.fpt.entity;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,57 +19,33 @@ public class Product implements Serializable {
 	 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", nullable = false)
-	private Long id;
+	@Column(name = "productId", nullable = false)
+	private BigInteger productId;
 	
-	@Column(name = "name", nullable = false)
+	@Column(name = "productName", nullable = false)
 	private String productName;
 	
 	@Column(name = "categoryID", nullable = false)
-	private Integer categoryID;
+	private BigInteger categoryID;
 	
-	@Column(name = "ipriceIn", nullable = false)
+	@Column(name = "priceIn", nullable = false)
 	private Double priceIn;
 	
 	@Column(name = "priceOut", nullable = false)
 	private Double priceOut;
-	
-	@Column(name = "priceSale", nullable = false)
-	private Double privateSale;
-	
 	@Column(name = "quantity", nullable = false)
 	private Integer quantity;
-	
 	@Column(name = "description", nullable = false)
 	private String description;
-	
-	@Column(name = "imageID", nullable = false)
-	private Integer imageID;
-	
-	
-	
-	public Product(Long id, String productName, Integer categoryID, Double priceIn, Double priceOut, Double privateSale,
-			Integer quantity, String description, Integer imageID) {
-		super();
-		this.id = id;
-		this.productName = productName;
-		this.categoryID = categoryID;
-		this.priceIn = priceIn;
-		this.priceOut = priceOut;
-		this.privateSale = privateSale;
-		this.quantity = quantity;
-		this.description = description;
-		this.imageID = imageID;
+	@Column(name = "createdDate", nullable = false)
+	private Date createdDate;
+	@Column(name = "supplierId", nullable = false)
+	private BigInteger supplierId;
+	public BigInteger getProductId() {
+		return productId;
 	}
-	public Product() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
+	public void setProductId(BigInteger productId) {
+		this.productId = productId;
 	}
 	public String getProductName() {
 		return productName;
@@ -75,10 +53,10 @@ public class Product implements Serializable {
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public Integer getCategoryID() {
+	public BigInteger getCategoryID() {
 		return categoryID;
 	}
-	public void setCategoryID(Integer categoryID) {
+	public void setCategoryID(BigInteger categoryID) {
 		this.categoryID = categoryID;
 	}
 	public Double getPriceIn() {
@@ -93,12 +71,6 @@ public class Product implements Serializable {
 	public void setPriceOut(Double priceOut) {
 		this.priceOut = priceOut;
 	}
-	public Double getPrivateSale() {
-		return privateSale;
-	}
-	public void setPrivateSale(Double privateSale) {
-		this.privateSale = privateSale;
-	}
 	public Integer getQuantity() {
 		return quantity;
 	}
@@ -111,12 +83,25 @@ public class Product implements Serializable {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Integer getImageID() {
-		return imageID;
+	public Date getCreatedDate() {
+		return createdDate;
 	}
-	public void setImageID(Integer imageID) {
-		this.imageID = imageID;
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
+	public BigInteger getSupplierId() {
+		return supplierId;
+	}
+	public void setSupplierId(BigInteger supplierId) {
+		this.supplierId = supplierId;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	
+	
+	
+	
      
 	
 }

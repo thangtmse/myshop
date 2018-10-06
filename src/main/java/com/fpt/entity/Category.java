@@ -1,5 +1,7 @@
 package com.fpt.entity;
 
+import java.math.BigInteger;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,14 +16,16 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "categoryId", nullable = false)
-	private Integer categoryID;
+	private BigInteger categoryID;
+	@Column(name="categoryName",nullable=false)
 	private String categoryName;
+	@Column(name="description",nullable=false)
 	private String description;
-	private Integer imageId;
-	public Integer getCategoryID() {
+	
+	public BigInteger getCategoryID() {
 		return categoryID;
 	}
-	public void setCategoryID(Integer categoryID) {
+	public void setCategoryID(BigInteger categoryID) {
 		this.categoryID = categoryID;
 	}
 	public String getCategoryName() {
@@ -36,19 +40,8 @@ public class Category {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public Integer getImageId() {
-		return imageId;
-	}
-	public void setImageId(Integer imageId) {
-		this.imageId = imageId;
-	}
-	public Category(Integer categoryID, String categoryName, String description, Integer imageId) {
-		super();
-		this.categoryID = categoryID;
-		this.categoryName = categoryName;
-		this.description = description;
-		this.imageId = imageId;
-	}
+	
+	
 	
 	
     
