@@ -1,7 +1,6 @@
 package com.fpt.entity;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -11,26 +10,28 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
 @Entity
 @Table(name = "Product")
-
+@Proxy(lazy = false)
 public class Product implements Serializable {
-	 private static final long serialVersionUID = 1L;
-	 
+	private static final long serialVersionUID = 1L;
+
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "productId", nullable = false)
-	private BigInteger productId;
-	
+	private Long productId;
+
 	@Column(name = "productName", nullable = false)
 	private String productName;
-	
+
 	@Column(name = "categoryID", nullable = false)
-	private BigInteger categoryID;
-	
+	private Long categoryID;
+
 	@Column(name = "priceIn", nullable = false)
 	private Double priceIn;
-	
+
 	@Column(name = "priceOut", nullable = false)
 	private Double priceOut;
 	@Column(name = "quantity", nullable = false)
@@ -40,68 +41,92 @@ public class Product implements Serializable {
 	@Column(name = "createdDate", nullable = false)
 	private Date createdDate;
 	@Column(name = "supplierId", nullable = false)
-	private BigInteger supplierId;
-	public BigInteger getProductId() {
+	private Long supplierId;
+	@Column(name = "deleted", nullable = false)
+	private boolean deleted;
+
+	public boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
+
+	public Long getProductId() {
 		return productId;
 	}
-	public void setProductId(BigInteger productId) {
+
+	public void setProductId(Long productId) {
 		this.productId = productId;
 	}
+
 	public String getProductName() {
 		return productName;
 	}
+
 	public void setProductName(String productName) {
 		this.productName = productName;
 	}
-	public BigInteger getCategoryID() {
+
+	public Long getCategoryID() {
 		return categoryID;
 	}
-	public void setCategoryID(BigInteger categoryID) {
+
+	public void setCategoryID(Long categoryID) {
 		this.categoryID = categoryID;
 	}
+
 	public Double getPriceIn() {
 		return priceIn;
 	}
+
 	public void setPriceIn(Double priceIn) {
 		this.priceIn = priceIn;
 	}
+
 	public Double getPriceOut() {
 		return priceOut;
 	}
+
 	public void setPriceOut(Double priceOut) {
 		this.priceOut = priceOut;
 	}
+
 	public Integer getQuantity() {
 		return quantity;
 	}
+
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public Date getCreatedDate() {
 		return createdDate;
 	}
+
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-	public BigInteger getSupplierId() {
+
+	public Long getSupplierId() {
 		return supplierId;
 	}
-	public void setSupplierId(BigInteger supplierId) {
+
+	public void setSupplierId(Long supplierId) {
 		this.supplierId = supplierId;
 	}
+
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	
-	
-	
-     
-	
+
 }

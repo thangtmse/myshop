@@ -1,31 +1,53 @@
 package com.fpt.service;
 
-import java.math.BigInteger;
-import java.util.List;
+import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fpt.entity.Product;
 import com.fpt.repository.ProductRepository;
+
 @Service
 public class ProductServiceImpl implements ProductService {
-  @Autowired
-  private ProductRepository productRepository;
-  
+	@Autowired
+	private ProductRepository productRepository;
+
 	@Override
-	public List<Product> findAll() {
-		// TODO Auto-generated method stub
-		return productRepository.findAll();
+	public Product delete(Long id) {
+		Product p = productRepository.getOne(id);
+		p.setDeleted(true);
+		return productRepository.save(p);
 	}
 
 	@Override
-	public List<Product> findByproductNameContaining(String q) {
+	public Page<Product> findByproductNameContaining(String q, Pageable pageable) {
 		// TODO Auto-generated method stub
-		return null;
+		return productRepository.findByproductNameContainingAndDeleted(q, false, pageable);
 	}
-	
-//    public void delete(BigInteger id) {
-//    	productRepository.deleteById(id);
-//    }
+
+	@Override
+	public Product findOne(Long id) {
+		// TODO Auto-generated method stub
+		return productRepository.getOne(id);
+	}
+
+	@Override
+	public Product create(Product product) {
+		// TODO Auto-generated method stub
+		product.setCreatedDate(new Date());
+		return productRepository.save(product);
+
+	}
+
+	@Override
+	public Product update(Product product) {
+		Product p = productRepository.getOne(product.getProductId());
+		product.setCreatedDate(p.getCreatedDate());
+
+		// TODO Auto-generated method stub
+		return productRepository.save(product);
+	}
 }
