@@ -22,4 +22,17 @@ public class CategoryServiceImpl implements CategoryService {
 		return categoryRepository.getOne(id);
 	}
 
+	@Override
+	public Category update(Category category) {
+		category = categoryRepository.getOne(category.getCategoryID());
+		// TODO Auto-generated method stub
+		return categoryRepository.save(category);
+	}
+
+	@Override
+	public Category create(Category category) {
+		// TODO Auto-generated method stub
+		return categoryRepository.save(category);
+	}
+
 }
