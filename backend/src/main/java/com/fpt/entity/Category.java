@@ -16,12 +16,22 @@ public class Category {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "categoryId", nullable = false)
+	@Column(name = "categoryid", nullable = false)
 	private Long categoryID;
-	@Column(name = "categoryName", nullable = false)
+	@Column(name = "categoryname", nullable = false)
 	private String categoryName;
 	@Column(name = "description", nullable = false)
 	private String description;
+	@Column(name = "deleted", nullable = false)
+	private Boolean deleted;
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	public Long getCategoryID() {
 		return categoryID;
