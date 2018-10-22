@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="image")
+@Table(name = "image")
 public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,23 +16,21 @@ public class Image {
 	private Integer imageId;
 	@Column(name = "imageUrl", nullable = false)
 	private String imageUrl;
+
 	public Integer getImageId() {
 		return imageId;
 	}
+
 	public void setImageId(Integer imageId) {
 		this.imageId = imageId;
 	}
+
 	public String getImageUrl() {
 		return imageUrl;
 	}
+
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	public Image(Integer imageId, String imageUrl) {
-		super();
-		this.imageId = imageId;
-		this.imageUrl = imageUrl;
-	}
-	
-	
+
 }

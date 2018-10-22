@@ -1,18 +1,42 @@
 package com.fpt.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.fpt.entity.Category;
+import com.fpt.repository.CategoryRepository;
 
-public interface CategoryService {
-	Page<Category> findByNameContaining(String q, Pageable pageable);
+@Service
+public class CategoryService {
+	@Autowired
+	private CategoryRepository categoryRepository;
 
-	Category findOne(Long id);
+	public Category findOne(Long id) {
+		return categoryRepository.getOne(id);
+	}
 
-	Category update(Category category);
+	public Category update(Category category) {
+		category = categoryRepository.getOne(category.getCategoryID());
+		// TODO Auto-generated method stub
+		return categoryRepository.save(category);
+	}
 
-	Category create(Category category);
+	public Category create(Category category) {
+		// TODO Auto-generated method stub
+		return categoryRepository.save(category);
+	}
 
-	Category delete(Long id);
+	public Category delete(Long id) {
+		Category category = categoryRepository.getOne(id);
+		category.setDeleted(true);
+		// TODO Auto-generated method stub
+		return categoryRepository.save(category);
+	}
+
+	public Page<Category> findByNameContaining(String q, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return categoryRepository.findBycategoryNameContainingAndDeleted(q, false, pageable);
+	}
 }

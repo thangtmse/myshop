@@ -1,20 +1,49 @@
 package com.fpt.service;
 
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import com.fpt.entity.Product;
+import com.fpt.repository.ProductRepository;
 
-public interface ProductService {
+@Service
+public class ProductService {
+	@Autowired
+	private ProductRepository productRepository;
 
-	Page<Product> findByproductNameContaining(String q, Pageable pageable);
+	public Product delete(Long id) {
+		Product p = productRepository.getOne(id);
+		p.setDeleted(true);
+		return productRepository.save(p);
+	}
 
-	Product delete(Long id);
+	public Page<Product> findByproductNameContaining(String q, Pageable pageable) {
+		// TODO Auto-generated method stub
+		return productRepository.findByproductNameContainingAndDeleted(q, false, pageable);
+	}
 
-	Product findOne(Long id);
+	public Product findOne(Long id) {
+		// TODO Auto-generated method stub
+		return productRepository.getOne(id);
+	}
 
-	Product create(Product product);
+	public Product create(Product product) {
+		// TODO Auto-generated method stub
+		product.setCreatedDate(new Date());
+		return productRepository.save(product);
 
-	Product update(Product product);
+	}
+
+	public Product update(Product product) {
+		Product p = productRepository.getOne(product.getProductId());
+		product.setCreatedDate(p.getCreatedDate());
+
+		// TODO Auto-generated method stub
+		return productRepository.save(product);
+	}
 
 }

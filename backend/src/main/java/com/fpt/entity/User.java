@@ -7,32 +7,45 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
 @Entity
+@Proxy(lazy = false)
 @Table(name = "user")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "userId", nullable = false)
-	private Integer userId;
+	@Column(name = "userid", nullable = false)
+	private Long userId;
+	@Column(name = "username", nullable = false)
+	private String username;
 	@Column(name = "email", nullable = false)
 	private String email;
-	@Column(name = "displayName", nullable = false)
-	private String displayName;
-	@Column(name = "md5Password", nullable = false)
-	private String md5PassWord;
-	@Column(name = "rollId", nullable = false)
-	private Integer rollId;
-	@Column(name = "addRess", nullable = false)
-	private String addResss;
-	@Column(name = "provider", nullable = false)
-	private String provider;
+	@Column(name = "fullname", nullable = false)
+	private String fullName;
+	@Column(name = "password", nullable = false)
+	private String password;
+	@Column(name = "role", nullable = false)
+	private String role;
+	@Column(name = "phone", nullable = false)
+	private String phone;
+	@Column(name = "address", nullable = false)
+	private String address;
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 	public String getEmail() {
@@ -43,56 +56,44 @@ public class User {
 		this.email = email;
 	}
 
-	public String getDisplayName() {
-		return displayName;
+	public String getFullName() {
+		return fullName;
 	}
 
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
 	}
 
-	public String getMd5PassWord() {
-		return md5PassWord;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setMd5PassWord(String md5PassWord) {
-		this.md5PassWord = md5PassWord;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
-	public Integer getRollId() {
-		return rollId;
+	public String getRole() {
+		return role;
 	}
 
-	public void setRollId(Integer rollId) {
-		this.rollId = rollId;
+	public void setRole(String role) {
+		this.role = role;
 	}
 
-	public String getAddResss() {
-		return addResss;
+	public String getPhone() {
+		return phone;
 	}
 
-	public void setAddResss(String addResss) {
-		this.addResss = addResss;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
-	public String getProvider() {
-		return provider;
+	public String getAddress() {
+		return address;
 	}
 
-	public void setProvider(String provider) {
-		this.provider = provider;
-	}
-
-	public User(Integer userId, String email, String displayName, String md5PassWord, Integer rollId, String addResss,
-			String provider) {
-		super();
-		this.userId = userId;
-		this.email = email;
-		this.displayName = displayName;
-		this.md5PassWord = md5PassWord;
-		this.rollId = rollId;
-		this.addResss = addResss;
-		this.provider = provider;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

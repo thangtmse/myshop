@@ -1,7 +1,19 @@
 package com.fpt.service;
 
-import com.fpt.entity.Supplier;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public interface SupplierService {
-	Supplier findOne(Long id);
+import com.fpt.entity.Supplier;
+import com.fpt.repository.SupplierRepository;
+
+@Service
+public class SupplierService {
+	@Autowired
+	private SupplierRepository supplierRepository;
+
+	public Supplier findOne(Long id) {
+		// TODO Auto-generated method stub
+		return supplierRepository.getOne(id);
+	}
+
 }
