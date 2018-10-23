@@ -1,5 +1,6 @@
 package com.fpt.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,9 +16,13 @@ public class Supplier {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "supplierid", nullable = false)
 	private Long supplierId;
+	@Column(name = "suppliername", nullable = false)
 	private String supplierName;
+	@Column(name = "supplieraddress", nullable = false)
 	private String supplierAddress;
+	@Column(name = "supplierphone", nullable = false)
 	private String supplierPhone;
 
 	public Long getSupplierId() {

@@ -20,27 +20,27 @@ public class Product implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "productId", nullable = false)
+	@Column(name = "productid", nullable = false)
 	private Long productId;
 
-	@Column(name = "productName", nullable = false)
+	@Column(name = "productname", nullable = false)
 	private String productName;
 
-	@Column(name = "categoryID", nullable = false)
+	@Column(name = "categoryid", nullable = false)
 	private Long categoryID;
 
-	@Column(name = "priceIn", nullable = false)
+	@Column(name = "pricein", nullable = false)
 	private Double priceIn;
 
-	@Column(name = "priceOut", nullable = false)
+	@Column(name = "priceout", nullable = false)
 	private Double priceOut;
 	@Column(name = "quantity", nullable = false)
 	private Integer quantity;
 	@Column(name = "description", nullable = false)
 	private String description;
-	@Column(name = "createdDate", nullable = false)
+	@Column(name = "createddate", nullable = false)
 	private Date createdDate;
-	@Column(name = "supplierId", nullable = false)
+	@Column(name = "supplierid", nullable = false)
 	private Long supplierId;
 	@Column(name = "deleted", nullable = false)
 	private boolean deleted;
