@@ -17,7 +17,7 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "categoryid", nullable = false)
-	private Long categoryID;
+	private Long categoryId;
 	@Column(name = "categoryparentid", nullable = false)
 	private Long categoryParentId;
 	@Column(name = "categoryname", nullable = false)
@@ -31,12 +31,12 @@ public class Category {
 	@Column(name = "deleted", nullable = false)
 	private Boolean deleted;
 
-	public Long getCategoryID() {
-		return categoryID;
+	public Long getCategoryId() {
+		return categoryId;
 	}
 
-	public void setCategoryID(Long categoryID) {
-		this.categoryID = categoryID;
+	public void setCategoryId(Long categoryId) {
+		this.categoryId = categoryId;
 	}
 
 	public Long getCategoryParentId() {
