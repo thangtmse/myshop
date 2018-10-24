@@ -18,7 +18,7 @@ public class CategoryService {
 	}
 
 	public Category update(Category category) {
-		category = categoryRepository.getOne(category.getCategoryID());
+		category = categoryRepository.getOne(category.getCategoryId());
 		// TODO Auto-generated method stub
 		return categoryRepository.save(category);
 	}

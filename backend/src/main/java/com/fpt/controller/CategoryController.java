@@ -38,7 +38,7 @@ public class CategoryController {
 
 	@RequestMapping(path = "{id}", method = RequestMethod.PUT)
 	public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Category category) {
-		category.setCategoryID(id);
+		category.setCategoryId(id);
 		return new ResponseEntity<>(categoryService.update(category), HttpStatus.OK);
 	}
 
