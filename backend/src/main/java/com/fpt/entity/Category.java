@@ -18,20 +18,18 @@ public class Category {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "categoryid", nullable = false)
 	private Long categoryID;
+	@Column(name = "categoryparentid", nullable = false)
+	private Long categoryParentId;
 	@Column(name = "categoryname", nullable = false)
 	private String categoryName;
+	@Column(name = "hassubcategory", nullable = false)
+	private Long hasSubCategory;
 	@Column(name = "description", nullable = false)
 	private String description;
+	@Column(name = "imageurl", nullable = false)
+	private Boolean imageurl;
 	@Column(name = "deleted", nullable = false)
 	private Boolean deleted;
-
-	public Boolean getDeleted() {
-		return deleted;
-	}
-
-	public void setDeleted(Boolean deleted) {
-		this.deleted = deleted;
-	}
 
 	public Long getCategoryID() {
 		return categoryID;
@@ -39,6 +37,14 @@ public class Category {
 
 	public void setCategoryID(Long categoryID) {
 		this.categoryID = categoryID;
+	}
+
+	public Long getCategoryParentId() {
+		return categoryParentId;
+	}
+
+	public void setCategoryParentId(Long categoryParentId) {
+		this.categoryParentId = categoryParentId;
 	}
 
 	public String getCategoryName() {
@@ -49,12 +55,36 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
+	public Long getHasSubCategory() {
+		return hasSubCategory;
+	}
+
+	public void setHasSubCategory(Long hasSubCategory) {
+		this.hasSubCategory = hasSubCategory;
+	}
+
 	public String getDescription() {
 		return description;
 	}
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Boolean getImageurl() {
+		return imageurl;
+	}
+
+	public void setImageurl(Boolean imageurl) {
+		this.imageurl = imageurl;
+	}
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
 	}
 
 }
