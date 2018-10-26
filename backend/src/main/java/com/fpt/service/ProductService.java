@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import com.fpt.entity.Product;
 import com.fpt.repository.ProductRepository;
@@ -26,12 +27,13 @@ public class ProductService {
 
 	public Page<Product> findProducts(Long id, String q, Pageable pageable) throws Exception {
 		List<Long> cateid = categoryService.findCategoryId(id);
-		if (cateid != null || !cateid.isEmpty()) {
-			return productRepository.findProductByCategoryIdAndDeleted(cateid, false, pageable);
+		if (!CollectionUtils.isEmpty(cateid)) {
+			return productRepository.findByProductNameContainingAndCategoryIdInAndDeleted(q, cateid, false, pageable);
 		}
-//		if (id != null) {
-//			return productRepository.findProductByCategoryIdAndDeleted(id, false, pageable);
-//		}
+		// if (id != null) {
+		// return productRepository.findProductByCategoryIdAndDeleted(id, false,
+		// pageable);
+		// }
 		// TODO Auto-generated method stub
 		return productRepository.findByProductNameContainingAndDeleted(q, false, pageable);
 	}
@@ -56,11 +58,12 @@ public class ProductService {
 		return productRepository.save(product);
 	}
 
-//	public Page<Product> findProductByCategory(Long id, Pageable pageable) {
-//		Category cate = categoryRepository.findBycategoryNameAndDeleted(q, false);
-//		Long id = cate.getCategoryId();
-//
-//		return productRepository.findProductByCategoryIdAndDeleted(id, false, pageable);
-//	}
+	// public Page<Product> findProductByCategory(Long id, Pageable pageable) {
+	// Category cate = categoryRepository.findBycategoryNameAndDeleted(q, false);
+	// Long id = cate.getCategoryId();
+	//
+	// return productRepository.findProductByCategoryIdAndDeleted(id, false,
+	// pageable);
+	// }
 
 }

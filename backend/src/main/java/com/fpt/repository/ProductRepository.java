@@ -11,6 +11,7 @@ import com.fpt.entity.Product;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 	public Page<Product> findByProductNameContainingAndDeleted(String name, Boolean deleted, Pageable pageable);
 
-	public Page<Product> findProductByCategoryIdAndDeleted(List<Long> id, Boolean deleted, Pageable pageable);
+	public Page<Product> findByProductNameContainingAndCategoryIdInAndDeleted(String name, List<Long> id,
+			Boolean deleted, Pageable pageable);
 
 }
