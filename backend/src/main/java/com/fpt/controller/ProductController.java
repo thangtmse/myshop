@@ -26,9 +26,13 @@ public class ProductController {
 	private ProductMapper productMapper;
 
 	@RequestMapping(path = "", method = RequestMethod.GET)
-	public ResponseEntity<?> findProducts(@RequestParam(name = "name", required = false, defaultValue = "") String name,
-			Pageable pageable) {
-		Page<Product> pd = productService.findByproductNameContaining(name, pageable);
+	public ResponseEntity<?> findProducts(Pageable pageable,
+			@RequestParam(value = "name", required = false, defaultValue = "") String name,
+			@RequestParam(value = "categoryid", required = false) Long category
+
+	) throws Exception {
+
+		Page<Product> pd = productService.findProducts(category, name, pageable);
 		return new ResponseEntity<>(productMapper.toProductResponse(pd), HttpStatus.OK);
 	}
 

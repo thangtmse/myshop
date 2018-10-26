@@ -23,7 +23,7 @@ public class Category {
 	@Column(name = "categoryname", nullable = false)
 	private String categoryName;
 	@Column(name = "hassubcategory", nullable = false)
-	private Long hasSubCategory;
+	private Boolean hasSubCategory;
 	@Column(name = "description", nullable = false)
 	private String description;
 	@Column(name = "imageurl", nullable = false)
@@ -55,11 +55,11 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
-	public Long getHasSubCategory() {
+	public Boolean getHasSubCategory() {
 		return hasSubCategory;
 	}
 
-	public void setHasSubCategory(Long hasSubCategory) {
+	public void setHasSubCategory(Boolean hasSubCategory) {
 		this.hasSubCategory = hasSubCategory;
 	}
 

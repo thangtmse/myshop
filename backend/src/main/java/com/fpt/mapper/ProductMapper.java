@@ -29,7 +29,7 @@ public class ProductMapper {
 		Product p = new Product();
 		p.setProductId(pr.getProductId());
 		p.setProductName(pr.getProductName());
-		p.setCategoryID(pr.getCategoryID());
+		p.setCategoryId(pr.getCategoryID());
 		p.setDescription(pr.getDescription());
 		p.setPriceIn(pr.getPriceIn());
 		p.setPriceOut(pr.getPriceOut());
@@ -62,7 +62,7 @@ public class ProductMapper {
 			return null;
 		}
 		ProductResponse pr = new ProductResponse();
-		pr.setCategory(categoryService.findOne(p.getCategoryID()));
+		pr.setCategory(categoryService.findOne(p.getCategoryId()));
 		pr.setProductId(p.getProductId());
 		pr.setProductName(p.getProductName());
 		pr.setCreatedDate(p.getCreatedDate());

@@ -1,6 +1,7 @@
 package com.fpt.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,6 +15,8 @@ import com.fpt.repository.ProductRepository;
 public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private CategoryService categoryService;
 
 	public Product delete(Long id) {
 		Product p = productRepository.getOne(id);
@@ -21,9 +24,16 @@ public class ProductService {
 		return productRepository.save(p);
 	}
 
-	public Page<Product> findByproductNameContaining(String q, Pageable pageable) {
+	public Page<Product> findProducts(Long id, String q, Pageable pageable) throws Exception {
+		List<Long> cateid = categoryService.findCategoryId(id);
+		if (cateid != null || !cateid.isEmpty()) {
+			return productRepository.findProductByCategoryIdAndDeleted(cateid, false, pageable);
+		}
+//		if (id != null) {
+//			return productRepository.findProductByCategoryIdAndDeleted(id, false, pageable);
+//		}
 		// TODO Auto-generated method stub
-		return productRepository.findByproductNameContainingAndDeleted(q, false, pageable);
+		return productRepository.findByProductNameContainingAndDeleted(q, false, pageable);
 	}
 
 	public Product findOne(Long id) {
@@ -45,5 +55,12 @@ public class ProductService {
 		// TODO Auto-generated method stub
 		return productRepository.save(product);
 	}
+
+//	public Page<Product> findProductByCategory(Long id, Pageable pageable) {
+//		Category cate = categoryRepository.findBycategoryNameAndDeleted(q, false);
+//		Long id = cate.getCategoryId();
+//
+//		return productRepository.findProductByCategoryIdAndDeleted(id, false, pageable);
+//	}
 
 }
