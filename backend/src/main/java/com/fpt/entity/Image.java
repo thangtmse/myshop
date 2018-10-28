@@ -12,17 +12,27 @@ import javax.persistence.Table;
 public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "imageId", nullable = false)
-	private Integer imageId;
-	@Column(name = "imageUrl", nullable = false)
+	@Column(name = "imageid", nullable = false)
+	private Long imageId;
+	@Column(name = "productid", nullable = false)
+	private Long productId;
+	@Column(name = "imageurl", nullable = false)
 	private String imageUrl;
 
-	public Integer getImageId() {
+	public Long getImageId() {
 		return imageId;
 	}
 
-	public void setImageId(Integer imageId) {
+	public void setImageId(Long imageId) {
 		this.imageId = imageId;
+	}
+
+	public Long getProductId() {
+		return productId;
+	}
+
+	public void setProductId(Long productId) {
+		this.productId = productId;
 	}
 
 	public String getImageUrl() {
