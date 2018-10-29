@@ -15,7 +15,7 @@ import com.fpt.entity.Category;
 import com.fpt.service.CategoryService;
 
 @Controller
-@RequestMapping("/category")
+@RequestMapping("/api/category")
 public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;

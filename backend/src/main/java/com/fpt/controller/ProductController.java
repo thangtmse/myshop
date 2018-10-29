@@ -18,7 +18,7 @@ import com.fpt.mapper.ProductMapper;
 import com.fpt.service.ProductService;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/api/product")
 public class ProductController {
 	@Autowired
 	private ProductService productService;

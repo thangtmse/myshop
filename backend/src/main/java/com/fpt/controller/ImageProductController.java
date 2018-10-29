@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.fpt.service.ImageService;
 
 @Controller
-@RequestMapping("/image")
+@RequestMapping("/api/image")
 public class ImageProductController {
 	@Autowired
 	private ImageService imageService;

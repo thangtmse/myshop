@@ -17,7 +17,7 @@ import com.fpt.service.UserService;
 import com.fpt.utils.PasswordUtils;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
 	@Autowired
 	private UserService userService;
