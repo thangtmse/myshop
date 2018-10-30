@@ -2,12 +2,16 @@ package com.fpt.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Proxy;
@@ -44,6 +48,9 @@ public class Product implements Serializable {
 	private Long supplierId;
 	@Column(name = "deleted", nullable = false)
 	private boolean deleted;
+	@OneToMany(cascade = { CascadeType.ALL })
+	@JoinColumn(name = "productid")
+	private List<Image> images;
 
 	public boolean getDeleted() {
 		return deleted;
@@ -121,12 +128,16 @@ public class Product implements Serializable {
 		return supplierId;
 	}
 
-	public void setSupplierId(Long supplierId) {
-		this.supplierId = supplierId;
+	public List<Image> getImages() {
+		return images;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
+
+	public void setSupplierId(Long supplierId) {
+		this.supplierId = supplierId;
 	}
 
 }

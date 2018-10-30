@@ -1,13 +1,19 @@
 package com.fpt.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fpt.entity.Image;
 import com.fpt.service.ImageService;
 
 @Controller
@@ -16,9 +22,16 @@ public class ImageProductController {
 	@Autowired
 	private ImageService imageService;
 
-	@RequestMapping(path = "", method = RequestMethod.GET)
-	public ResponseEntity<?> getCategory(@RequestParam(name = "id", required = false) Long id) {
-		return new ResponseEntity<>(imageService.getListImage(id), HttpStatus.OK);
+	@RequestMapping(path = "{id}", method = RequestMethod.GET)
+	public void download(@PathVariable("id") Long id, HttpServletResponse response) throws Exception {
+		Image image = imageService.getById(id);
+		File file = new File(image.getImageUrl());
+		InputStream inputStream = new FileInputStream(file);
+		response.setContentType("image/*");
+//		response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+		IOUtils.copy(inputStream, response.getOutputStream());
+		response.flushBuffer();
+		inputStream.close();
 	}
 
 }

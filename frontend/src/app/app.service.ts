@@ -53,11 +53,13 @@ export class AppService {
                 return {
                     id: pro.productId,
                     name: pro.productName,
-                    images: [{
-                        small: "assets/images/products/keyboard/3-small.png",
-                        medium: "assets/images/products/keyboard/3-medium.png",
-                        big: "assets/images/products/keyboard/3-big.png"
-                    }],
+                    images: pro.images.map(image=>{
+                        return {
+                            small: this.API_URL+"/image/"+image.imageId,
+                            medium: this.API_URL+"/image/"+image.imageId,
+                            big: this.API_URL+"/image/"+image.imageId
+                        }
+                    }),
                     oldPrice: null,
                     newPrice: pro.priceOut,
                     discount: null,
@@ -79,7 +81,7 @@ export class AppService {
                 return {
                     title: ele.categoryName,
                     subtitle: ele.description,
-                    image: null
+                    image: this.API_URL+"/category/"+ele.categoryId+"/image"
                 }
             })
             return data;

@@ -1,5 +1,12 @@
 package com.fpt.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -44,8 +51,19 @@ public class CategoryController {
 
 	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-
 		return new ResponseEntity<>(categoryService.delete(id), HttpStatus.OK);
+	}
+
+	@RequestMapping(path = "{id}/image", method = RequestMethod.GET)
+	public void getImage(@PathVariable("id") Long id, HttpServletResponse response) throws Exception {
+		Category cat = categoryService.findOne(id);
+		File file = new File(cat.getImageurl());
+		InputStream inputStream = new FileInputStream(file);
+		response.setContentType("image/*");
+//		response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
+		IOUtils.copy(inputStream, response.getOutputStream());
+		response.flushBuffer();
+		inputStream.close();
 	}
 
 }

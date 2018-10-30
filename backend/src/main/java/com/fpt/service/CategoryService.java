@@ -54,7 +54,6 @@ public class CategoryService {
 	}
 
 	public Page<Category> findByNameContaining(String q, Pageable pageable) {
-		// TODO Auto-generated method stub
 		return categoryRepository.findBycategoryNameContainingAndDeleted(q, false, pageable);
 	}
 }

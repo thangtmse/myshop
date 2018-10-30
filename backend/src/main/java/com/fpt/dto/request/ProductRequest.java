@@ -1,5 +1,9 @@
 package com.fpt.dto.request;
 
+import java.util.List;
+
+import com.fpt.entity.Image;
+
 public class ProductRequest {
 	private Long productId;
 
@@ -16,6 +20,7 @@ public class ProductRequest {
 	private String description;
 
 	private Long supplierId;
+	private List<Image> images;
 
 	public Long getProductId() {
 		return productId;
@@ -79,6 +84,14 @@ public class ProductRequest {
 
 	public void setSupplierId(Long supplierId) {
 		this.supplierId = supplierId;
+	}
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	@Override

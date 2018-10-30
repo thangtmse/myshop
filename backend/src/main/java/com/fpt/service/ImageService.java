@@ -17,4 +17,8 @@ public class ImageService {
 	public List<Image> getListImage(Long id) {
 		return imageProductRepository.findByProductId(id);
 	}
+
+	public Image getById(Long id) {
+		return imageProductRepository.getOne(id);
+	}
 }

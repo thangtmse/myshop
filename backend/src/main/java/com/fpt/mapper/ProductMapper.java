@@ -35,6 +35,7 @@ public class ProductMapper {
 		p.setPriceOut(pr.getPriceOut());
 		p.setQuantity(pr.getQuantity());
 		p.setSupplierId(pr.getSupplierId());
+		p.setImages(pr.getImages());
 		return p;
 	}
 
@@ -71,6 +72,7 @@ public class ProductMapper {
 		pr.setPriceOut(p.getPriceOut());
 		pr.setQuantity(p.getQuantity());
 		pr.setSupplier(supplierService.findOne(p.getSupplierId()));
+		pr.setImages(p.getImages());
 		return pr;
 	}
 

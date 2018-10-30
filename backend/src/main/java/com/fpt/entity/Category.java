@@ -27,7 +27,7 @@ public class Category {
 	@Column(name = "description", nullable = false)
 	private String description;
 	@Column(name = "imageurl", nullable = false)
-	private Boolean imageurl;
+	private String imageurl;
 	@Column(name = "deleted", nullable = false)
 	private Boolean deleted;
 
@@ -71,11 +71,11 @@ public class Category {
 		this.description = description;
 	}
 
-	public Boolean getImageurl() {
+	public String getImageurl() {
 		return imageurl;
 	}
 
-	public void setImageurl(Boolean imageurl) {
+	public void setImageurl(String imageurl) {
 		this.imageurl = imageurl;
 	}
 

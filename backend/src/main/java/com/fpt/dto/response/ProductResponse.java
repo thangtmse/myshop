@@ -1,8 +1,10 @@
 package com.fpt.dto.response;
 
 import java.util.Date;
+import java.util.List;
 
 import com.fpt.entity.Category;
+import com.fpt.entity.Image;
 import com.fpt.entity.Supplier;
 
 public class ProductResponse {
@@ -22,6 +24,7 @@ public class ProductResponse {
 
 	private Supplier supplier;
 	private Date createdDate;
+	private List<Image> images;
 
 	public Long getProductId() {
 		return productId;
@@ -93,6 +96,14 @@ public class ProductResponse {
 
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
+	}
+
+	public List<Image> getImages() {
+		return images;
+	}
+
+	public void setImages(List<Image> images) {
+		this.images = images;
 	}
 
 	@Override
