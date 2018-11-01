@@ -1,6 +1,7 @@
 <mat-sidenav-container>
-    <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="filter-sidenav" perfectScrollbar>
-        
+    <mat-sidenav #sidenav [opened]="sidenavOpen" [mode]="sidenavOpen ? 'side' : 'over'" class="filter-sidenav"
+        perfectScrollbar>
+
         <mat-accordion displayMode="flat" multi="true">
             <mat-expansion-panel expanded>
                 <mat-expansion-panel-header>
@@ -70,9 +71,9 @@
                         <h4>Brands</h4>
                     </mat-panel-title>
                 </mat-expansion-panel-header>
-                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="filter-brands">                  
+                <div fxLayout="row wrap" fxLayoutAlign="space-between center" class="filter-brands">
                     <button mat-raised-button *ngFor="let brand of brands">
-                        <img [src]="brand.image"/>
+                        <img [src]="brand.image" />
                     </button>
                 </div>
             </mat-expansion-panel>
@@ -84,7 +85,8 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div fxLayout="row wrap" fxLayoutAlign="center center">
-                   <a [routerLink]="['/products/electronics']"><img src="assets/images/products/probook/2-medium.png" alt="" class="mw-100"></a>
+                    <a [routerLink]="['/products/electronics']"><img src="assets/images/products/probook/2-medium.png"
+                            alt="" class="mw-100"></a>
                 </div>
             </mat-expansion-panel>
 
@@ -132,25 +134,29 @@
         </div>
 
         <div *ngIf="viewType == 'grid'" fxLayout="row wrap" class="products-wrapper">
-            <div *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
+            <div *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page, totalItems:totalItems }" fxFlex="100"
+                [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
                 <mat-card class="product-item text-center">
                     <mat-chip-list *ngIf="product.discount">
                         <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
                     </mat-chip-list>
                     <a [routerLink]="['/products', product.id, product.name]" class="image-link">
-                        <img [src]="product.images[0].medium" alt="">
+                        <img [src]="product.images[0].medium" alt="" style="height: 220px">
                     </a>
-                    <h4 class="category text-muted">{{ ( appService.Data.categories | filterById : product.categoryId )?.name }}</h4>                                                                     
+                    <h4 class="category text-muted">{{ ( appService.Data.categories | filterById : product.categoryId
+                        )?.name }}</h4>
                     <a [routerLink]="['/products', product.id, product.name]" class="title text-truncate">
                         {{product.name}}
                     </a>
                     <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
                         <div fxLayout="column" fxLayoutAlign="center start">
-                            <p class="old-price text-muted"><span *ngIf="product.oldPrice">${{product.oldPrice | number : '1.2-2'}}</span></p>
+                            <p class="old-price text-muted"><span *ngIf="product.oldPrice">${{product.oldPrice | number
+                                    : '1.2-2'}}</span></p>
                             <p class="new-price">${{product.newPrice | number : '1.2-2'}}</p>
                         </div>
-                        <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating>
-                    </div>                            
+                        <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue"
+                            [direction]="'column'"></app-rating>
+                    </div>
                     <div class="divider mt-2"></div>
                     <div class="icons">
                         <app-controls [product]="product" (onOpenProductDialog)="openProductDialog(product)"></app-controls>
@@ -160,7 +166,8 @@
         </div>
 
         <div *ngIf="viewType == 'list'" fxLayout="row wrap" class="products-wrapper">
-            <div  *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page }" fxFlex="100" class="col">
+            <div *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page, totalItems:totalItems }"
+                fxFlex="100" class="col">
                 <mat-card class="product-item">
                     <div fxLayout="row wrap">
                         <div fxFlex="100" fxFlex.gt-xs="40" class="p-2">
@@ -172,18 +179,21 @@
                             </a>
                         </div>
                         <div fxFlex="100" fxFlex.gt-xs="60" class="p-2">
-                            <h4 class="category text-muted">{{ ( appService.Data.categories | filterById : product.categoryId )?.name }}</h4>                                                                     
+                            <h4 class="category text-muted">{{ ( appService.Data.categories | filterById :
+                                product.categoryId )?.name }}</h4>
                             <a [routerLink]="['/products', product.id, product.name]" class="title">
                                 {{product.name}}
                             </a>
                             <p class="py-1 text-muted lh">{{product.description}}</p>
                             <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
                                 <div fxLayout="column" fxLayoutAlign="center start">
-                                    <p class="old-price text-muted"><span *ngIf="product.oldPrice">${{product.oldPrice | number : '1.2-2'}}</span></p>
+                                    <p class="old-price text-muted"><span *ngIf="product.oldPrice">${{product.oldPrice
+                                            | number : '1.2-2'}}</span></p>
                                     <p class="new-price">${{product.newPrice | number : '1.2-2'}}</p>
                                 </div>
-                                <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating>
-                            </div>                            
+                                <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue"
+                                    [direction]="'column'"></app-rating>
+                            </div>
                             <div class="divider"></div>
                             <div class="icons">
                                 <app-controls [product]="product" (onOpenProductDialog)="openProductDialog(product)"></app-controls>
@@ -195,12 +205,12 @@
         </div>
 
         <div *ngIf="products.length > 0" fxLayout="row wrap">
-            <div fxFlex="100"> 
-                <mat-card class="p-0 text-center">           
-                    <pagination-controls class="product-pagination" autoHide="true" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
+            <div fxFlex="100">
+                <mat-card class="p-0 text-center">
+                    <pagination-controls class="product-pagination" maxSize="5" (pageChange)="onPageChanged($event)"></pagination-controls>
                 </mat-card>
             </div>
         </div>
-        
+
     </mat-sidenav-content>
 </mat-sidenav-container>

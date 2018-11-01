@@ -73,8 +73,8 @@ export class ProductComponent implements OnInit {
   }
 
   public getRelatedProducts(){
-    this.appService.getProducts("", null,0,9999).subscribe(data => {
-      this.relatedProducts = data;
+    this.appService.getProducts("", null,0,9999).subscribe((data:any) => {
+      this.relatedProducts = data.content;
     })
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
@@ -15,6 +15,7 @@ export class Data {
 
 @Injectable()
 export class AppService {
+    public static search =new EventEmitter<any>();
     public Data = new Data(
         [], // categories
         [], // compareList
@@ -37,7 +38,6 @@ export class AppService {
                     parentId: ele.categoryParentId || 0
                 }
             })
-            console.log(data)
             return data;
         }));
     }
@@ -49,7 +49,7 @@ export class AppService {
         }
         url += "&page=" + page + "&size=" + size;
         return this.http.get<Product[]>(url).pipe(map((data: any) => {
-            return data.content.map(pro=>{
+            data.content = data.content.map(pro=>{
                 return {
                     id: pro.productId,
                     name: pro.productName,
@@ -66,6 +66,7 @@ export class AppService {
                     description: pro.description
                 }
             })
+            return data;
         }));
     }
 

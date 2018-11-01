@@ -35,14 +35,14 @@
         <mat-toolbar-row fxLayoutAlign="space-between center" class="logo-toolbar theme-container">
             <a class="logo" routerLink="/" (click)="closeSubMenus()">Emporium</a>
             <div fxFlex fxFlexOffset.gt-sm="10" fxShow="false" fxShow.gt-sm>
-                <form method="get"  class="search-form" fxLayout="row">
+                <form method="get"  class="search-form" fxLayout="row" [formGroup]="searchForm" (submit)="search()">
                     <button mat-raised-button [matMenuTriggerFor]="categoriesMenu" #categoriesMenuTrigger="matMenuTrigger" type="button" class="mat-elevation-z0 categories text-truncate text-muted">{{category?.name}}<mat-icon>arrow_drop_down</mat-icon></button>
                     <mat-menu #categoriesMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="categories-dropdown">
                         <span (mouseleave)="categoriesMenuTrigger.closeMenu()">
-                            <app-category-list [categories]="categories" [categoryParentId]="0" (change)="changeCategory($event)"></app-category-list>
+                            <app-category-list [categories]="categories" [categoryParentId]="-1" (change)="changeCategory($event)"></app-category-list>
                         </span>
                     </mat-menu>
-                    <input type="text" placeholder="Type to search..." fxFlex>
+                    <input type="text" placeholder="Tìm kiếm..." fxFlex formControlName="txtSearch">
                     <button mat-mini-fab (click)="search()" type="button" class="search-btn mat-elevation-z0 text-muted">
                         <mat-icon>search</mat-icon>
                     </button> 
@@ -110,14 +110,14 @@
                         <mat-icon class="mat-icon-lg">search</mat-icon>
                     </button>
                     <mat-menu #searchMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="search-dropdown mat-elevation-z8">
-                        <form method="get" fxFlex class="search-form">
+                        <form method="get" fxFlex class="search-form" [formGroup]="searchForm" (submit)="search()">
                             <button mat-raised-button [matMenuTriggerFor]="categories2Menu" #categories2MenuTrigger="matMenuTrigger" type="button" class="mat-elevation-z0 categories text-muted" (click)="stopClickPropagate($event)">{{category?.name}}<mat-icon>arrow_drop_down</mat-icon></button>
                             <mat-menu #categories2Menu="matMenu" [overlapTrigger]="false" xPosition="before" class="categories-dropdown">
                                 <span (mouseleave)="categories2MenuTrigger.closeMenu()">
-                                    <app-category-list [categories]="categories" [categoryParentId]="0" (change)="changeCategory($event)"></app-category-list>
+                                    <app-category-list [categories]="categories" [categoryParentId]="-1" (change)="changeCategory($event)"></app-category-list>
                                 </span>
                             </mat-menu>
-                            <input type="text" placeholder="Type to search..." fxFlex (click)="stopClickPropagate($event)">
+                            <input type="text" placeholder="Tìm kiếm..." fxFlex formControlName="txtSearch" (click)="stopClickPropagate($event)">
                             <button mat-mini-fab (click)="search()" type="button" class="search-btn mat-elevation-z0 text-muted">
                                 <mat-icon>search</mat-icon>
                             </button> 

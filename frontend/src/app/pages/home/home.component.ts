@@ -39,8 +39,8 @@ export class HomeComponent implements OnInit {
 
   public getProducts(type){
     if(type == "featured" && !this.featuredProducts){
-      this.appService.getProducts("", null, 0, 20).subscribe(data=>{
-        this.featuredProducts = data;      
+      this.appService.getProducts("", null, 0, 20).subscribe((data:any)=>{
+        this.featuredProducts = data.content;      
       }) 
     }
     // if(type == "on sale" && !this.onSaleProducts){
