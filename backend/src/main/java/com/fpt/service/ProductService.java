@@ -25,17 +25,22 @@ public class ProductService {
 		return productRepository.save(p);
 	}
 
-	public Page<Product> findProducts(Long id, String q, Pageable pageable) throws Exception {
+	public Page<Product> findProducts(Long id, String q, Double min, Double max, Pageable pageable) throws Exception {
+		min = (min == null ? Double.MIN_VALUE : min);
+		max = (max == null ? Double.MAX_VALUE : max);
+		q = "%" + q.trim() + "%";
 		List<Long> cateid = categoryService.findCategoryId(id);
 		if (!CollectionUtils.isEmpty(cateid)) {
-			return productRepository.findByProductNameContainingAndCategoryIdInAndDeleted(q, cateid, false, pageable);
+			return productRepository.findProductByCondition(q, cateid, false, false, min, max, pageable);
 		}
 		// if (id != null) {
 		// return productRepository.findProductByCategoryIdAndDeleted(id, false,
 		// pageable);
 		// }
 		// TODO Auto-generated method stub
-		return productRepository.findByProductNameContainingAndDeleted(q, false, pageable);
+		// return productRepository.findByProductNameContainingAndDeleted(q, false,
+		// pageable);
+		return productRepository.findProductByCondition(q, null, true, false, min, max, pageable);
 	}
 
 	public Product findOne(Long id) {

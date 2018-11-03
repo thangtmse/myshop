@@ -28,11 +28,11 @@ public class ProductController {
 	@RequestMapping(path = "", method = RequestMethod.GET)
 	public ResponseEntity<?> findProducts(Pageable pageable,
 			@RequestParam(value = "name", required = false, defaultValue = "") String name,
-			@RequestParam(value = "categoryid", required = false) Long category
+			@RequestParam(value = "categoryid", required = false) Long category,
+			@RequestParam(value = "min", required = false) Double min,
+			@RequestParam(value = "max", required = false) Double max) throws Exception {
 
-	) throws Exception {
-
-		Page<Product> pd = productService.findProducts(category, name, pageable);
+		Page<Product> pd = productService.findProducts(category, name, min, max, pageable);
 		return new ResponseEntity<>(productMapper.toProductResponse(pd), HttpStatus.OK);
 	}
 
