@@ -15,7 +15,7 @@ export class Data {
 
 @Injectable()
 export class AppService {
-    public static search =new EventEmitter<any>();
+    public static search = new EventEmitter<any>();
     public Data = new Data(
         [], // categories
         [], // compareList
@@ -29,7 +29,7 @@ export class AppService {
 
     public getCategories(): Observable<Category[]> {
         return this.http.get<any[]>(this.API_URL + '/category').pipe(map((cate: any) => {
-            let parentIds =cate.content.filter(cate=>cate.categoryParentId!=null).map(cate=>cate.categoryParentId)
+            let parentIds = cate.content.filter(cate => cate.categoryParentId != null).map(cate => cate.categoryParentId)
             let data = cate.content.map(ele => {
                 return {
                     id: ele.categoryId,
@@ -49,15 +49,15 @@ export class AppService {
         }
         url += "&page=" + page + "&size=" + size;
         return this.http.get<Product[]>(url).pipe(map((data: any) => {
-            data.content = data.content.map(pro=>{
+            data.content = data.content.map(pro => {
                 return {
                     id: pro.productId,
                     name: pro.productName,
-                    images: pro.images.map(image=>{
+                    images: pro.images.map(image => {
                         return {
-                            small: this.API_URL+"/image/"+image.imageId,
-                            medium: this.API_URL+"/image/"+image.imageId,
-                            big: this.API_URL+"/image/"+image.imageId
+                            small: this.API_URL + "/image/" + image.imageId,
+                            medium: this.API_URL + "/image/" + image.imageId,
+                            big: this.API_URL + "/image/" + image.imageId
                         }
                     }),
                     oldPrice: null,
@@ -70,8 +70,27 @@ export class AppService {
         }));
     }
 
-    public getProductById(id): Observable<Product> {
-        return this.http.get<Product>(this.url + 'product-' + id + '.json');
+    public getProductById(id): Observable<any> {
+        return this.http.get<any>(this.API_URL + "/product/" + id).pipe(map((pro: any) => {
+            let data = {
+                id: pro.productId,
+                name: pro.productName,
+                images: pro.images.map(image => {
+                    return {
+                        small: this.API_URL + "/image/" + image.imageId,
+                        medium: this.API_URL + "/image/" + image.imageId,
+                        big: this.API_URL + "/image/" + image.imageId
+                    }
+                }),
+                oldPrice: null,
+                newPrice: pro.priceOut,
+                discount: null,
+                description: pro.description,
+                availibilityCount: 1000
+            };
+            return data;
+        }));
+        //return this.http.get<Product>(this.url + 'product-' + id + '.json');
     }
 
     public getBanners(): Observable<any[]> {
@@ -80,9 +99,10 @@ export class AppService {
                 return ele.categoryParentId == null;
             }).map(ele => {
                 return {
+                    id: ele.categoryId,
                     title: ele.categoryName,
                     subtitle: ele.description,
-                    image: this.API_URL+"/category/"+ele.categoryId+"/image"
+                    image: this.API_URL + "/category/" + ele.categoryId + "/image"
                 }
             })
             return data;

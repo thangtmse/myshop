@@ -13,6 +13,7 @@ export class BannersComponent implements OnInit {
   ngOnInit() { }
 
   public getBanner(index){
+    console.log(this.banners[index])
     return this.banners[index];
   }
 

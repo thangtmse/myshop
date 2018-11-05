@@ -8,7 +8,7 @@ export class Settings {
 @Injectable()
 export class AppSettings {
     public settings = new Settings(
-        'Emporium',  // theme name
+        'Trâm Anh',  // theme name
         'green'     // green, blue, red, pink, purple, grey
     )
 }
