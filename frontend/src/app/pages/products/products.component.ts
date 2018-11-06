@@ -19,15 +19,15 @@ export class ProductsComponent implements OnInit {
   public counts = [12, 24, 36];
   public count: any;
   public totalItems: any;
-  public sortings = ['Sort by Default', 'Best match', 'Lowest first', 'Highest first'];
+  public sortings = ['Mặc định', 'Giá tăng dần', 'Giá giảm dần'];
   public sort: any;
   public products: Array<Product> = [];
   public categories: Category[];
   public category: any = {};
   public search = "";
   public brands = [];
-  public priceFrom: number = 750;
-  public priceTo: number = 1599;
+  public priceFrom: number = 1;
+  public priceTo: number = 500000000;
   public colors = ["#5C6BC0", "#66BB6A", "#EF5350", "#BA68C8", "#FF4081", "#9575CD", "#90CAF9", "#B2DFDB", "#DCE775", "#FFD740", "#00E676", "#FBC02D", "#FF7043", "#F5F5F5", "#000000"];
   public sizes = ["S", "M", "L", "XL", "2XL", "32", "36", "38", "46", "52", "13.3\"", "15.4\"", "17\"", "21\"", "23.4\""];
   public page: any;
@@ -43,8 +43,8 @@ export class ProductsComponent implements OnInit {
         name: params['name'],
         id: params['id'] || null
       };
-      this.search =  params['search']|| '';
-      AppService.search.emit({txt: this.search,id: params['id']})
+      this.search = params['search'] || '';
+      AppService.search.emit({ txt: this.search, id: params['id'] })
       this.getAllProducts();
     });
     if (window.innerWidth < 960) {
@@ -59,7 +59,14 @@ export class ProductsComponent implements OnInit {
   }
 
   public getAllProducts() {
-    this.appService.getProducts(this.search, this.category.id?this.category.id:null, this.page - 1, this.count).subscribe((data: any) => {
+    let sortText = null;
+    if(this.sort == this.sortings[1]){
+      sortText="priceOut,asc"
+    }
+    if(this.sort == this.sortings[2]){
+      sortText="priceOut,desc"
+    }
+    this.appService.getProducts(this.search, this.category.id ? this.category.id : null, this.priceFrom, this.priceTo, this.page - 1, this.count, sortText).subscribe((data: any) => {
       this.products = data.content;
       this.totalItems = data.totalElements;
     })
@@ -98,6 +105,7 @@ export class ProductsComponent implements OnInit {
 
   public changeSorting(sort) {
     this.sort = sort;
+    this.getAllProducts();
   }
 
   public changeViewType(viewType, viewCol) {

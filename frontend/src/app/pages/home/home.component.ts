@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   public newArrivalsProducts: Array<Product>;
 
 
-  constructor(public appService:AppService) { }
+  constructor(public appService: AppService) { }
 
   ngOnInit() {
     this.getBanners();
@@ -33,15 +33,15 @@ export class HomeComponent implements OnInit {
     this.getBrands();
   }
 
-  public onLinkClick(e){
-    this.getProducts(e.tab.textLabel.toLowerCase()); 
+  public onLinkClick(e) {
+    this.getProducts(e.tab.textLabel.toLowerCase());
   }
 
-  public getProducts(type){
-    if(type == "featured" && !this.featuredProducts){
-      this.appService.getProducts("", null, 0, 20).subscribe((data:any)=>{
-        this.featuredProducts = data.content;      
-      }) 
+  public getProducts(type) {
+    if (type == "featured" && !this.featuredProducts) {
+      this.appService.getProducts("", null, null, null, 0, 20).subscribe((data: any) => {
+        this.featuredProducts = data.content;
+      })
     }
     // if(type == "on sale" && !this.onSaleProducts){
     //   this.appService.getProducts("on-sale").subscribe(data=>{
@@ -58,16 +58,16 @@ export class HomeComponent implements OnInit {
     //     this.newArrivalsProducts = data;      
     //   })
     // }
-   
+
   }
 
-  public getBanners(){
-    this.appService.getBanners().subscribe(data=>{
+  public getBanners() {
+    this.appService.getBanners().subscribe(data => {
       this.banners = data;
     })
   }
 
-  public getBrands(){
+  public getBrands() {
     this.brands = this.appService.getBrands();
   }
 

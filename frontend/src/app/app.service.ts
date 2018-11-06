@@ -42,12 +42,19 @@ export class AppService {
         }));
     }
 
-    public getProducts(name: any, cateId: any, page: any, size: any): Observable<Product[]> {
+    public getProducts(name: any, cateId: any, min: any, max: any, page: any, size: any, sort: any=false): Observable<Product[]> {
         let url = this.API_URL + '/product?name=' + name;
         if (cateId) {
             url += "&categoryid=" + cateId
         }
+        if (min && max) {
+            url += "&min=" + min;
+            url += "&max=" + max;
+        }
         url += "&page=" + page + "&size=" + size;
+        if(sort){
+            url += "&sort="+sort;
+        }
         return this.http.get<Product[]>(url).pipe(map((data: any) => {
             data.content = data.content.map(pro => {
                 return {
@@ -90,7 +97,6 @@ export class AppService {
             };
             return data;
         }));
-        //return this.http.get<Product>(this.url + 'product-' + id + '.json');
     }
 
     public getBanners(): Observable<any[]> {

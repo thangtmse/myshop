@@ -21,12 +21,13 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted">
-                    <span>Từ: <b>{{priceFrom}}</b></span>
-                    <span>Tới: <b>{{priceTo}}</b></span>
+                    <span>Từ: <b>{{priceFrom | number : '1.0-0'}}</b></span>
+                    <span>Tới: <b>{{priceTo | number : '1.0-0'}}</b></span>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-between center" class="filter-price">
-                    <mat-slider color="primary" max="2000" min="1" thumb-label="true" [(ngModel)]="priceFrom"></mat-slider>
-                    <mat-slider color="warn" max="2000" min="1" thumb-label="true" [(ngModel)]="priceTo"></mat-slider>
+                    <mat-slider color="primary" max="500000000" min="1" thumb-label="true" [(ngModel)]="priceFrom"
+                        (change)="getAllProducts()"></mat-slider>
+                    <mat-slider color="warn" max="500000000" min="1" thumb-label="true" [(ngModel)]="priceTo" (change)="getAllProducts()"></mat-slider>
                 </div>
             </mat-expansion-panel>
 
@@ -112,7 +113,7 @@
             </div>
             <div>
                 <a mat-button [matMenuTriggerFor]="countsMenu" #countsMenuTrigger="matMenuTrigger">
-                    Show {{count}}<mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+                    Hiện thị {{count}}<mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
                 </a>
                 <mat-menu #countsMenu="matMenu" xPosition="before" class="app-dropdown">
                     <span (mouseleave)="countsMenuTrigger.closeMenu()">
@@ -134,8 +135,8 @@
         </div>
 
         <div *ngIf="viewType == 'grid'" fxLayout="row wrap" class="products-wrapper">
-            <div *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page, totalItems:totalItems }" fxFlex="100"
-                [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
+            <div *ngFor="let product of products | paginate: { itemsPerPage: count, currentPage: page, totalItems:totalItems }"
+                fxFlex="100" [fxFlex.gt-sm]="viewCol" fxFlex.sm="50" class="col">
                 <mat-card class="product-item text-center">
                     <mat-chip-list *ngIf="product.discount">
                         <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>

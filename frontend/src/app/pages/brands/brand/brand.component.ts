@@ -18,7 +18,7 @@ export class BrandComponent implements OnInit {
   public viewCol: number = 25;
   public counts = [12, 24, 36];
   public count:any;
-  public sortings = ['Sort by Default', 'Best match', 'Lowest first', 'Highest first'];
+  public sortings = ['Mặc định', 'Giá tăng dần', 'Giá giảm dần'];
   public sort:any;
   public products: Array<Product> = [];
   public categories:Category[];
@@ -49,7 +49,7 @@ export class BrandComponent implements OnInit {
   }
 
   public getAllProducts(){
-    this.appService.getProducts("",null,0,9999).subscribe(data=>{
+    this.appService.getProducts("",null,null,null,0,9999).subscribe(data=>{
       this.products = data; 
       //for show more product  
       for (var index = 0; index < 3; index++) {
