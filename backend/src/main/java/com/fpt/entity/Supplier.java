@@ -24,6 +24,16 @@ public class Supplier {
 	private String supplierAddress;
 	@Column(name = "supplierphone", nullable = false)
 	private String supplierPhone;
+	@Column(name = "deleted", nullable = false)
+	private Boolean deleted;
+
+	public Boolean getDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(Boolean deleted) {
+		this.deleted = deleted;
+	}
 
 	public Long getSupplierId() {
 		return supplierId;
