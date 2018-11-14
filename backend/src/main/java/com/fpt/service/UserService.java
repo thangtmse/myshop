@@ -27,7 +27,10 @@ public class UserService {
 	}
 
 	public String authenticate(String username, String password) throws Exception {
-		List<User> users = userRepository.findByUsernameAndPassword(username, password);
+		System.out.println(username);
+		System.out.println(password);
+		List<User> users = userRepository.findAllByUsernameAndPassword(username, password);
+		System.out.println(users);
 		if (!CollectionUtils.isEmpty(users)) {
 			User user = users.get(0);
 			return tokenProvider.generateToken(user.getUserId(), true);

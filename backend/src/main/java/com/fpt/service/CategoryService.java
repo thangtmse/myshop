@@ -36,9 +36,12 @@ public class CategoryService {
 	}
 
 	public Category update(Category category) {
-		category = categoryRepository.getOne(category.getCategoryId());
+		Category oldCategory = categoryRepository.getOne(category.getCategoryId());
 		// TODO Auto-generated method stub
-		return categoryRepository.save(category);
+		oldCategory.setCategoryName(category.getCategoryName());
+		oldCategory.setCategoryParentId(category.getCategoryParentId());
+		oldCategory.setDescription(category.getDescription());
+		return categoryRepository.save(oldCategory);
 	}
 
 	public Category create(Category category) {
@@ -55,5 +58,11 @@ public class CategoryService {
 
 	public Page<Category> findByNameContaining(String q, Pageable pageable) {
 		return categoryRepository.findBycategoryNameContainingAndDeleted(q, false, pageable);
+	}
+	
+	public List<Category> listCategoryParent(Long categoryId) {
+		List<Category> response = null;
+		response = categoryRepository.listCategoryParent(categoryId);
+		return response;
 	}
 }

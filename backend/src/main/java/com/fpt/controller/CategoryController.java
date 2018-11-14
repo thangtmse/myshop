@@ -37,6 +37,11 @@ public class CategoryController {
 	public ResponseEntity<?> findCategoryById(@PathVariable("id") Long id) {
 		return new ResponseEntity<>(categoryService.findOne(id), HttpStatus.OK);
 	}
+	
+	@RequestMapping(path = "except/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> findCategoryParent(@PathVariable("id") Long id) {
+		return new ResponseEntity<>(categoryService.listCategoryParent(id), HttpStatus.OK);
+	}
 
 	@RequestMapping(path = "", method = RequestMethod.POST)
 	public ResponseEntity<?> create(@RequestBody Category category) {

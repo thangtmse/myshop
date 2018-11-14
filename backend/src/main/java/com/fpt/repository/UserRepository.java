@@ -8,6 +8,6 @@ import com.fpt.entity.User;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-	List<User> findByUsernameAndPassword(String username, String password);
+	List<User> findAllByUsernameAndPassword(String username, String password);
 
 }

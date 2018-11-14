@@ -18,9 +18,12 @@ public class SupplierService {
 	}
 
 	public Supplier update(Supplier supplier) {
-		supplier = supplierRepository.getOne(supplier.getSupplierId());
+		Supplier oldSupplier = supplierRepository.getOne(supplier.getSupplierId());
+		oldSupplier.setSupplierName(supplier.getSupplierName());
+		oldSupplier.setSupplierPhone(supplier.getSupplierPhone());
+		oldSupplier.setSupplierAddress(supplier.getSupplierAddress());
 		// TODO Auto-generated method stub
-		return supplierRepository.save(supplier);
+		return supplierRepository.save(oldSupplier);
 	}
 
 	public Supplier create(Supplier supplier) {
