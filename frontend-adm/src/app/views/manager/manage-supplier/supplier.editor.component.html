@@ -1,0 +1,60 @@
+<div class="animated fadeIn mb-4">
+    <div class="row">
+        <div class="col-12">
+            <form class="card" [formGroup]="editorForm" (ngSubmit)="editorFormSubmit()">
+                <div class="card-header">
+                    <strong *ngIf="!categoryId">Tạo danh mục sản phẩm</strong>
+                    <strong *ngIf="categoryId">Sửa danh mục sản phẩm</strong>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="supplierName">Tên *</label>
+                                <input formControlName="supplierName" class="form-control" id="supplierName"
+                                    placeholder="Tên" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('supplierName').invalid}">
+                                <div class="invalid-feedback">
+                                    <span *ngIf="editorForm.get('supplierName').errors?.required">Trường này không được
+                                        bỏ trống</span>
+                                    <span *ngIf="editorForm.get('supplierName').errors?.message">{{editorForm.get('supplierName').errors?.message}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="supplierPhone">Số điện thoại *</label>
+                                <input formControlName="supplierPhone" class="form-control" id="supplierPhone"
+                                    placeholder="Số điện thoại" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('supplierPhone').invalid}">
+                                <div class="invalid-feedback">
+                                    <span *ngIf="editorForm.get('supplierPhone').errors?.required">Trường này không được
+                                        bỏ trống</span>
+                                    <span *ngIf="editorForm.get('supplierPhone').errors?.message">{{editorForm.get('supplierPhone').errors?.message}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="supplierAddress">Địa chỉ</label>
+                                <textarea formControlName="supplierAddress" class="form-control" id="supplierAddress"
+                                    placeholder="Địa chỉ" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('supplierAddress').invalid}">
+                                </textarea>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="editorForm.get('supplierAddress').errors?.required">Trường này không được
+                                        bỏ trống</span>
+                                    <span *ngIf="editorForm.get('supplierAddress').errors?.message">{{editorForm.get('supplierAddress').errors?.message}}</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="fa fa-dot-circle-o"></i> Lưu
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

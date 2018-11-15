@@ -1,0 +1,118 @@
+<div class="animated fadeIn mb-4">
+    <div class="row">
+        <div class="col-12">
+            <form class="card" [formGroup]="filterForm" (ngSubmit)="filterFormSubmit()">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="name">Tên sản phẩm</label>
+                                <input formControlName="search" class="form-control" id="name" placeholder="Nhập tên sản phẩm" type="text">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-sm btn-primary">
+                        <i class="fa fa-dot-circle-o"></i> tìm kiếm
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row" *ngIf="rows.length==0">
+        <div class="col-12">
+            <div class="card">
+                <p class="text-muted text-center my-4">Không có dữ liệu hiển thị</p>
+            </div>
+        </div>
+    </div>
+    <ngx-datatable *ngIf="rows.length>0"
+        #foodTable
+        class="material"
+        [rows]="rows"
+        [columnMode]="'force'"
+        [headerHeight]="50"
+        [footerHeight]="50"
+        [rowHeight]="'auto'"
+        [externalPaging]="true"
+        [count]="page.totalElements"
+        [offset]="page.pageNumber"
+        [limit]="page.size"
+        (page)='setPage($event)'>
+
+        <!-- Row Detail Template -->
+        <ngx-datatable-row-detail [rowHeight]="100" #rowDetail>
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+                <div style="padding-left:35px;">
+                <div><strong>Miêu tả</strong></div>
+                <div>{{row.description}}</div>
+                </div>
+            </ng-template>
+        </ngx-datatable-row-detail>
+
+        <!-- Column Templates -->
+        <ngx-datatable-column
+            [width]="50"
+            [resizeable]="false"
+            [sortable]="false"
+            [draggable]="false"
+            [canAutoResize]="false">
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <button class="btn btn-link" (click)="toggleExpandRow(row)">
+                <i [class.icon-arrow-right]="!expanded" [class.icon-arrow-down]="expanded"></i>
+            </button>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="STT" maxWidth="80">
+            <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
+            <strong>{{rowIndex+1}}</strong>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Tên sản phẩm" maxWidth="150">
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <strong>{{row.productName}}</strong>
+            </ng-template>
+        </ngx-datatable-column>
+        <!-- <ngx-datatable-column name="Description">
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <strong>{{row.description}}</strong>
+            </ng-template>
+        </ngx-datatable-column> -->
+        <ngx-datatable-column name="Nhập vào" maxWidth="120" >
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <span>{{row.priceIn}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Bán ra" maxWidth="120" >
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+            <span>{{row.priceOut}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Danh mục" maxWidth="150">
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                <span>{{row?.category?.categoryName}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Nhà CC" maxWidth="150">
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                <span>{{row?.supplier?.supplierName}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="">
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                <div class="row">
+                    <button type="button" class="btn btn-sm btn-secondary mx-2" routerLink="/manage/food/edit/{{row.id}}">Sửa</button>
+                    <button type="button" class="btn btn-sm btn-danger mx-2" (click)="openModal(row)">Xóa</button>
+                </div>
+            </ng-template>
+        </ngx-datatable-column>
+    </ngx-datatable>
+</div>
+<ng-template #deleteModal>
+    <div class="modal-body text-center">
+        <p>Bạn muốn xóa  <strong>{{deleteRow.name}}</strong>?</p>
+        <button type="button" class="btn btn-sm btn-default mx-2" (click)="confirm()" >Xóa</button>
+        <button type="button" class="btn btn-sm btn-primary mx-2" (click)="decline()" >Quay lại</button>
+    </div>
+</ng-template>
