@@ -19,43 +19,8 @@ import { P403Component } from './views/error/403.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'homepage',
+    redirectTo: 'manage',
     pathMatch: 'full',
-  },
-  {
-    path: '',
-    component: CustomerLayoutComponent,
-    data: {
-      title: 'Khác hàng'
-    },
-    children: [
-      {
-        path: 'aboutus',
-        component: AboutusComponent,
-        data: {
-          title: 'Giới thiệu'
-        }
-      }
-    ]
-  },
-  {
-    path: '',
-    component: CustomerLayoutComponent,
-    canActivate: [AuthenticationService],
-    canActivateChild: [AuthenticationService],
-    data: {
-      title: 'Customer'
-    },
-    children: [
-      {
-        path: 'customer-profile',
-        component: CustomerProfileComponent,
-        data: {
-          roles: ['CUSTOMER'],
-          title: 'Thông tin cá nhân'
-        }
-      }
-    ]
   },
   {
     path: 'manage',
