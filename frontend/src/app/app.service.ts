@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { Category, Product } from './app.models';
 import { map } from 'rxjs/operators';
+import { environment } from '../environments/environment';
 
 export class Data {
     constructor(public categories: Category[],
@@ -24,7 +25,7 @@ export class AppService {
         null //totalPrice
     )
     public url = "assets/data/";
-    public API_URL = "http://localhost:8080/api";
+    public API_URL = environment.API_URL;
     constructor(public http: HttpClient, public snackBar: MatSnackBar) { }
 
     public getCategories(): Observable<Category[]> {
