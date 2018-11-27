@@ -66,7 +66,7 @@ export class ProductsComponent implements OnInit {
     if(this.sort == this.sortings[2]){
       sortText="priceOut,desc"
     }
-    this.appService.getProducts(this.search, this.category.id ? this.category.id : null, this.priceFrom, this.priceTo, this.page - 1, this.count, sortText).subscribe((data: any) => {
+    this.appService.getProducts(this.search.replace(/ +(?= )/g,''), this.category.id ? this.category.id : null, this.priceFrom, this.priceTo, this.page - 1, this.count, sortText).subscribe((data: any) => {
       this.products = data.content;
       this.totalItems = data.totalElements;
     })
