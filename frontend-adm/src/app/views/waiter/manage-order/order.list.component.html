@@ -94,7 +94,7 @@
         <div class="col-sm-12 col-xs-12 col-lg-12">
             <!-- <div id="thucdon" class="card">
                 <div class="card-header">
-                    <i class="fa fa-lemon-o fa-lg mt-4"></i> Các món ăn
+                    <i class="fa fa-lemon-o fa-lg mt-4"></i> Các sản phẩm
                 </div>
                 <ngx-datatable #orderTable class="material" [rows]="rows" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
                     [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size"
@@ -119,7 +119,7 @@
                         </ng-template>
                     </ngx-datatable-column>
 
-                    <ngx-datatable-column name="Món ăn">
+                    <ngx-datatable-column name="sản phẩm">
                         <ng-template let-rowIndex="rowIndex" let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
                             {{rowIndex+1}}. {{row.name}}
                         </ng-template>
@@ -169,7 +169,7 @@
             <p-table id="thucdon" [value]="orderFood" sortField="brand" sortMode="single" >
                     <ng-template pTemplate="header">
                         <tr>
-                                <th>Món ăn</th>
+                                <th>sản phẩm</th>
                                 <th>Số lượng</th>
                                 
                                 <th>Giá</th>

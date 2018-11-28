@@ -78,18 +78,18 @@ export const navItems = [
     ]
   },
   {
-    name: 'Quản lý món ăn',
+    name: 'Quản lý sản phẩm',
     url: '/manage/food',
     icon: 'icon-puzzle',
     roles: ['ADMIN'],
     children: [
       {
-        name: 'Danh sách món ăn',
+        name: 'Danh sách sản phẩm',
         url: '/manage/food/list',
         icon: 'icon-docs'
       },
       {
-        name: 'Tạo món ăn',
+        name: 'Tạo sản phẩm',
         url: '/manage/food/create',
         icon: 'icon-doc'
       }
@@ -114,7 +114,7 @@ export const navItems = [
     roles: ['CUSTOMER']
   },
   {
-    name: 'Các món ăn',
+    name: 'Các sản phẩm',
     url: '/manage/chef',
     icon: 'icon-fire',
     roles: ['CHEF','WAITER']

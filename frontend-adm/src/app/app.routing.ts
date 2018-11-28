@@ -105,7 +105,7 @@ export const routes: Routes = [
         path: 'chef',
         component: OrderStatusComponent,
         data: {
-          title: 'Danh sách trạng thái món ăn',
+          title: 'Danh sách trạng thái sản phẩm',
           roles: ['WAITER','CHEF']
         }
       }

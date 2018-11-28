@@ -14,7 +14,7 @@
         [headerHeight]="50"
         [footerHeight]="50"
         [rowHeight]="'auto'">
-        <ngx-datatable-column name="Món ăn" maxWidth="150">
+        <ngx-datatable-column name="sản phẩm" maxWidth="150">
             <ng-template let-row="row" ngx-datatable-cell-template>
             <p><strong>{{row.name}}</strong></p>
             </ng-template>
@@ -57,7 +57,7 @@
 </div>
 <ng-template #deleteModal>
     <div  class="modal-body text-center">
-        <p>Bạn muốn chuyển trạng thái món ăn
+        <p>Bạn muốn chuyển trạng thái sản phẩm
             <strong>{{foodName}}</strong>?</p>
         <button type="button" class="btn btn-sm btn-default mx-2" (click)="confirm()">Đồng ý</button>
         <button type="button" class="btn btn-sm btn-primary mx-2" (click)="decline()">Không</button>

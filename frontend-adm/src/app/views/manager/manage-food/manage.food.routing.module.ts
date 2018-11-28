@@ -8,21 +8,21 @@ const routes: Routes = [
     path: 'list',
     component: ManageFoodComponent,
     data: {
-      title: 'Danh sách món ăn'
+      title: 'Danh sách sản phẩm'
     }
   },
   {
     path: 'edit/:id',
     component: FoodEditorComponent,
     data: {
-      title: 'Cập nhật món ăn'
+      title: 'Cập nhật sản phẩm'
     }
   },
   {
     path: 'create',
     component: FoodEditorComponent,
     data: {
-      title: 'Tạo món ăn'
+      title: 'Tạo sản phẩm'
     }
   }
 ];
