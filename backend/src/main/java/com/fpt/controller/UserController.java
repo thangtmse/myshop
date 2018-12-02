@@ -6,7 +6,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,12 +26,15 @@ public class UserController {
 	@RequestMapping(path = "authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> authenticate(@RequestBody User user) throws Exception {
 		String token = userService.authenticate(user.getUsername(), passwordUtils.encode(user.getPassword()));
-		Map<String, String> response = new HashMap<>();
+		user = userService.getByUserAndPass(user.getUsername(), passwordUtils.encode(user.getPassword()));
+		Map<String, Object> response = new HashMap<>();
 		response.put("token", token);
+		user.setPassword("");
+		response.put("userInfo", user);
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOYEE', 'CUSTOMER')")
+	// @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOYEE', 'CUSTOMER')")
 	@RequestMapping(path = "profile", method = RequestMethod.GET)
 	public ResponseEntity<?> getProfile() throws Exception {
 		User profile = userService.getProfile();

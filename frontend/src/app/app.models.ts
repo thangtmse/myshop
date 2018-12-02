@@ -4,6 +4,16 @@ export class Category {
               public hasSubCategory: boolean,
               public parentId: number){ }
 }
+export class User {
+  constructor(public userId: number, 
+    public username:string, 
+    public fullName: string,
+    public email: string,
+    public address: string,
+    public phone:string,
+    public password:string,
+    public role:string){ }
+}
 
 export class Product {
   constructor(public id: number,
@@ -19,5 +29,6 @@ export class Product {
               public color: Array<string>,
               public size: Array<string>,
               public weight: number,
+              public quantity: number,
               public categoryId: number){ }
 }

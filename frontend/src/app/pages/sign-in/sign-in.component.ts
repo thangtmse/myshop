@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AppService } from '../../app.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { emailValidator, matchingPasswords } from '../../theme/utils/app-validators';
+import { MenuComponent } from '../../theme/components/menu/menu.component';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,11 +15,11 @@ export class SignInComponent implements OnInit {
   loginForm: FormGroup;
   registerForm: FormGroup;
 
-  constructor(public formBuilder: FormBuilder, public router:Router, public snackBar: MatSnackBar) { }
+  constructor( public formBuilder: FormBuilder, public router:Router, public snackBar: MatSnackBar,public appService:AppService) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      'email': ['', Validators.compose([Validators.required, emailValidator])],
+      'username': ['', Validators.compose([Validators.required])],
       'password': ['', Validators.compose([Validators.required, Validators.minLength(6)])] 
     });
 
@@ -31,8 +33,21 @@ export class SignInComponent implements OnInit {
   }
 
   public onLoginFormSubmit(values:Object):void {
+    console.log('start login');
     if (this.loginForm.valid) {
-      this.router.navigate(['/']);
+      let user : any = {};
+      user.username = this.loginForm.get(['username']).value;
+      user.password = this.loginForm.get(['password']).value; 
+      console.log(user);
+      this.appService.login(user).subscribe(data => {
+        if(data.message!= null){
+          this.snackBar.open(data.message, '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
+        } else {
+          location.reload();
+          this.router.navigate(['/']);
+        }
+      });
+     // this.router.navigate(['/']);
     }
   }
 

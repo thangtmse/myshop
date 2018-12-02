@@ -1,13 +1,15 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
-import { Category, Product } from './app.models';
-import { map } from 'rxjs/operators';
+import { Category, Product, User } from './app.models';
+import { map, catchError } from 'rxjs/operators';
 import { environment } from '../environments/environment';
+import { InnerSubscriber } from 'rxjs/internal/InnerSubscriber';
 
 export class Data {
     constructor(public categories: Category[],
+        public user:User[],
         public compareList: Product[],
         public wishList: Product[],
         public cartList: Product[],
@@ -19,6 +21,7 @@ export class AppService {
     public static search = new EventEmitter<any>();
     public Data = new Data(
         [], // categories
+        [], // user
         [], // compareList
         [],  // wishList
         [],  // cartList
@@ -26,7 +29,22 @@ export class AppService {
     )
     public url = "assets/data/";
     public API_URL = environment.API_URL;
-    constructor(public http: HttpClient, public snackBar: MatSnackBar) { }
+    constructor(public http: HttpClient, public snackBar: MatSnackBar,
+        private httpClient: HttpClient) { }
+
+public getOrdersByUser(userId:number):  Observable<any> {
+    return this.http.get<any[]>(this.API_URL + '/order/user/'+userId).pipe(map((response: any) => {
+       
+        let data = response.map(ele => {
+            return { number: ele.orderId, 
+            date: new Date(ele.addAt), 
+            status: ele.status, 
+            total: ele.totalPrice +' for ' +ele.amount+ ' items', 
+            invoice: true }
+        })
+        return data;
+    }));
+}
 
     public getCategories(): Observable<Category[]> {
         return this.http.get<any[]>(this.API_URL + '/category').pipe(map((cate: any) => {
@@ -41,6 +59,54 @@ export class AppService {
             })
             return data;
         }));
+    }
+
+    public login(data: any): Observable<any> {
+        return this.http.post<any[]>(this.API_URL + '/user/authenticate', data).pipe(map((data: any) => {
+                console.log('end');
+                if (data.token) {
+                    localStorage.setItem('authToken', data.token);
+                    localStorage.setItem('userInfo', JSON.stringify(data.userInfo));
+                    this.Data.user = data.userInfo;
+                    console.log(data);
+                    return data;
+                }
+                return null;
+        })).pipe(
+            catchError((error: HttpErrorResponse) => {
+                return new Observable((observer: InnerSubscriber<any, any> ) => {
+                    observer.next(null)
+                });
+            })
+            );
+    }
+
+    public getAccountInfo(): Observable<any> {
+        let token = sessionStorage.getItem('authToken') || localStorage.getItem('authToken');
+        let myheaders = new HttpHeaders().set('Content-Type', 'application/json')
+        .set('authorization', 'Bearer ' + token).set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS')
+        .set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+        return this.httpClient.get(this.API_URL + "/user/profile", { headers: myheaders }).pipe(map((user: any) => {
+            console.log(user);
+            let data = {
+               
+            };
+            return data;
+        }));
+    }
+
+    public checkout(cart): Observable<any> {
+        return this.http.post<any[]>(this.API_URL + '/order', cart).pipe(map((data: any) => {
+            console.log('order thành công');
+            console.log(data);
+            return data;
+        })).pipe(
+        catchError((error: HttpErrorResponse) => {
+            return new Observable((observer: InnerSubscriber<any, any> ) => {
+                observer.next(null)
+            });
+        })
+        );
     }
 
     public getProducts(name: any, cateId: any, min: any, max: any, page: any, size: any, sort: any=false): Observable<Product[]> {

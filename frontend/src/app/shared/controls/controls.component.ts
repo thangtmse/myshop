@@ -46,6 +46,7 @@ export class ControlsComponent implements OnInit {
         soldQuantity: this.count,
         total: this.count * this.product.newPrice
       }
+      this.product.quantity = this.count;
       this.changeQuantity(obj);
     }
     else{
@@ -61,23 +62,31 @@ export class ControlsComponent implements OnInit {
         soldQuantity: this.count,
         total: this.count * this.product.newPrice
       }
+      this.product.quantity = this.count;
       this.changeQuantity(obj);
     }
   }
 
   public addToCompare(product:Product){
+    console.log(product);
+    product.quantity = this.count;
     this.appService.addToCompare(product);
   }
 
   public addToWishList(product:Product){
+    console.log(product);
+    product.quantity = this.count;
     this.appService.addToWishList(product);
   }
 
   public addToCart(product:Product){
+    console.log(product);
+    product.quantity = this.count;
     this.appService.addToCart(product);
   }
 
   public openProductDialog(event){
+    
     this.onOpenProductDialog.emit(event);
   }
 

@@ -30,13 +30,19 @@
     </span>   -->
 
     <a mat-button [matMenuTriggerFor]="accountMenu" #accountMenuTrigger="matMenuTrigger">
-        <mat-icon class="mat-icon-sm account-icon">person</mat-icon> <span fxShow="false" fxShow.gt-sm>account</span> <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+            <div *ngIf="userInfo != null">
+        <mat-icon class="mat-icon-sm account-icon">person</mat-icon> <span fxShow="false" fxShow.gt-sm>{{userInfo.username}}</span> <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+            </div>
+            <div *ngIf="userInfo == null">
+                    <mat-icon class="mat-icon-sm account-icon">person</mat-icon> <span fxShow="false" fxShow.gt-sm>Login</span> <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+                        </div>
     </a>
     <mat-menu #accountMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-dropdown account">
         <span (mouseleave)="accountMenuTrigger.closeMenu()">
+            <div *ngIf="userInfo != null">
             <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">                   
                 <img src="assets/images/others/user.jpg" alt="user-image" width="50">
-                <p>Emilio Verdines <br> <small>emilio_v (152<mat-icon class="mat-icon-xs">star</mat-icon>)</small></p>
+                <p>{{userInfo.fullName}} <br> <small>{{userInfo.email}}</small></p>
             </div>
             <div class="divider"></div>
             <a mat-menu-item routerLink="/account"> 
@@ -60,11 +66,19 @@
                 <span>Help</span> 
             </a>
             <div class="divider"></div>
-            <a mat-menu-item routerLink="/sign-in"> 
+            <a mat-menu-item  (click)="signOut()"> 
                 <mat-icon class="mat-icon-sm">power_settings_new</mat-icon>
                 <span>Sign Out</span> 
             </a>
+        </div>
+        <div *ngIf="userInfo == null">
+                <a mat-menu-item  (click)="signOut()"> 
+                        <mat-icon class="mat-icon-sm">power_settings_new</mat-icon>
+                        <span>Login</span> 
+                    </a>
+        </div>
         </span>
+    
     </mat-menu>    
 
 </div>  

@@ -26,6 +26,10 @@ public class UserService {
 		return userRepository.getOne(userId);
 	}
 
+	public User getByUserAndPass(String username, String password) {
+		return userRepository.getUserByUsernameAndPassword(username, password);
+	}
+
 	public String authenticate(String username, String password) throws Exception {
 		System.out.println(username);
 		System.out.println(password);

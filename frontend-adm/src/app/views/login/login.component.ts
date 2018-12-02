@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
     this.isSubmited = true;
     let data = {
       "username": this.loginForm.get('username').value,
-      "password": Md5.hashStr(this.loginForm.get('password').value),
+      "password":this.loginForm.get('password').value,
       "remember": true
     }
     if (this.loginForm.valid) {

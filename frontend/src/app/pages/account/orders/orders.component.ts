@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-
+import { AppService } from '../../../app.service';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss']
+  styleUrls: ['./orders.component.scss'],
+  providers: [NgbModalConfig, NgbModal]
 })
 export class OrdersComponent implements OnInit {
 
-  public orders = [
-    { number: '#3258', date: 'March 29, 2018', status: 'Completed', total: '$140.00 for 2 items', invoice: true },
-    { number: '#3145', date: 'February 14, 2018', status: 'On hold', total: '$255.99 for 1 item', invoice: false },
-    { number: '#2972', date: 'January 7, 2018', status: 'Processing', total: '$255.99 for 1 item', invoice: true },
-    { number: '#2971', date: 'January 5, 2018', status: 'Completed', total: '$73.00 for 1 item', invoice: true },
-    { number: '#1981', date: 'December 24, 2017', status: 'Pending Payment', total: '$285.00 for 2 items', invoice: false },
-    { number: '#1781', date: 'September 3, 2017', status: 'Refunded', total: '$49.00 for 2 items', invoice: false }
-  ]
-  constructor() { }
+  constructor(public appService: AppService,public config: NgbModalConfig, private modalService: NgbModal) {
+    // customize default values of modals used by this component tree
+    config.backdrop = 'static';
+    config.keyboard = false;
+  }
 
+  public orders = null;
+  public userInfo = JSON.parse(localStorage.getItem('userInfo'));
   ngOnInit() {
+    console.log('start call list order');
+    this.appService.getOrdersByUser(this.userInfo.userId).subscribe(data=>{
+      this.orders = data;
+    })
   }
 
 }
