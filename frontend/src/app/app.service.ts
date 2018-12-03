@@ -517,9 +517,9 @@ public getOrdersByUser(userId:number):  Observable<any> {
 
     public getDeliveryMethods() {
         return [
-            { value: 'free', name: 'Free Delivery', desc: '$0.00 / Delivery in 7 to 14 business Days' },
-            { value: 'standard', name: 'Standard Delivery', desc: '$7.99 / Delivery in 5 to 7 business Days' },
-            { value: 'express', name: 'Express Delivery', desc: '$29.99 / Delivery in 1 business Days' }
+            { value: 'free', name: 'Giao hàng miễn phí', desc: '0 $ / Giao hàng trong 7 đến 14 ngày làm việc' },
+            { value: 'standard', name: 'Giao hàng tiêu chuẩn', desc: '$7.99 /  Giao hàng trong 5 đến 7 ngày làm việc' },
+            { value: 'express', name: 'Chuyển phát nhanh', desc: '$29.99 / Giao hàng trong 1 ngày làm việc' }
         ]
     }
 

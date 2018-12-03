@@ -1,62 +1,62 @@
 <mat-horizontal-stepper #horizontalStepper linear="true" class="mat-elevation-z2" fxShow="false" fxShow.gt-sm>
-  <mat-step [stepControl]="billingForm" label="Billing address">
+  <mat-step [stepControl]="billingForm" label="ĐỊA CHỈ THANH TOÁN">
     <form [formGroup]="billingForm">     
       <div fxLayout="row wrap">
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Full name" formControlName="fullName" required>
-              <mat-error *ngIf="billingForm.controls.fullName.errors?.required">full name is required</mat-error>
+              <input matInput placeholder="Họ và tên" formControlName="fullName" required>
+              <mat-error *ngIf="billingForm.controls.fullName.errors?.required">Họ và tên ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Company" formControlName="company">
+              <input matInput placeholder="Công ty" formControlName="company">
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
           <mat-form-field class="w-100">
               <input matInput placeholder="Email" formControlName="email" required>
-              <mat-error *ngIf="billingForm.controls.email.errors?.required">Email is required</mat-error>
+              <mat-error *ngIf="billingForm.controls.email.errors?.required">Email ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Phone" formControlName="phone" required>
-              <mat-error *ngIf="billingForm.controls.phone.errors?.required">Phone is required</mat-error>
+              <input matInput placeholder="Điện thoại" formControlName="phone" required>
+              <mat-error *ngIf="billingForm.controls.phone.errors?.required">Điện thoại ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
-            <mat-select placeholder="Country" formControlName="country" required>
+            <mat-select placeholder="Đất nước" formControlName="country" required>
               <mat-option *ngFor="let country of countries" [value]="country">
                   {{country.name}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="billingForm.controls.country.errors?.required">Country is required</mat-error>
+            <mat-error *ngIf="billingForm.controls.country.errors?.required">Đất nước ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="City" formControlName="city" required>
-              <mat-error *ngIf="billingForm.controls.city.errors?.required">City is required</mat-error>
+              <input matInput placeholder="Thành phố" formControlName="city" required>
+              <mat-error *ngIf="billingForm.controls.city.errors?.required">Thành phố ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="State/Province" formControlName="state">
+              <input matInput placeholder="quận/Huyện" formControlName="state">
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Zip/Postal Code" formControlName="zip" required>
-              <mat-error *ngIf="billingForm.controls.zip.errors?.required">Zip/Postal Code is required</mat-error>
+              <input matInput placeholder="Mã bưu cục" formControlName="zip" required>
+              <mat-error *ngIf="billingForm.controls.zip.errors?.required">Mã bưu cục ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Address (street, apartment, suite, unit etc.)" formControlName="address" required>
-              <mat-error *ngIf="billingForm.controls.address.errors?.required">Address is required</mat-error>
+              <input matInput placeholder="Địa chỉ (Đường phố, Căn hộ, Tòa nhà...v.v)" formControlName="address" required>
+              <mat-error *ngIf="billingForm.controls.address.errors?.required">Địa chỉ ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -65,7 +65,7 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="deliveryForm" label="Delivery method">
+  <mat-step [stepControl]="deliveryForm" label="Phương thức giao hàng">
     <form [formGroup]="deliveryForm" class="p-2">
       <mat-radio-group formControlName="deliveryMethod" fxLayout="column" fxLayoutAlign="center" required name="methods">
         <mat-radio-button *ngFor="let method of deliveryMethods" color="primary" [value]="method" class="mt-1"><b>{{method.name}}</b> {{method.desc}}</mat-radio-button>
@@ -128,18 +128,18 @@
       </div>
     </form>
   </mat-step> -->
-  <mat-step label="Review Order">    
+  <mat-step label="Kiểm tra thông tin đơn hàng">    
     <div fxLayout="row wrap">
       <div fxFlex="100" class="p-1">
         <h3 class="text-muted">Giỏ hàng</h3>
         <div class="divider"></div>
         <div class="mat-table review-order-table">
           <div class="mat-header-row">
-            <div class="mat-header-cell">Product</div>
-            <div class="mat-header-cell">Name</div>
-            <div class="mat-header-cell">Unit Price</div>      
-            <div class="mat-header-cell">Quantity</div>
-            <div class="mat-header-cell">Total</div>
+            <div class="mat-header-cell">Sản phẩm</div>
+            <div class="mat-header-cell">Tên</div>
+            <div class="mat-header-cell">Giá sản phẩm </div>      
+            <div class="mat-header-cell">Số lượng</div>
+            <div class="mat-header-cell">Tổng</div>
           </div>
           <div *ngFor="let product of appService.Data.cartList" class="mat-row">
             <div class="mat-cell"><img [src]="product.images[0].small"></div>
@@ -153,7 +153,7 @@
     </div>
     <div fxLayout="row wrap">
       <div fxFlex="100" class="p-1">
-        <h3 class="text-muted mt-2">Billing information</h3>
+        <h3 class="text-muted mt-2">Thông tin thanh toán</h3>
         <div class="divider"></div>
       </div>
      
@@ -162,124 +162,124 @@
         <p>{{billingForm.controls.email.value}}</p>
       </div>
       <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
-        <p class="text-muted">Phone:</p>
+        <p class="text-muted">Điện thoại:</p>
         <p>{{billingForm.controls.phone.value}}</p>
       </div>
       <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
-        <p class="text-muted">Country:</p>
+        <p class="text-muted">Đất nước:</p>
         <p>{{billingForm.controls.country.value['name']}}</p>
       </div>
       <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
-        <p class="text-muted">City:</p>
+        <p class="text-muted">Thành phố:</p>
         <p>{{billingForm.controls.city.value}}</p>
       </div>
       <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
-        <p class="text-muted">State:</p>
+        <p class="text-muted">Quận/Huyện:</p>
         <p>{{billingForm.controls.state.value}}</p>
       </div>
       <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
-        <p class="text-muted">Zip/PostalCode:</p>
+        <p class="text-muted">Mã bưu cục:</p>
         <p>{{billingForm.controls.zip.value}}</p>
       </div>
       <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
-        <p class="text-muted">Address:</p>
+        <p class="text-muted">Địa chỉ:</p>
         <p>{{billingForm.controls.address.value}}</p>
       </div>
     </div>
     <div fxLayout="row">
       <div fxFlex="100" class="p-1">
-        <h3 class="text-muted mt-2">Delivery information</h3>
+        <h3 class="text-muted mt-2">Thông tin giao hàng</h3>
         <div class="divider"></div>
         <p class="py-1">{{deliveryForm.controls.deliveryMethod.value['name']}} <span class="text-muted">{{deliveryForm.controls.deliveryMethod.value['desc']}}</span></p>
       </div>
     </div>
     <div fxLayout="row">
       <div fxFlex="100" class="p-1">
-        <h3 class="text-muted mt-2">Payment information</h3>
+        <h3 class="text-muted mt-2">Thông tin thanh toán</h3>
         <div class="divider"></div>
-        <p class="py-1"><span class="text-muted mr-1">Card number:</span><span>XXX-XXX-XXX-7224</span></p>
+        <p class="py-1"><span class="text-muted mr-1">Số thẻ:</span><span>XXX-XXX-XXX-7224</span></p>
       </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" class="p-1"> 
-       <h2><span class="text-muted mr-1">Total Price:</span><span>{{grandTotal | number : '1.0-0'}}</span></h2>    
+       <h2><span class="text-muted mr-1">Tổng giá tiền:</span><span>{{grandTotal | number : '1.0-0'}}</span></h2>    
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
       <button mat-mini-fab matStepperPrevious color="primary" matTooltip="Back" matTooltipPosition="before" class="mr-1"><mat-icon>navigate_before</mat-icon></button>
-      <button mat-raised-button matStepperNext color="primary" (click)="placeOrder()">Place order now</button>       
+      <button mat-raised-button matStepperNext color="primary" (click)="placeOrder()">Đặt hàng ngay</button>       
     </div>     
   </mat-step>
-  <mat-step label="Confirmation">
+  <mat-step label="Xác nhận thanh toán">
     <div fxLayout="column" fxLayoutAlign="center center" class="p-2 text-center"> 
       <button mat-fab color="primary"><mat-icon>check</mat-icon></button>
-      <h2 class="py-2">Congratulation! Your order has been processed</h2>
-      <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus dolor ante, ut luctus mi faucibus a. Ut eu tincidunt neque. Proin porttitor id ligula id placerat. Integer nec nulla varius, dapibus libero quis, semper eros. Aliquam erat volutpat. Proin volutpat tellus vel purus interdum euismod.</p>
+      <h2 class="py-2">Xin chúc mừng! đơn hàng của bạn đã được xử lý</h2>
+      <p class="text-muted"> </p>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" class="mt-2 p-1"> 
-      <a [routerLink]="['/']" mat-raised-button color="primary">Return to Shop</a>       
+      <a [routerLink]="['/']" mat-raised-button color="primary">Quay trở lại cửa hàng</a>       
     </div>
      
   </mat-step>
 </mat-horizontal-stepper>
 
 <mat-vertical-stepper #verticalStepper linear="true" class="mat-elevation-z2" fxHide="false" fxHide.gt-sm>
-  <mat-step [stepControl]="billingForm" label="Billing address">
+  <mat-step [stepControl]="billingForm" label="ĐỊA CHỈ THANH TOÁN">
     <form [formGroup]="billingForm">     
       <div fxLayout="row wrap">
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="First name" formControlName="fullName" required>
-              <mat-error *ngIf="billingForm.controls.fullName.errors?.required">First name is required</mat-error>
+              <input matInput placeholder="Họ" formControlName="fullName" required>
+              <mat-error *ngIf="billingForm.controls.fullName.errors?.required">Họ ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Company" formControlName="company">
+              <input matInput placeholder="Công ty" formControlName="company">
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
           <mat-form-field class="w-100">
               <input matInput placeholder="Email" formControlName="email" required>
-              <mat-error *ngIf="billingForm.controls.email.errors?.required">Email is required</mat-error>
+              <mat-error *ngIf="billingForm.controls.email.errors?.required">Email ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Phone" formControlName="phone" required>
-              <mat-error *ngIf="billingForm.controls.phone.errors?.required">Phone is required</mat-error>
+              <input matInput placeholder="Điện thoại" formControlName="phone" required>
+              <mat-error *ngIf="billingForm.controls.phone.errors?.required">Điện thoại ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
-            <mat-select placeholder="Country" formControlName="country" required>
+            <mat-select placeholder="Đất nước" formControlName="country" required>
               <mat-option *ngFor="let country of countries" [value]="country">
                   {{country.name}}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="billingForm.controls.country.errors?.required">Country is required</mat-error>
+            <mat-error *ngIf="billingForm.controls.country.errors?.required">Đất nước ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="City" formControlName="city" required>
-              <mat-error *ngIf="billingForm.controls.city.errors?.required">City is required</mat-error>
+              <input matInput placeholder="Thành phố" formControlName="city" required>
+              <mat-error *ngIf="billingForm.controls.city.errors?.required">Thành phố ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="State/Province" formControlName="state">
+              <input matInput placeholder="Quận/Huyện" formControlName="state">
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Zip/Postal Code" formControlName="zip" required>
-              <mat-error *ngIf="billingForm.controls.zip.errors?.required">Zip/Postal Code is required</mat-error>
+              <input matInput placeholder="Mã bưu cục" formControlName="zip" required>
+              <mat-error *ngIf="billingForm.controls.zip.errors?.required">Mã bưu cục ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" class="px-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Address (street, apartment, suite, unit etc.)" formControlName="address" required>
-              <mat-error *ngIf="billingForm.controls.address.errors?.required">Address is required</mat-error>
+              <input matInput placeholder="Địa chỉ (Đường phố, Căn hộ, Tòa nhà...v.v)" formControlName="address" required>
+              <mat-error *ngIf="billingForm.controls.address.errors?.required">Địa chỉ ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -288,7 +288,7 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="deliveryForm" label="Delivery method">
+  <mat-step [stepControl]="deliveryForm" label="Phương thức giao hàng">
     <form [formGroup]="deliveryForm" class="p-2">
       <mat-radio-group formControlName="deliveryMethod" fxLayout="column" fxLayoutAlign="center" required name="methods">
         <mat-radio-button *ngFor="let method of deliveryMethods" color="primary" [value]="method" class="mt-1"><b>{{method.name}}</b> {{method.desc}}</mat-radio-button>
@@ -351,7 +351,7 @@
       </div>
     </form>
   </mat-step> -->
-  <mat-step label="Review Order">    
+  <mat-step label="Kiểm tra thông tin đơn hàng">    
     <div fxLayout="row wrap">
       <div fxFlex="100" class="p-1">
         <h3 class="text-muted">Giỏ hàng</h3>
@@ -431,7 +431,7 @@
       <button mat-raised-button matStepperNext color="primary" (click)="placeOrder()">Place order now</button>       
     </div>     
   </mat-step>
-  <mat-step label="Confirmation">
+  <mat-step label="Xác nhận thanh toán">
     <div fxLayout="column" fxLayoutAlign="center center" class="p-2 text-center"> 
       <button mat-fab color="primary"><mat-icon>check</mat-icon></button>
       <h2 class="py-2">Congratulation! Your order has been processed</h2>

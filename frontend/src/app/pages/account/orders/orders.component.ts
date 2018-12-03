@@ -3,15 +3,12 @@ import { AppService } from '../../../app.service';
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
-  styleUrls: ['./orders.component.scss'],
-  providers: [NgbModalConfig, NgbModal]
+  styleUrls: ['./orders.component.scss']
 })
 export class OrdersComponent implements OnInit {
 
-  constructor(public appService: AppService,public config: NgbModalConfig, private modalService: NgbModal) {
-    // customize default values of modals used by this component tree
-    config.backdrop = 'static';
-    config.keyboard = false;
+  constructor(public appService: AppService) {
+
   }
 
   public orders = null;

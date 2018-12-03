@@ -1,6 +1,6 @@
 <div *ngIf="appService.Data.cartList.length == 0">
   <mat-chip-list>
-      <mat-chip color="warn" selected="true">YOU HAVE NO ITEMS IN YOUR SHOPPING CART.</mat-chip>
+      <mat-chip color="warn" selected="true">Không có mạt hàng nào được thêm</mat-chip>
   </mat-chip-list>
   <a [routerLink]="['/']" mat-raised-button color="primary" class="mt-2">Continue shopping</a>
 </div>
@@ -38,7 +38,7 @@
       
     </div>
     <div class="mat-row">
-      <div class="mat-cell"><a [routerLink]="['/']" mat-raised-button color="primary">Continue shopping</a></div>
+      <div class="mat-cell"><a [routerLink]="['/']" mat-raised-button color="primary">Tiếp tục mua sắm</a></div>
       <div class="mat-cell"></div>
       <div class="mat-cell"></div>
       <div class="mat-cell text-right">

@@ -46,13 +46,13 @@ export class AddressesComponent implements OnInit {
 
   public onBillingFormSubmit(values:Object):void {
     if (this.billingForm.valid) {
-      this.snackBar.open('Your billing address information updated successfully!', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
+      this.snackBar.open('Thông tin thanh toán của bạn đã được cập nhật thành công!', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
     }
   }
 
   public onShippingFormSubmit(values:Object):void {
     if (this.shippingForm.valid) {
-      this.snackBar.open('Your shipping address information updated successfully!', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
+      this.snackBar.open('Địa chỉ nhận hàng của bạn đã được cập nhật thành công!', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
     }
   }
 
