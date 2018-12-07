@@ -11,7 +11,7 @@ import org.hibernate.annotations.Proxy;
 
 @Entity
 @Proxy(lazy = false)
-@Table(name = "user")
+@Table(name = "User")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

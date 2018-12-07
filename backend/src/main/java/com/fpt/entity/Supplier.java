@@ -26,45 +26,37 @@ public class Supplier {
 	private String supplierPhone;
 	@Column(name = "deleted", nullable = false)
 	private Boolean deleted;
-
+	public Long getSupplierId() {
+		return supplierId;
+	}
+	public void setSupplierId(Long supplierId) {
+		this.supplierId = supplierId;
+	}
+	public String getSupplierName() {
+		return supplierName;
+	}
+	public void setSupplierName(String supplierName) {
+		this.supplierName = supplierName;
+	}
+	public String getSupplierAddress() {
+		return supplierAddress;
+	}
+	public void setSupplierAddress(String supplierAddress) {
+		this.supplierAddress = supplierAddress;
+	}
+	public String getSupplierPhone() {
+		return supplierPhone;
+	}
+	public void setSupplierPhone(String supplierPhone) {
+		this.supplierPhone = supplierPhone;
+	}
 	public Boolean getDeleted() {
 		return deleted;
 	}
-
 	public void setDeleted(Boolean deleted) {
 		this.deleted = deleted;
 	}
 
-	public Long getSupplierId() {
-		return supplierId;
-	}
-
-	public void setSupplierId(Long supplierId) {
-		this.supplierId = supplierId;
-	}
-
-	public String getSupplierName() {
-		return supplierName;
-	}
-
-	public void setSupplierName(String supplierName) {
-		this.supplierName = supplierName;
-	}
-
-	public String getSupplierAddress() {
-		return supplierAddress;
-	}
-
-	public void setSupplierAddress(String supplierAddress) {
-		this.supplierAddress = supplierAddress;
-	}
-
-	public String getSupplierPhone() {
-		return supplierPhone;
-	}
-
-	public void setSupplierPhone(String supplierPhone) {
-		this.supplierPhone = supplierPhone;
-	}
+	
 
 }

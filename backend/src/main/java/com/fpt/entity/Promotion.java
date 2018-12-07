@@ -1,5 +1,7 @@
 package com.fpt.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,11 +9,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Proxy;
-
 @Entity
-@Table(name = "Category")
-@Proxy(lazy = false)
+@Table(name = "Promotion")
+
 public class Promotion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,14 +20,14 @@ public class Promotion {
 
 	@Column(name = "productId", nullable = false)
 	private Long productId;
-	@Column(name = "disountCode", nullable = false)
+	@Column(name = "discountCode", nullable = false)
 	private String disountCode;
 	@Column(name = "discount", nullable = false)
 	private Float discount;
 	@Column(name = "createDate", nullable = false)
-	private Long createDate;
+	private Date createDate;
 	@Column(name = "exprieDate", nullable = false)
-	private Long exprieDate;
+	private Date exprieDate;
 
 	public Long getPromotionId() {
 		return promotionId;
@@ -61,20 +61,26 @@ public class Promotion {
 		this.discount = discount;
 	}
 
-	public Long getCreateDate() {
+	public Date getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Long createDate) {
+	public void setCreateDate(Date createDate) {
 		this.createDate = createDate;
 	}
 
-	public Long getExprieDate() {
+	public Date getExprieDate() {
 		return exprieDate;
 	}
 
-	public void setExprieDate(Long exprieDate) {
+	public void setExprieDate(Date exprieDate) {
 		this.exprieDate = exprieDate;
 	}
+
+	
+
+	
+
+	
 
 }

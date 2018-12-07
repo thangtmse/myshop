@@ -8,15 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "odrerDetail")
+@Table(name = "OdrerDetail")
 public class OrderDetail {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "id", nullable = false)
-	private Integer id;
+	@Column(name = "orderdetailid", nullable = false)
+	private Long id;
 
 	@Column(name = "orderId", nullable = false)
-	private Integer orderId;
+	private Long orderId;
 
 	@Column(name = "productId", nullable = false)
 	private Long productId;
@@ -27,16 +27,20 @@ public class OrderDetail {
 	@Column(name = "totalPrice", nullable = false)
 	private Double totalPrice;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public Integer getOrderId() {
+	public Long getOrderId() {
 		return orderId;
+	}
+
+	public void setOrderId(Long orderId) {
+		this.orderId = orderId;
 	}
 
 	public Double getPrice() {
@@ -45,10 +49,6 @@ public class OrderDetail {
 
 	public void setPrice(Double price) {
 		this.price = price;
-	}
-
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
 	}
 
 	public Long getProductId() {
@@ -75,10 +75,12 @@ public class OrderDetail {
 		this.totalPrice = totalPrice;
 	}
 
-	public OrderDetail(Integer orderId, Long productId, Integer quantity, Double totalPrice) {
+	public OrderDetail(Long id, Long orderId, Long productId, Double price, Integer quantity, Double totalPrice) {
 		super();
+		this.id = id;
 		this.orderId = orderId;
 		this.productId = productId;
+		this.price = price;
 		this.quantity = quantity;
 		this.totalPrice = totalPrice;
 	}

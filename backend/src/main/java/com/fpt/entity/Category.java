@@ -13,18 +13,17 @@ import org.hibernate.annotations.Proxy;
 @Table(name = "Category")
 @Proxy(lazy = false)
 public class Category {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "categoryid", nullable = false)
 	private Long categoryId;
-	@Column(name = "categoryparentid", nullable = false)
+	@Column(name = "categoryparentid", nullable = true)
 	private Long categoryParentId;
-	@Column(name = "categoryname", nullable = false)
-	private String categoryName;
 	@Column(name = "hassubcategory", nullable = false)
 	private Boolean hasSubCategory;
-	@Column(name = "description", nullable = false)
+	@Column(name = "categoryname", nullable = false)
+	private String categoryName;
+	@Column(name = "description", nullable = false,columnDefinition = "TEXT")
 	private String description;
 	@Column(name = "imageurl", nullable = false)
 	private String imageurl;

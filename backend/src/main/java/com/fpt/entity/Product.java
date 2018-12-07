@@ -21,7 +21,6 @@ import org.hibernate.annotations.Proxy;
 @Proxy(lazy = false)
 public class Product implements Serializable {
 	private static final long serialVersionUID = 1L;
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "productid", nullable = false)
@@ -29,21 +28,19 @@ public class Product implements Serializable {
 
 	@Column(name = "productname", nullable = false)
 	private String productName;
-
+	@Column(name = "pricein", nullable = false)
+	private Double priceIn;
+	@Column(name = "priceout", nullable = false)
+	private Double priceOut;
+	@Column(name = "createddate", nullable = false)
+	private Date createdDate;
+	@Column(name = "quantity", nullable = false)
+	private Integer quantity;
+	@Column(name = "description", nullable = false,columnDefinition = "TEXT")
+	private String description;
 	@Column(name = "categoryid", nullable = false)
 	private Long categoryId;
 
-	@Column(name = "pricein", nullable = false)
-	private Double priceIn;
-
-	@Column(name = "priceout", nullable = false)
-	private Double priceOut;
-	@Column(name = "quantity", nullable = false)
-	private Integer quantity;
-	@Column(name = "description", nullable = false)
-	private String description;
-	@Column(name = "createddate", nullable = false)
-	private Date createdDate;
 	@Column(name = "supplierid", nullable = false)
 	private Long supplierId;
 	@Column(name = "deleted", nullable = false)

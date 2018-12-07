@@ -3,23 +3,23 @@
         <div class="col-12">
             <form class="card" [formGroup]="editorForm" (ngSubmit)="editorFormSubmit()">
                 <div class="card-header">
-                    <strong *ngIf="!foodID">Tạo sản phẩm</strong>
-                    <strong *ngIf="foodID">Chỉnh sửa thông tin sản phẩm</strong>
+                    <strong *ngIf="!productId">Tạo sản phẩm</strong>
+                    <strong *ngIf="productId">Chỉnh sửa thông tin sản phẩm</strong>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="foodName">Tên món *</label>
-                                <input formControlName="foodName" class="form-control" id="foodName" placeholder="Tên sản phẩm" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('foodName').invalid}">
+                                <label for="foodName">Tên sản phẩm *</label>
+                                <input formControlName="productName" class="form-control" id="productName" placeholder="Tên sản phẩm" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('foodName').invalid}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="status">Trạng thái</label>
+                                <label for="status">danh mục sản phẩm</label>
                                 <select class="form-control" id="status" formControlName="status">
-                                    <option value="ACTIVE">Phục vụ</option>
-                                    <option value="INACTIVE">Ngừng phục vụ</option>
+                                    <option value="ACTIVE">Mỹ phẩm</option>
+                                    <option value="INACTIVE">Bánh kẹo</option>
                                     <option value="ACTIVE_READY">Phục vụ-Không cần chế biến</option>
                                 </select>
                             </div>
@@ -39,7 +39,7 @@
                                 <label for="category">Danh mục sản phẩm</label>
                                 <ng-select class="form-control ng-select ng-select-multiple ng-select-searchable ng-valid ng-select-bottom ng-dirty ng-touched ng-select-opened" multiple="true" 
                                    hideSelected="true" 
-                                   [items]="foodcategory"
+                                   [items]="productcategory"
                                    bindLabel="name"
                                    bindValue="id"
                                    [(ngModel)]="category"

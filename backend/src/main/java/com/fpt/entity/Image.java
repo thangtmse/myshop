@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "image")
+@Table(name = "Image")
 public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
