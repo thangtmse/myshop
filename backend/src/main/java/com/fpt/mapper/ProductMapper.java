@@ -12,13 +12,15 @@ import com.fpt.dto.request.ProductRequest;
 import com.fpt.dto.response.ProductResponse;
 import com.fpt.entity.Product;
 import com.fpt.service.CategoryService;
+import com.fpt.service.PromotionService;
 import com.fpt.service.SupplierService;
 
 @Component
 public class ProductMapper {
 	@Autowired
 	private CategoryService categoryService;
-
+	@Autowired
+	private PromotionService promotionService;
 	@Autowired
 	private SupplierService supplierService;
 
@@ -71,6 +73,7 @@ public class ProductMapper {
 		pr.setPriceIn(p.getPriceIn());
 		pr.setPriceOut(p.getPriceOut());
 		pr.setQuantity(p.getQuantity());
+		pr.setDiscount(promotionService.getOneByProductId(p.getProductId()));
 		pr.setSupplier(supplierService.findOne(p.getSupplierId()));
 		pr.setImages(p.getImages());
 		return pr;

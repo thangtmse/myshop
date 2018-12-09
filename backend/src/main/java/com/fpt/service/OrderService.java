@@ -51,12 +51,12 @@ public class OrderService {
 		return orderRepository.save(order);
 	}
 
-	public List<Order> findOrdersByUserId(Integer id) {
+	public List<Order> findOrdersByUserId(Long id) {
 		// TODO Auto-generated method stub
 		return orderRepository.findOrderByUserIdOrderByAddAtDesc(id);
 	}
 
-	public List<OrderDetail> findOrderDetailsByOrderId(Integer id) {
+	public List<OrderDetail> findOrderDetailsByOrderId(Long id) {
 		// TODO Auto-generated method stub
 		return orderDetailRepository.findOrderDetailByOrderId(id);
 	}

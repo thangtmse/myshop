@@ -6,6 +6,7 @@ import { Category, Product, User } from './app.models';
 import { map, catchError } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { InnerSubscriber } from 'rxjs/internal/InnerSubscriber';
+import { prepareProfile } from 'selenium-webdriver/firefox';
 
 export class Data {
     constructor(public categories: Category[],
@@ -81,6 +82,33 @@ public getOrdersByUser(userId:number):  Observable<any> {
             );
     }
 
+    public register(data: any): Observable<any> {
+        return this.http.post<any[]>(this.API_URL + '/user', data).pipe(map((data: any) => {
+                console.log('end');
+               
+                return data;
+        })).pipe(
+            catchError((error: HttpErrorResponse) => {
+                return new Observable((observer: InnerSubscriber<any, any> ) => {
+                    observer.next(null)
+                });
+            })
+            );
+    }
+    public changePassword(data: any): Observable<any> {
+        return this.http.post<any[]>(this.API_URL + '/user/change-password', data).pipe(map((data: any) => {
+    
+                return data;
+        })).pipe(
+            catchError((error: HttpErrorResponse) => {
+                return new Observable((observer: InnerSubscriber<any, any> ) => {
+                    observer.next(null)
+                });
+            })
+            );
+    }
+
+
     public getAccountInfo(): Observable<any> {
         let token = sessionStorage.getItem('authToken') || localStorage.getItem('authToken');
         let myheaders = new HttpHeaders().set('Content-Type', 'application/json')
@@ -123,7 +151,18 @@ public getOrdersByUser(userId:number):  Observable<any> {
             url += "&sort="+sort;
         }
         return this.http.get<Product[]>(url).pipe(map((data: any) => {
+            
+            let maxPrice = 0;
+            let minPrice = 50000000;
+            
             data.content = data.content.map(pro => {
+                if(pro.priceOut < minPrice){
+                    minPrice = pro.priceOut;
+                }
+                if(pro.priceOut > maxPrice){
+                    maxPrice = pro.priceOut;
+                }
+                let hasPromotion = (pro.discount != null); 
                 return {
                     id: pro.productId,
                     name: pro.productName,
@@ -134,18 +173,23 @@ public getOrdersByUser(userId:number):  Observable<any> {
                             big: this.API_URL + "/image/" + image.imageId
                         }
                     }),
-                    oldPrice: null,
-                    newPrice: pro.priceOut,
-                    discount: null,
+                    oldPrice: hasPromotion? pro.priceOut: null,
+                    newPrice: pro.priceOut*((100-pro.discount)/100),
+                    discount: pro.discount,
                     description: pro.description
                 }
             })
+            data.minPrice = (minPrice == 50000000)? 0:minPrice;
+            data.maxPrice = maxPrice;
+            console.log(maxPrice);
+            console.log(minPrice);
             return data;
         }));
     }
 
     public getProductById(id): Observable<any> {
         return this.http.get<any>(this.API_URL + "/product/" + id).pipe(map((pro: any) => {
+            let hasPromotion = (pro.discount != null); 
             let data = {
                 id: pro.productId,
                 name: pro.productName,
@@ -156,9 +200,9 @@ public getOrdersByUser(userId:number):  Observable<any> {
                         big: this.API_URL + "/image/" + image.imageId
                     }
                 }),
-                oldPrice: null,
-                newPrice: pro.priceOut,
-                discount: null,
+                oldPrice: hasPromotion? pro.priceOut: null,
+                newPrice: pro.priceOut*((100-pro.discount)/100),
+                discount: pro.discount,
                 description: pro.description,
                 availibilityCount: 1000
             };
@@ -220,7 +264,7 @@ public getOrdersByUser(userId:number):  Observable<any> {
             this.Data.totalPrice = null;
             this.Data.cartList.push(product);
             this.Data.cartList.forEach(product => {
-                this.Data.totalPrice = this.Data.totalPrice + product.newPrice;
+                this.Data.totalPrice = this.Data.totalPrice + (product.newPrice*product.quantity);
             })
             message = 'The product ' + product.name + ' has been added to cart.';
             status = 'success';

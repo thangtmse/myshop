@@ -14,13 +14,16 @@ public class PromotionService {
 	private PromotionRepository promotionRepository;
 
 	public Promotion create(Promotion p) {
-		p.setCreateDate(new Date());
-		p.setExprieDate(new Date());
+		p.setCreateDate(new Date().getTime());
+		p.setExprieDate(new Date().getTime());
 		return promotionRepository.save(p);
 	}
 
 	public Promotion getPromoton(Long id) {
-		
 		return promotionRepository.findByproductId(id);
+	}
+
+	public Integer getOneByProductId(Long productId) {
+		return promotionRepository.getPromotionByProductIdAndDate(productId, new Date().getTime());
 	}
 }

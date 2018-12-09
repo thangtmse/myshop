@@ -25,9 +25,9 @@
                     <span>Tới: <b>{{priceTo | number : '1.0-0'}}</b></span>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-between center" class="filter-price">
-                    <mat-slider color="primary" max="500000000" min="1" thumb-label="true" [(ngModel)]="priceFrom"
-                        (change)="getAllProducts()"></mat-slider>
-                    <mat-slider color="warn" max="500000000" min="1" thumb-label="true" [(ngModel)]="priceTo" (change)="getAllProducts()"></mat-slider>
+                    <mat-slider color="primary" max="5000000" min="100000" thumb-label="true" [(ngModel)]="priceFrom"
+                        (change)="getAllProductsBySlider()"></mat-slider>
+                    <mat-slider color="warn" max="5000000" min="100000" thumb-label="true" [(ngModel)]="priceTo" (change)="getAllProductsBySlider()"></mat-slider>
                 </div>
             </mat-expansion-panel>
 

@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatStepper } from '@angular/material';
 import { Data, AppService } from '../../app.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -20,9 +21,10 @@ export class CheckoutComponent implements OnInit {
   deliveryMethods = [];
   grandTotal = 0;
 
-  constructor(public appService:AppService, public formBuilder: FormBuilder) { }
+  constructor(public appService:AppService, public formBuilder: FormBuilder,public router:Router) { }
 
-  ngOnInit() {    
+  ngOnInit() {
+
     this.appService.Data.cartList.forEach(product=>{
       this.grandTotal += product.newPrice * product.quantity;
     });
@@ -47,6 +49,10 @@ export class CheckoutComponent implements OnInit {
     });
     let user: any;
     user = JSON.parse(localStorage.getItem('userInfo'));
+    console.log(user);
+    if(user == null) {
+      this.router.navigate(['/sign-in']);
+    }
     this.billingForm.controls['fullName'].setValue(user.fullName);
     this.billingForm.controls['email'].setValue(user.email);
     this.billingForm.controls['phone'].setValue(user.phone);

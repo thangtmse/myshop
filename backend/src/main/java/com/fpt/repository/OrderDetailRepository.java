@@ -8,6 +8,6 @@ import com.fpt.entity.OrderDetail;
 
 public interface OrderDetailRepository extends JpaRepository<OrderDetail, Long> {
 
-	List<OrderDetail> findOrderDetailByOrderId(Integer id);
+	List<OrderDetail> findOrderDetailByOrderId(Long id);
 
 }

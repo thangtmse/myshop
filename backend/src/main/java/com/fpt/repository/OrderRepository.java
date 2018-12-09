@@ -8,6 +8,6 @@ import com.fpt.entity.Order;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
-	List<Order> findOrderByUserIdOrderByAddAtDesc(Integer id);
+	List<Order> findOrderByUserIdOrderByAddAtDesc(Long id);
 
 }

@@ -8,7 +8,7 @@
                     <mat-error *ngIf="loginForm.controls.username.errors?.required">Tên người dùng không được bỏ trống</mat-error>
                 </mat-form-field>
                 <mat-form-field class="w-100 mt-1">
-                    <input matInput placeholder="Mật khẩu" formControlName="password" required>
+                    <input matInput placeholder="Mật khẩu" type="password" formControlName="password" required>
                     <mat-error *ngIf="loginForm.controls.password.errors?.required">Mật khẩu không được bỏ trống</mat-error>
                     <mat-error *ngIf="loginForm.controls.password.hasError('minlength')">Mật khẩu không đủ độ dài ( ít nhất 6 ký tự )</mat-error>
                 </mat-form-field> 
@@ -41,16 +41,31 @@
         <div fxFlex="100" fxFlex.gt-sm="50" class="p-2" ngClass.sm="mt-2" ngClass.xs="mt-2">
             <h2 class="text-muted text-center">Chưa có tài khoản ? Đăng ký ngay !</h2>
             <form [formGroup]="registerForm" (ngSubmit)="onRegisterFormSubmit(registerForm.value)">
+                
                 <mat-form-field class="w-100 mt-2">
-                  <input matInput placeholder="Họ và tên" formControlName="name" required>
-                  <mat-error *ngIf="registerForm.controls.name.errors?.required">Họ và tên không được để trống</mat-error>
-                  <mat-error *ngIf="registerForm.controls.name.hasError('minlength')">Họ và tên không đủ độ dài ( ít nhất là 6 ký tự )</mat-error>
+                  <input matInput placeholder="Họ" formControlName="firstName" required>
+                  <mat-error *ngIf="registerForm.controls.firstName.errors?.required">Họ và tên không được để trống</mat-error>
+                  <mat-error *ngIf="registerForm.controls.firstName.hasError('minlength')">Họ và tên không đủ độ dài ( ít nhất là 6 ký tự )</mat-error>
                 </mat-form-field>
+                <mat-form-field class="w-100 mt-2">
+                    <input matInput placeholder="Tên" formControlName="lastName" required>
+                    <mat-error *ngIf="registerForm.controls.lastName.errors?.required">Họ và tên không được để trống</mat-error>
+                    <mat-error *ngIf="registerForm.controls.lastName.hasError('minlength')">Họ và tên không đủ độ dài ( ít nhất là 6 ký tự )</mat-error>
+                  </mat-form-field>
                 <mat-form-field class="w-100 mt-1">
                     <input matInput placeholder="Email" formControlName="email" required>
                     <mat-error *ngIf="registerForm.controls.email.errors?.required">Email không được bỏ trống</mat-error>
                     <mat-error *ngIf="registerForm.controls.email.hasError('invalidEmail')">Không đúng định dạng email</mat-error>
                 </mat-form-field>
+                <mat-form-field class="w-100 mt-1">
+                    <input matInput placeholder="Số điện thoại" formControlName="phone" required>
+                    <mat-error *ngIf="registerForm.controls.phone.errors?.required">số điện thoại không được bỏ trống</mat-error>
+                </mat-form-field>
+                <mat-form-field class="w-100 mt-2">
+                    <input matInput placeholder="tên tài khoản" formControlName="username" required>
+                    <mat-error *ngIf="registerForm.controls.username.errors?.required">Họ và tên không được để trống</mat-error>
+                    <mat-error *ngIf="registerForm.controls.username.hasError('minlength')">Họ và tên không đủ độ dài ( ít nhất là 6 ký tự )</mat-error>
+                  </mat-form-field>
                 <mat-form-field class="w-100 mt-1">
                     <input matInput placeholder="Mật khẩu" formControlName="password" type="password" minlength="6" required>
                     <mat-error *ngIf="registerForm.controls.password.errors?.required">Mật khẩu không được bỏ trống </mat-error>

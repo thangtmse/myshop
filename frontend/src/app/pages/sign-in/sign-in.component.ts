@@ -24,9 +24,12 @@ export class SignInComponent implements OnInit {
     });
 
     this.registerForm = this.formBuilder.group({
-      'name': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      'username': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      'lastName': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
+      'firstName': ['', Validators.compose([Validators.required, Validators.minLength(3)])],
       'email': ['', Validators.compose([Validators.required, emailValidator])],
       'password': ['', Validators.required],
+      'phone': ['', Validators.required],
       'confirmPassword': ['', Validators.required]
     },{validator: matchingPasswords('password', 'confirmPassword')});
 
@@ -53,7 +56,25 @@ export class SignInComponent implements OnInit {
 
   public onRegisterFormSubmit(values:Object):void {
     if (this.registerForm.valid) {
-      this.snackBar.open('You registered successfully!', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
+      let user : any = {};
+      let check = true;
+      user.username = this.registerForm.get(['username']).value;
+      user.password = this.registerForm.get(['password']).value;
+      user.firstName = this.registerForm.get(['firstName']).value; 
+      user.lastName = this.registerForm.get(['lastName']).value;
+      user.phone = this.registerForm.get(['phone']).value;
+      user.email = this.registerForm.get(['email']).value;
+      this.appService.register(user).subscribe(data => {
+        check = false;
+        if(data.error!= null){
+          this.snackBar.open('Dang ky thanh con1g', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
+        } else {
+          this.snackBar.open('Dang ky thanh cong', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
+        }
+      });
+      if(check){
+        this.snackBar.open("tai khoan da ton tai", '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
+      }
     }
   }
 

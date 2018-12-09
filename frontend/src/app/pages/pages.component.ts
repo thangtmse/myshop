@@ -65,7 +65,7 @@ export class PagesComponent implements OnInit {
     const index: number = this.appService.Data.cartList.indexOf(product);
     if (index !== -1) {
       this.appService.Data.cartList.splice(index, 1);
-      this.appService.Data.totalPrice = this.appService.Data.totalPrice - product.newPrice;
+      this.appService.Data.totalPrice = this.appService.Data.totalPrice - (product.newPrice*product.quantity);
     }
   }
 

@@ -25,12 +25,12 @@ public class OrderController {
 	}
 
 	@RequestMapping(path = "/user/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> findOrdersByUserId(@PathVariable("id") Integer id) {
+	public ResponseEntity<?> findOrdersByUserId(@PathVariable("id") Long id) {
 		return new ResponseEntity<>(orderService.findOrdersByUserId(id), HttpStatus.OK);
 	}
 
 	@RequestMapping(path = "{id}/detail", method = RequestMethod.GET)
-	public ResponseEntity<?> findOrderDetailsByOrderId(@PathVariable("id") Integer id) {
+	public ResponseEntity<?> findOrderDetailsByOrderId(@PathVariable("id") Long id) {
 		return new ResponseEntity<>(orderService.findOrderDetailsByOrderId(id), HttpStatus.OK);
 	}
 }

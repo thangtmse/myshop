@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Page } from '../../../model/page';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { SupplierService } from '../../../service/supplier.service';
+import { SupplierService } from '../../../service/supplier.service'; // step 1
 import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
@@ -20,7 +20,7 @@ export class SupplierListComponent implements OnInit {
   deleteRow: any = {};
   request: any = {};
   constructor(private modalService: BsModalService, private supplierService: SupplierService, private toastr: ToastrService) { 
-  }
+  } // step 2
   ngOnInit(): void {
     console.log(1278612789361298763)
     this.setPage({ offset: 0 });
@@ -57,6 +57,7 @@ export class SupplierListComponent implements OnInit {
   }
 
   confirm() {
+    // step 3: su dung
     this.supplierService.deleteSuppliers(this.deleteRow.supplierId)
       .subscribe(data => {
         this.toastr.success('Danh mục được xóa thành công.');

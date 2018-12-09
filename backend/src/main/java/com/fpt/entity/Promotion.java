@@ -9,9 +9,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "Promotion")
+import org.hibernate.annotations.Proxy;
 
+@Entity
+@Table(name = "promotion")
+@Proxy(lazy = false)
 public class Promotion {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,11 +25,11 @@ public class Promotion {
 	@Column(name = "discountCode", nullable = false)
 	private String disountCode;
 	@Column(name = "discount", nullable = false)
-	private Float discount;
+	private Integer discount;
 	@Column(name = "createDate", nullable = false)
-	private Date createDate;
+	private Long createDate;
 	@Column(name = "exprieDate", nullable = false)
-	private Date exprieDate;
+	private Long exprieDate;
 
 	public Long getPromotionId() {
 		return promotionId;
@@ -53,34 +55,28 @@ public class Promotion {
 		this.disountCode = disountCode;
 	}
 
-	public Float getDiscount() {
+	public Integer getDiscount() {
 		return discount;
 	}
 
-	public void setDiscount(Float discount) {
+	public void setDiscount(Integer discount) {
 		this.discount = discount;
 	}
 
-	public Date getCreateDate() {
+	public Long getCreateDate() {
 		return createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(Long createDate) {
 		this.createDate = createDate;
 	}
 
-	public Date getExprieDate() {
+	public Long getExprieDate() {
 		return exprieDate;
 	}
 
-	public void setExprieDate(Date exprieDate) {
+	public void setExprieDate(Long exprieDate) {
 		this.exprieDate = exprieDate;
 	}
-
-	
-
-	
-
-	
 
 }

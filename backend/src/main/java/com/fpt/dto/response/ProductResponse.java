@@ -21,10 +21,19 @@ public class ProductResponse {
 	private Integer quantity;
 
 	private String description;
+	private Integer discount;
 
 	private Supplier supplier;
 	private Date createdDate;
 	private List<Image> images;
+
+	public Integer getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(Integer discount) {
+		this.discount = discount;
+	}
 
 	public Long getProductId() {
 		return productId;

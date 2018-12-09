@@ -26,7 +26,14 @@ public class ImageProductController {
 	public void download(@PathVariable("id") Long id, HttpServletResponse response) throws Exception {
 		Image image = imageService.getById(id);
 		File file = new File(image.getImageUrl());
-		InputStream inputStream = new FileInputStream(file);
+		InputStream inputStream = null;
+		try {
+			inputStream = new FileInputStream(file);
+		} catch (Exception e) {
+			inputStream = null;
+			// TODO: handle exception
+		}
+
 		response.setContentType("image/*");
 //		response.setHeader("Content-Disposition", "attachment; filename=" + file.getName());
 		IOUtils.copy(inputStream, response.getOutputStream());

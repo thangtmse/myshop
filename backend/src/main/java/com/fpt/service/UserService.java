@@ -47,4 +47,13 @@ public class UserService {
 		return userRepository.getOne(profile.getUserId());
 	}
 
+	public User save(User user) {
+		return userRepository.save(user);
+	}
+
+	public User getByUserName(String username) {
+		// TODO Auto-generated method stub
+		return userRepository.getUserByUsername(username);
+	}
+
 }
