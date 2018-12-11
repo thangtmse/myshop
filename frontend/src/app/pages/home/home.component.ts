@@ -10,11 +10,6 @@ import { Product } from "../../app.models";
 export class HomeComponent implements OnInit {
 
   public slides = [
-    { title: 'The biggest sale', subtitle: 'Special for today', image: 'assets/images/carousel/banner1.jpg' },
-    { title: 'Summer collection', subtitle: 'New Arrivals On Sale', image: 'assets/images/carousel/banner2.jpg' },
-    { title: 'The biggest sale', subtitle: 'Special for today', image: 'assets/images/carousel/banner3.jpg' },
-    { title: 'Summer collection', subtitle: 'New Arrivals On Sale', image: 'assets/images/carousel/banner4.jpg' },
-    { title: 'The biggest sale', subtitle: 'Special for today', image: 'assets/images/carousel/banner5.jpg' }
   ];
 
   public brands = [];
@@ -30,11 +25,29 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.getBanners();
     this.getProducts("featured");
+    this.initSlide();
     this.getBrands();
   }
 
   public onLinkClick(e) {
     this.getProducts(e.tab.textLabel.toLowerCase());
+  }
+
+  public initSlide(){
+    this.appService.getProducts("", null, null, null, 0, 5).subscribe((data: any) => {
+      let products:any = data.content;
+      products.forEach(element => {
+        console.log(element);
+          let slide :any={
+            title: element.name,
+            subtitle: element.description,
+            image:element.images[0].big,
+            id:element.id
+          }
+          console.log(slide);
+          this.slides.push(slide);
+      });
+    })
   }
 
   public getProducts(type) {
