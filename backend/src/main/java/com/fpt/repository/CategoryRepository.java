@@ -7,9 +7,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.fpt.entity.Category;
 
+
+@Repository("categoryRepository ")
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 	public Page<Category> findBycategoryNameContainingAndDeleted(String q, Boolean deleted, Pageable pageable);
 

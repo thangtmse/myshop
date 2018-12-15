@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.fpt.dto.request.ChangePasswordDTO;
 import com.fpt.entity.User;
 import com.fpt.service.UserService;
 import com.fpt.utils.PasswordUtils;
@@ -35,22 +34,22 @@ public class UserController {
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "change-password", method = RequestMethod.POST)
-	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) throws Exception {
-		User user = userService.getByUserAndPass(changePasswordDTO.getUsername(),
-				passwordUtils.encode(changePasswordDTO.getCurPassword()));
-		Map<String, Object> response = new HashMap<>();
-		if (user == null) {
-			response.put("message", "tài khoản hoặc mật khẩu sai");
-			response.put("isSuccess", false);
-			return new ResponseEntity<>(response, HttpStatus.OK);
-		}
-		user.setPassword(passwordUtils.encode(changePasswordDTO.getNewPassword()));
-		userService.save(user);
-		response.put("isSuccess", true);
-		response.put("message", "thay đổi password thành công");
-		return new ResponseEntity<>(response, HttpStatus.OK);
-	}
+//	@RequestMapping(path = "change-password", method = RequestMethod.POST)
+//	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDTO changePasswordDTO) throws Exception {
+//		User user = userService.getByUserAndPass(changePasswordDTO.getUsername(),
+//				passwordUtils.encode(changePasswordDTO.getCurPassword()));
+//		Map<String, Object> response = new HashMap<>();
+//		if (user == null) {
+//			response.put("message", "tài khoản hoặc mật khẩu sai");
+//			response.put("isSuccess", false);
+//			return new ResponseEntity<>(response, HttpStatus.OK);
+//		}
+//		user.setPassword(passwordUtils.encode(changePasswordDTO.getNewPassword()));
+//		userService.save(user);
+//		response.put("isSuccess", true);
+//		response.put("message", "thay đổi password thành công");
+//		return new ResponseEntity<>(response, HttpStatus.OK);
+//	}
 
 	// @PreAuthorize("hasAnyAuthority('ADMIN', 'EMPLOYEE', 'CUSTOMER')")
 	@RequestMapping(path = "profile", method = RequestMethod.GET)

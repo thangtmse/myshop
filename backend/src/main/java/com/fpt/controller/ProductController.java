@@ -41,7 +41,7 @@ public class ProductController {
 		return new ResponseEntity<>(productMapper.toProductResponse(productService.findOne(id)), HttpStatus.OK);
 	}
 
-	@RequestMapping(path = "", method = RequestMethod.POST)
+	@RequestMapping(path = "/acept", method = RequestMethod.POST)
 	public ResponseEntity<?> create(@RequestBody ProductRequest productRequest) {
 		return new ResponseEntity<>(
 				productMapper.toProductResponse(productService.create(productMapper.toProduct(productRequest))),
@@ -56,10 +56,10 @@ public class ProductController {
 	}
 
 	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<?> delete(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest) {
-		Product product = productMapper.toProduct(productRequest);
-		product.setProductId(id);
-		return new ResponseEntity<>(productMapper.toProductResponse(productService.delete(product.getProductId())),
+	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+		//Product product = productMapper.toProduct(productRequest);
+		
+		return new ResponseEntity<>(productMapper.toProductResponse(productService.delete(id)),
 				HttpStatus.OK);
 	}
 

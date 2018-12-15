@@ -10,72 +10,48 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   templateUrl: './checkout.component.html'
-})export class CheckOutComponent implements OnInit {
+}) export class CheckOutComponent implements OnInit {
 
   orderId: number = Number.NaN;
-  name: string;
-  phone: string;
-  dateNow: string;
+  orderInfo: any;
   returnMoneyGlobal: number;
-  
-  myGroup = new FormGroup({
-       receive: new FormControl('', Validators.required),
-       return: new FormControl('', Validators.required),
-       total: new FormControl('', Validators.required),
-  });
+  total: number = 0;
 
-  orderDetail: {item: string, quantity: number, unitPrice: number, total: number}[] = [];
+  orderDetail: any[] = [];
 
   constructor(private route: ActivatedRoute,
-  	private orderService: OrderService,
-  	private router: Router,
+    private orderService: OrderService,
+    private router: Router,
     private toastr: ToastrService) { }
 
-  ngOnInit(): void {  	
-    let ts = new Date();
-    this.dateNow = ts.toLocaleString();
+  ngOnInit(): void {
     this.orderId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     this.orderService.getOrder(this.orderId).subscribe(data => {
-      console.log(data);
-      this.name = data.customer.name;
-      this.phone = data.customer.phone;
-    	let total = 0;
-    	for(let detail of data.orderDetail){
-        if (detail.status != 3) continue;
-    		total += detail.quantity * detail.foodPrice;
-    		this.orderDetail.push({
-    			item: detail.foodName,
-    			quantity: detail.quantity,
-    			unitPrice: detail.foodPrice,
-    			total: detail.quantity * detail.foodPrice
-    		});
-    	}
-    	this.myGroup.get('total').setValue(total);
-    	console.log(total);
+      this.orderDetail = [];
+      this.total = 0;
+      for (let detail of data) {
+        this.total += detail.totalprice;
+        this.orderDetail.push(detail);
+      }
     });
+    this.orderService.getOrderInfo(this.orderId).subscribe(data => {
+      this.orderInfo = data;
+      this.orderInfo.customerName = data.user.username + ' - ' + data.user.fullName;
+      this.orderInfo.dateNow = new Date(data.addAt).toLocaleString();
+
+    })
   }
 
-  changeReceive(event:any) {
-  	let total = this.myGroup.get('total').value;
-    let returnMoney = this.myGroup.get('receive').value - total;
-    this.returnMoneyGlobal = returnMoney;
-  	this.myGroup.get('return').setValue(this.returnMoneyGlobal);
-  }
 
-  checkOutAction(){
-    if(this.returnMoneyGlobal < 0 || this.myGroup.get('receive').value == "" || this.myGroup.get('receive').value == null) {
-      this.toastr.error('Không đủ tiền để thanh toán hóa đơn này');
-      return;
-    } else {
-      this.orderService.checkout(this.orderId).subscribe(
-        data => {
-          this.toastr.success('Hóa đơn thanh toán thành công');
-          this.router.navigate(['/manage/cashier']);
-        },
-        error => {
-          this.toastr.error(error.error.message);
-        }
-      )
-    }
+  changeStatus(status: any) {
+    this.orderService.changeStatus(this.orderId, status).subscribe(
+      data => {
+        this.toastr.success('Cập nhật thông tin đơn hàng thành công');
+        this.ngOnInit();
+      },
+      error => {
+        this.toastr.error(error.error.message);
+      }
+    )
   }
 }

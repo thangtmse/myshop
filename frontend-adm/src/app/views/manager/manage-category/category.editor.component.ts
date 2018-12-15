@@ -31,6 +31,7 @@ export class CategoryEditorComponent implements OnInit {
     if (!Number.isNaN(this.categoryId)) {
       this.categoryService.getCategory(this.categoryId).subscribe(data => {
         // this.editorForm.get('categoryname').disable();
+        console.log(data);
         this.editorForm.get('categoryname').setValue(data.categoryName);
         this.editorForm.get('description').setValue(data.description);
         this.editorForm.get('image').setValue(data.imageurl);

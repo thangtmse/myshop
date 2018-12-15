@@ -12,9 +12,22 @@ export class FoodService {
 
   constructor(private httpClient: HttpClient) {
     }
+    
+    
+     
 
     getAllCategory(): Observable<any> {
-        return this.httpClient.get(environment.url + "api/categories?size=999")
+        return this.httpClient.get(environment.url + 'api/category/all')
+            .pipe(
+                catchError((error:HttpErrorResponse) => {
+                    return new Observable((observer:InnerSubscriber<any, any> )=>{
+                        observer.error(error)
+                    });
+                })
+            );
+    }
+    getAllSupplier(): Observable<any> {
+        return this.httpClient.get(environment.url + "api/supplier/all")
             .pipe(
                 catchError((error:HttpErrorResponse) => {
                     return new Observable((observer:InnerSubscriber<any, any> )=>{
@@ -51,7 +64,7 @@ export class FoodService {
     }
 
     getOneFood(productId: number): Observable<any> {    
-        return this.httpClient.get(environment.url + "api/product/" + productId)
+        return this.httpClient.get(environment.url + 'api/product/' + productId)
             .pipe(
                 catchError((error:HttpErrorResponse) => {
                     return new Observable((observer:InnerSubscriber<any, any> )=>{
@@ -62,7 +75,7 @@ export class FoodService {
     }
 
     createNewFood(food: any): Observable<any> {
-    	return this.httpClient.post(environment.url + "api/product", food)
+    	return this.httpClient.post(environment.url + 'api/product/acept', food)
     		.pipe(
                 catchError((error:HttpErrorResponse) => {
                     return new Observable((observer:InnerSubscriber<any, any> )=>{
@@ -72,8 +85,8 @@ export class FoodService {
             );	
     }
 
-    updateFood(food: any): Observable<any> {
-    	return this.httpClient.put(environment.url + "api/product", food)
+    updateFood(id: any, params: any): Observable<any> {
+    	return this.httpClient.put(environment.url + 'api/product/'+id,params )
     		.pipe(
                 catchError((error:HttpErrorResponse) => {
                     return new Observable((observer:InnerSubscriber<any, any> )=>{
@@ -83,8 +96,8 @@ export class FoodService {
             );	
     }
 
-    deleteFood(foodId: number): Observable<any> {   
-        return this.httpClient.delete(environment.url + 'api/product' + foodId)
+    deleteFood(productId: any): Observable<any> {   
+        return this.httpClient.delete(environment.url + 'api/product/' + productId)
             .pipe(
                 catchError((error:HttpErrorResponse) => {
                     return new Observable((observer:InnerSubscriber<any, any> )=>{

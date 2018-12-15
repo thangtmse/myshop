@@ -21,4 +21,13 @@ public class ImageService {
 	public Image getById(Long id) {
 		return imageProductRepository.getOne(id);
 	}
+	public Image create(Image image) {
+		return imageProductRepository.save(image);
+	}
+	public void deleteIdNotIn(List<Long> ids, Long pid) {
+		System.out.println("===uimage service ===");
+		System.out.println(ids);
+		System.out.println(pid);
+		imageProductRepository.deleteAllByImageIdNotInAndProductId(ids, pid);
+	}
 }

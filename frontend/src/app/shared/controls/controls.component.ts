@@ -82,7 +82,7 @@ export class ControlsComponent implements OnInit {
   public addToCart(product:Product){
     console.log(product);
     product.quantity = this.count;
-    this.appService.addToCart(product);
+    this.appService.addToCart(Object.assign({},product));
   }
 
   public openProductDialog(event){

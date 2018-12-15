@@ -14,10 +14,17 @@ export class OrderService {
     }
 
     getOrders(params: any): Observable<any> {
-        return this.httpClient.get(environment.url + 'api/orders', { params: params })
+        return this.httpClient.get(environment.url + 'api/order', { params: params })
             .pipe(
-                catchError((error:HttpErrorResponse) => {
-                    return new Observable((observer:InnerSubscriber<any, any> )=>{
+                map((res: any) => {
+                    res.content.map(data => {
+                        data.createDate = new Date(data.addAt);
+                        return data;
+                    });
+                    return res;
+                }),
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error)
                     });
                 })
@@ -25,10 +32,10 @@ export class OrderService {
     }
 
     getOrdersByPhone(phoneNumber: string, params: any): Observable<any> {
-        return this.httpClient.get(environment.url + 'api/orders?search=' + phoneNumber + '&status=-1', { params: params })
+        return this.httpClient.get(environment.url + 'api/order?search=' + phoneNumber + '&status=-1', { params: params })
             .pipe(
-                catchError((error:HttpErrorResponse) => {
-                    return new Observable((observer:InnerSubscriber<any, any> )=>{
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error)
                     });
                 })
@@ -36,10 +43,21 @@ export class OrderService {
     }
 
     getListOrderParent(id: any): Observable<any> {
-        return this.httpClient.get(environment.url + 'api/orders/except/'+ id)
-           .pipe(
-                catchError((error:HttpErrorResponse) => {
-                    return new Observable((observer:InnerSubscriber<any, any> )=>{
+        return this.httpClient.get(environment.url + 'api/order/except/' + id)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
+                        observer.error(error)
+                    });
+                })
+            );
+    }
+
+    getOrderInfo(id: any): Observable<any> {
+        return this.httpClient.get(environment.url + 'api/order/' + id)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error)
                     });
                 })
@@ -47,10 +65,14 @@ export class OrderService {
     }
 
     getOrder(id: any): Observable<any> {
-        return this.httpClient.get(environment.url + 'api/orders/'+ id)
+        return this.httpClient.get(environment.url + 'api/order/' + id + "/detail")
             .pipe(
-                catchError((error:HttpErrorResponse) => {
-                    return new Observable((observer:InnerSubscriber<any, any> )=>{
+                map((data: any) => {
+                    data.createDate = new Date(data.addAt);
+                    return data;
+                }),
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error)
                     });
                 })
@@ -58,10 +80,10 @@ export class OrderService {
     }
 
     getOrderDetail(id: any): Observable<any> {
-        return this.httpClient.get(environment.url + 'api/orderdetail/'+ id)
+        return this.httpClient.get(environment.url + 'api/orderdetail/' + id)
             .pipe(
-                catchError((error:HttpErrorResponse) => {
-                    return new Observable((observer:InnerSubscriber<any, any> )=>{
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error)
                     });
                 })
@@ -69,10 +91,10 @@ export class OrderService {
     }
 
     createOrders(params: any): Observable<any> {
-        return this.httpClient.post(environment.url + 'api/orders', params)
+        return this.httpClient.post(environment.url + 'api/order', params)
             .pipe(
-                catchError((error:HttpErrorResponse) => {
-                    return new Observable((observer:InnerSubscriber<any, any> )=>{
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error)
                     });
                 })
@@ -80,10 +102,10 @@ export class OrderService {
     }
 
     updateOrders(id: any, params: any): Observable<any> {
-        return this.httpClient.put(environment.url + 'api/orders/' + id, params)
+        return this.httpClient.put(environment.url + 'api/order/' + id, params)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    return new Observable((observer: InnerSubscriber<any, any> ) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error);
                     });
                 })
@@ -91,10 +113,10 @@ export class OrderService {
     }
 
     updateOrderByOrderDetail(id: any, params: any): Observable<any> {
-        return this.httpClient.put(environment.url + 'api/orders/update/' + id, params)
+        return this.httpClient.put(environment.url + 'api/order/update/' + id, params)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    return new Observable((observer: InnerSubscriber<any, any> ) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error);
                     });
                 })
@@ -102,10 +124,10 @@ export class OrderService {
     }
 
     deleteOrders(id: any): Observable<any> {
-        return this.httpClient.delete(environment.url + 'api/orders/' + id)
+        return this.httpClient.delete(environment.url + 'api/order/' + id)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    return new Observable((observer: InnerSubscriber<any, any> ) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error);
                     });
                 })
@@ -113,35 +135,47 @@ export class OrderService {
     }
 
     checkout(id: any): Observable<any> {
-        return this.httpClient.get(environment.url + 'api/orders/' + id + '/checkout')
+        return this.httpClient.get(environment.url + 'api/order/' + id + '/checkout')
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    return new Observable((observer: InnerSubscriber<any, any> ) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error);
                     });
                 })
             );
     }
 
-    changeDetailStatus(id: number, status: number,orderID: number,): Observable<any> {
-        let query = environment.url + 'api/orders/detail/' + id + '?status=' + status+'&order_id=' + orderID;
+    changeStatus(id: number, status: string ): Observable<any> {
+        let query = environment.url + 'api/order/'+id+'/status/?status='+status;
         return this.httpClient.post(query, "")
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    return new Observable((observer: InnerSubscriber<any, any> ) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error);
                     });
                 })
             );
     }
 
-    getRecommend(foods:String, size:number): Observable<any> {
-        foods = foods.substr(3,foods.length);
-        let query = environment.url + 'api/recommend/?food=' + foods+'&size=' + size;
+    changeDetailStatus(id: number, status: number, orderID: number, ): Observable<any> {
+        let query = environment.url + 'api/order/detail/' + id + '?status=' + status + '&order_id=' + orderID;
+        return this.httpClient.post(query, "")
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
+                        observer.error(error);
+                    });
+                })
+            );
+    }
+
+    getRecommend(foods: String, size: number): Observable<any> {
+        foods = foods.substr(3, foods.length);
+        let query = environment.url + 'api/recommend/?food=' + foods + '&size=' + size;
         return this.httpClient.get(query)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
-                    return new Observable((observer: InnerSubscriber<any, any> ) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
                         observer.error(error);
                     });
                 })

@@ -1,4 +1,4 @@
-<div class="top-menu">    
+<div class="top-menu">
 
     <!-- <a mat-button [matMenuTriggerFor]="currencyMenu" #currencyMenuTrigger="matMenuTrigger">
         {{currency}}<mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
@@ -29,56 +29,54 @@
         <a mat-button routerLink="/wishlist">Wishlist ({{appService.Data.wishList.length}})</a>
     </span>   -->
 
-    <a mat-button [matMenuTriggerFor]="accountMenu" #accountMenuTrigger="matMenuTrigger">
-            <div *ngIf="userInfo != null">
-        <mat-icon class="mat-icon-sm account-icon">person</mat-icon> <span fxShow="false" fxShow.gt-sm>{{userInfo.username}}</span> <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
-            </div>
-            <div *ngIf="userInfo == null">
-                    <mat-icon class="mat-icon-sm account-icon">person</mat-icon> <span fxShow="false" fxShow.gt-sm>Login</span> <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
-                        </div>
+    <a mat-button *ngIf="userInfo == null" (click)="signOut()">
+        <div>
+            <mat-icon class="mat-icon-sm account-icon">person</mat-icon> <span fxShow="false" fxShow.gt-sm>Login</span>
+        </div>
+    </a>
+
+    <a mat-button [matMenuTriggerFor]="accountMenu" #accountMenuTrigger="matMenuTrigger" *ngIf="userInfo != null">
+        <div>
+            <mat-icon class="mat-icon-sm account-icon">person</mat-icon> <span fxShow="false" fxShow.gt-sm>{{userInfo.username}}</span>
+            <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
+        </div>
     </a>
     <mat-menu #accountMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-dropdown account">
         <span (mouseleave)="accountMenuTrigger.closeMenu()">
             <div *ngIf="userInfo != null">
-            <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">                   
-                <img src="assets/images/others/user.jpg" alt="user-image" width="50">
-                <p>{{userInfo.fullName}} <br> <small>{{userInfo.email}}</small></p>
+                <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">
+                    <img src="assets/images/others/user.jpg" alt="user-image" width="50">
+                    <p>{{userInfo.fullName}} <br> <small>{{userInfo.email}}</small></p>
+                </div>
+                <div class="divider"></div>
+                <a mat-menu-item routerLink="/account">
+                    <mat-icon class="mat-icon-sm">settings</mat-icon>
+                    <span>Account Settings</span>
+                </a>
+                <a mat-menu-item routerLink="/compare" fxHide="false" fxHide.gt-sm>
+                    <mat-icon class="mat-icon-sm">compare</mat-icon>
+                    <span>Compare ({{appService.Data.compareList.length}})</span>
+                </a>
+                <a mat-menu-item routerLink="/wishlist" fxHide="false" fxHide.gt-sm>
+                    <mat-icon class="mat-icon-sm">favorite</mat-icon>
+                    <span>Wishlist ({{appService.Data.wishList.length}})</span>
+                </a>
+                <a mat-menu-item routerLink="/">
+                    <mat-icon class="mat-icon-sm">lock</mat-icon>
+                    <span>Lock screen</span>
+                </a>
+                <a mat-menu-item routerLink="/">
+                    <mat-icon class="mat-icon-sm">help</mat-icon>
+                    <span>Help</span>
+                </a>
+                <div class="divider"></div>
+                <a mat-menu-item (click)="signOut()">
+                    <mat-icon class="mat-icon-sm">power_settings_new</mat-icon>
+                    <span>Sign Out</span>
+                </a>
             </div>
-            <div class="divider"></div>
-            <a mat-menu-item routerLink="/account"> 
-                <mat-icon class="mat-icon-sm">settings</mat-icon>
-                <span>Account Settings</span> 
-            </a>
-            <a mat-menu-item routerLink="/compare" fxHide="false" fxHide.gt-sm>
-                <mat-icon class="mat-icon-sm">compare</mat-icon>
-                <span>Compare ({{appService.Data.compareList.length}})</span> 
-            </a>
-            <a mat-menu-item routerLink="/wishlist" fxHide="false" fxHide.gt-sm>
-                <mat-icon class="mat-icon-sm">favorite</mat-icon>
-                <span>Wishlist ({{appService.Data.wishList.length}})</span>
-            </a>
-            <a mat-menu-item routerLink="/"> 
-                <mat-icon class="mat-icon-sm">lock</mat-icon>
-                <span>Lock screen</span> 
-            </a>
-            <a mat-menu-item routerLink="/"> 
-                <mat-icon class="mat-icon-sm">help</mat-icon>
-                <span>Help</span> 
-            </a>
-            <div class="divider"></div>
-            <a mat-menu-item  (click)="signOut()"> 
-                <mat-icon class="mat-icon-sm">power_settings_new</mat-icon>
-                <span>Sign Out</span> 
-            </a>
-        </div>
-        <div *ngIf="userInfo == null">
-                <a mat-menu-item  (click)="signOut()"> 
-                        <mat-icon class="mat-icon-sm">power_settings_new</mat-icon>
-                        <span>Login</span> 
-                    </a>
-        </div>
         </span>
-    
-    </mat-menu>    
 
-</div>  
+    </mat-menu>
+
+</div>

@@ -48,10 +48,10 @@
                 <div style="padding-left:35px;">
                     <div><strong> Chi Tiết </strong></div>
                     <ul>
-                        <li>Thời gian đặt bàn:{{row.datetime |  date:'dd/MM/yyyy hh:mm'}}</li>
+                        <li>Thời gian đặt bàn: {{row.createDate | date:'dd/MM/yyyy hh:mm'}}</li>
                     </ul>
                     <ul>
-                        <li>Ghi chú:{{row.note}}</li>
+                        <li>Ghi chú:{{row.message}}</li>
                     </ul>
                 </div>
             </ng-template>
@@ -77,23 +77,28 @@
         </ngx-datatable-column>
         <ngx-datatable-column name="Tên khách hàng" maxWidth="250">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <strong>{{row.customer.name}}</strong>
-            </ng-template>
-        </ngx-datatable-column>
-        <ngx-datatable-column name="Bàn" maxWidth="250">
-            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-             <li *ngFor="let table of row.tables">{{table.name}}</li>
+            <strong>{{row.user.username}} - {{row.user.fullName}}</strong>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Số điện thoại" maxWidth="150" >
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <span>{{row.customer.phone}}</span>
+            <span>{{row.phone}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Thành tiền" maxWidth="250">
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                {{row.totalPrice}}
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Trạng thái" maxWidth="250">
+            <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+                {{row.status}}
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
                 <div class="row">
-                    <button type="button" class="btn btn-sm btn-secondary btn-success mx-2" routerLink="/manage/cashier/checkout/{{row.id}}">Thanh toán</button>
+                    <button type="button" class="btn btn-sm btn-secondary btn-success mx-2" routerLink="/manage/cashier/checkout/{{row.orderId}}">Xem chi tiết</button>
                 </div>
             </ng-template>
         </ngx-datatable-column>

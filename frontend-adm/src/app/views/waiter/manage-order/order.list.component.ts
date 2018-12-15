@@ -5,7 +5,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { OrderService } from '../../../service/order.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
-import { FoodCategory } from '../../../model/foodCategory';
+import { ProductCategory } from '../../../model/productCategory';
 import { CommonService } from '../../../service/common.service';
 import { FoodService } from '../../../service/food.service';
 import { Food } from '../../../model/food';
@@ -36,9 +36,9 @@ export class OrderListComponent implements OnInit {
 
   categoryID: number;
   pageCategory: number;
-  foodCategories: FoodCategory[] = [];
-  foodCategoriesFather: FoodCategory[] = [];
-  foodCategoriesChild: FoodCategory[] = [];
+  foodCategories: ProductCategory[] = [];
+  foodCategoriesFather: ProductCategory[] = [];
+  foodCategoriesChild: ProductCategory[] = [];
   pageFoodNumber: number[] = [];
   numberOfElement: number = 9;
   food: Food[] = [];

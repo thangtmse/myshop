@@ -15,8 +15,8 @@
                 </a>
                 <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
                     <div fxLayout="column" fxLayoutAlign="center start">
-                        <p class="old-price text-muted"><span *ngIf="product.oldPrice">{{product.oldPrice | number : '1.0-0'}}</span></p>
-                        <p class="new-price">{{product.newPrice | number : '1.0-0'}}</p>
+                        <p class="old-price text-muted"><span *ngIf="product.oldPrice">₫{{product.oldPrice | number : '1.0-0'}}</span></p>
+                        <p class="new-price">₫{{product.newPrice | number : '1.0-0'}}</p>
                     </div>
                     <!-- <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue" [direction]="'column'"></app-rating> -->
                 </div>                            

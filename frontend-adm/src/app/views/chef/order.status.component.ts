@@ -13,7 +13,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
   templateUrl: './order.status.component.html'
 }) export class OrderStatusComponent implements OnInit {
 
-  @ViewChild('foodTable') table: any;
+  @ViewChild('productTable') table: any;
   @ViewChild('deleteModal') deleteModal: TemplateRef<any>;
   rows = [];
   role: string;

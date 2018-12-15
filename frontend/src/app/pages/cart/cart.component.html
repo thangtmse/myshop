@@ -2,7 +2,7 @@
   <mat-chip-list>
       <mat-chip color="warn" selected="true">Không có mạt hàng nào được thêm</mat-chip>
   </mat-chip-list>
-  <a [routerLink]="['/']" mat-raised-button color="primary" class="mt-2">Continue shopping</a>
+  <a [routerLink]="['/']" mat-raised-button color="primary" class="mt-2">Tiếp tục mua sắm</a>
 </div>
 
 <mat-card *ngIf="appService.Data.cartList?.length > 0" class="p-0">
@@ -16,18 +16,18 @@
       <div class="mat-header-cell">Total</div>
       <div class="mat-header-cell text-center">
         <div class="px-1">
-          <button mat-raised-button color="warn" (click)="clear()">Clear All</button>
+          <button mat-raised-button color="warn" (click)="clear()">Xóa tất cả</button>
         </div>
       </div>
     </div>
     <div *ngFor="let product of appService.Data.cartList" class="mat-row">
       <div class="mat-cell"><img [src]="product.images[0].small"></div>
       <div class="mat-cell"><a [routerLink]="['/products', product.id, product.name]" class="product-name">{{product.name}}</a></div>
-      <div class="mat-cell">{{product.newPrice | number : '1.0-0'}}</div>      
+      <div class="mat-cell">₫{{product.newPrice | number : '1.0-0'}}</div>      
       <div class="mat-cell text-muted">
         <app-controls [product]="product" [type]="'wish'" (onQuantityChange)="getTotalPrice($event)"></app-controls>
       </div>
-      <div class="mat-cell">{{total[product.id] | number : '1.0-0'}}</div>
+      <div class="mat-cell">₫{{total[product.id] | number : '1.0-0'}}</div>
       <div class="mat-cell text-center">
         <div class="p-1">
           <button mat-mini-fab color="warn" (click)="remove(product)" matTooltip="Clear">
@@ -50,9 +50,9 @@
       </div>
       <div class="mat-cell">
         <div fxLayout="column" fxLayoutAlign="center start" class="grand-total">
-          <span>{{ grandTotal | number : '1.0-0'}}</span>
+          <span>₫{{ grandTotal | number : '1.0-0'}}</span>
           <span class="text-muted">15%</span>
-          <span class="new-price">{{ (grandTotal - (grandTotal*0.15)) | number : '1.0-0'}}</span>
+          <span class="new-price">₫{{ (grandTotal - (grandTotal*0.15)) | number : '1.0-0'}}</span>
         </div>
       </div>
       <div class="mat-cell text-center"><a [routerLink]="['/checkout']" mat-raised-button color="primary">Proceed To Checkout</a></div>

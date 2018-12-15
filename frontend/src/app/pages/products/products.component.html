@@ -21,13 +21,14 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
                 <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted">
-                    <span>Từ: <b>{{priceFrom | number : '1.0-0'}}</b></span>
-                    <span>Tới: <b>{{priceTo | number : '1.0-0'}}</b></span>
+                    <span>Từ: <b>₫{{priceFrom | number : '1.0-0'}}</b></span>
+                    <span>Tới: <b>₫{{priceTo | number : '1.0-0'}}</b></span>
                 </div>
                 <div fxLayout="row" fxLayoutAlign="space-between center" class="filter-price">
                     <mat-slider color="primary" max="5000000" min="100000" thumb-label="true" [(ngModel)]="priceFrom"
                         (change)="getAllProductsBySlider()"></mat-slider>
-                    <mat-slider color="warn" max="5000000" min="100000" thumb-label="true" [(ngModel)]="priceTo" (change)="getAllProductsBySlider()"></mat-slider>
+                    <mat-slider color="warn" max="5000000" min="100000" thumb-label="true" [(ngModel)]="priceTo"
+                        (change)="getAllProductsBySlider()"></mat-slider>
                 </div>
             </mat-expansion-panel>
 
@@ -142,7 +143,7 @@
                         <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
                     </mat-chip-list>
                     <a [routerLink]="['/products', product.id, product.name]" class="image-link">
-                        <img [src]="product.images[0].medium" alt="" style="height: 220px">
+                        <img [src]="product?.images[0]?.medium" alt="" style="height: 220px">
                     </a>
                     <h4 class="category text-muted">{{ ( appService.Data.categories | filterById : product.categoryId
                         )?.name }}</h4>
@@ -151,9 +152,9 @@
                     </a>
                     <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
                         <div fxLayout="column" fxLayoutAlign="center start">
-                            <p class="old-price text-muted"><span *ngIf="product.oldPrice">{{product.oldPrice | number
+                            <p class="old-price text-muted"><span *ngIf="product.oldPrice">₫{{product.oldPrice | number
                                     : '1.0-0'}}</span></p>
-                            <p class="new-price">{{product.newPrice | number : '1.0-0'}}</p>
+                            <p class="new-price">₫{{product.newPrice | number : '1.0-0'}}</p>
                         </div>
                         <!-- <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue"
                             [direction]="'column'"></app-rating> -->
@@ -176,7 +177,7 @@
                                 <mat-chip color="warn" selected="true">{{product.discount}}% OFF</mat-chip>
                             </mat-chip-list>
                             <a [routerLink]="['/products', product.id, product.name]" class="image-link">
-                                <img [src]="product.images[0].medium" alt="">
+                                <img [src]="product?.images[0]?.medium" alt="">
                             </a>
                         </div>
                         <div fxFlex="100" fxFlex.gt-xs="60" class="p-2">
@@ -188,9 +189,9 @@
                             <p class="py-1 text-muted lh">{{product.description}}</p>
                             <div fxLayout="row" fxLayoutAlign="space-between center" class="prices">
                                 <div fxLayout="column" fxLayoutAlign="center start">
-                                    <p class="old-price text-muted"><span *ngIf="product.oldPrice">{{product.oldPrice
+                                    <p class="old-price text-muted"><span *ngIf="product.oldPrice">₫{{product.oldPrice
                                             | number : '1.0-0'}}</span></p>
-                                    <p class="new-price">{{product.newPrice | number : '1.0-0'}}</p>
+                                    <p class="new-price">₫{{product.newPrice | number : '1.0-0'}}</p>
                                 </div>
                                 <app-rating [ratingsCount]="product.ratingsCount" [ratingsValue]="product.ratingsValue"
                                     [direction]="'column'"></app-rating>

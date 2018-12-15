@@ -27,6 +27,7 @@ export class CategoryListComponent implements OnInit {
 
   setPage(pageInfo) {
     this.request.page = pageInfo.offset;
+    console.log(this.request);
     this.categoryService.getCategorys(this.request).subscribe(pagedData => {
       this.page.totalElements = pagedData.totalElements;
       this.page.pageNumber = pagedData.number;

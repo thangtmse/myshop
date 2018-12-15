@@ -1,24 +1,25 @@
 <div class="card">
 	<div class="card-header">
-		Hóa Đơn: 
-		<strong>#{{orderId}}</strong>		
+		Hóa Đơn:
+		<strong>#{{orderId}}</strong>
 	</div>
 	<div class="card-body">
 		<div class="row mb-4">
 			<div class="col-sm-6">
 				<h6 class="mb-3">Tên khách hàng:</h6>
 				<div>
-					<strong>{{name}}</strong>
+					<strong>{{orderInfo.customerName}}</strong>
 				</div>
-				<div>Số điện thoại: {{phone}}</div>
+				<div>Số điện thoại: {{orderInfo.phone}}</div>
+				<div>Địa chỉ: {{orderInfo.address}}</div>
 			</div>
 
 			<div class="col-sm-6">
-				<h6 class="mb-3">Thông tin hóa đơn:</h6>
-				<div>Hóa Đơn: 
+				<h6 class="mb-3">Thông tin hóa đơn: <strong>{{orderInfo.status}}</strong></h6>
+				<div>Hóa Đơn:
 					<strong>#{{orderId}}</strong>
 				</div>
-				<div>{{dateNow}}</div>
+				<div>{{orderInfo.dateNow}}</div>
 			</div>
 		</div>
 		<div class="table-responsive-sm">
@@ -35,10 +36,10 @@
 				<tbody>
 					<tr *ngFor="let detail of orderDetail; let i = index">
 						<td class="center">{{i + 1}}</td>
-						<td class="left">{{detail.item}}</td>
+						<td class="left">{{detail.product.productName}}</td>
 						<td class="center">{{detail.quantity}}</td>
-						<td class="right">{{detail.unitPrice}}</td>
-						<td class="right">{{detail.total}}</td>
+						<td class="right">{{detail.product.priceOut | number: '1.0-0'}}</td>
+						<td class="right">{{detail.totalprice | number: '1.0-0'}}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -48,37 +49,27 @@
 			</div>
 			<div class="col-lg-4 col-sm-5 ml-auto">
 				<div [formGroup]="myGroup">
-				<table class="table table-clear">
-					<tbody>
-						<tr>
-							<td class="left">
-                                <label for="total"><strong>Tổng chi phí: </strong></label>
-							</td>
-							<td class="right">
-								<input formControlName="total" class="form-control" id="total" placeholder="Total" type="number" name="total" readonly="true" >
-							</td>
-						</tr>
-						<tr>
-							<td class="left">
-                                <label for="receive"><strong>Nhận: </strong></label>
-							</td>
-							<td class="right">
-								<input formControlName="receive" class="form-control" id="receive" placeholder="Receive"type="number" name="receive" (change)="changeReceive($event)">
-							</td>
-						</tr>
-						<tr>
-							<td class="left">
-                                <label for="return"><strong>Trả lại: </strong></label>
-							</td>
-							<td class="right">
-								<input formControlName="return" class="form-control" id="return" placeholder="Return" type="number" name="return" readonly="true">
-							</td>
-						</tr>
-					</tbody>
-				</table>
-    			</div>
-				<button class="btn btn-success" (click)="checkOutAction()">
-					<i class="fa fa-usd"></i> Thanh toán hóa đơn
+					<table class="table table-clear">
+						<tbody>
+							<tr>
+								<td class="left">
+									<label for="total">Tổng chi phí: <strong>{{total | number: '1.0-0'}}</strong></label>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<button class="mx-2 btn btn-danger" (click)="changeStatus('Hủy')" *ngIf="orderInfo.status=='Đang xử lý'">
+					Hủy
+				</button> 
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lý')" *ngIf="orderInfo.status=='Đang giao hàng'">
+					Đang xử lý
+				</button> 
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang giao hàng')"  *ngIf="orderInfo.status=='Hoàn thành'">
+					Đang giao hàng
+				</button> 
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Hoàn thành')">
+					Hoàn thành
 				</button>
 			</div>
 		</div>

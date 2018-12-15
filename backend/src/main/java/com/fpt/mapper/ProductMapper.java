@@ -38,6 +38,7 @@ public class ProductMapper {
 		p.setQuantity(pr.getQuantity());
 		p.setSupplierId(pr.getSupplierId());
 		p.setImages(pr.getImages());
+		p.setDeleted(false);
 		return p;
 	}
 

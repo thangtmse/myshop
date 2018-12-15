@@ -1,5 +1,7 @@
 package com.fpt.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -41,5 +43,7 @@ public class SupplierService {
 	public Page<Supplier> findByNameContaining(String q, Pageable pageable) {
 		return supplierRepository.findBySupplierNameContainingAndDeleted(q, false, pageable);
 	}
-
+    public List<Supplier> findAllsup(){
+    	return supplierRepository.findAll();
+    }
 }

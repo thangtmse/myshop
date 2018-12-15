@@ -38,7 +38,7 @@ public class Product implements Serializable {
 	private Integer quantity;
 	@Column(name = "description", nullable = false,columnDefinition = "TEXT")
 	private String description;
-	@Column(name = "categoryid", nullable = false)
+	@Column(name = "categoryid")
 	private Long categoryId;
 
 	@Column(name = "supplierid", nullable = false)

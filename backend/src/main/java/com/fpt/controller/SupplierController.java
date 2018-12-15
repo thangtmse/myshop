@@ -19,6 +19,11 @@ import com.fpt.service.SupplierService;
 public class SupplierController {
 	@Autowired
 	private SupplierService supplierService;
+	
+	@RequestMapping(path = "/all", method = RequestMethod.GET)
+	public ResponseEntity<?> findAll(){
+		return new ResponseEntity<>(supplierService.findAllsup(),HttpStatus.OK);
+	}
 
 	@RequestMapping(path = "", method = RequestMethod.GET)
 	public ResponseEntity<?> getSupplier(@RequestParam(name = "name", required = false, defaultValue = "") String name,

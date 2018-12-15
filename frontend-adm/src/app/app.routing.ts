@@ -84,21 +84,21 @@ export const routes: Routes = [
         path: 'manage-table-booking',
         loadChildren: './views/waiter/manage-table-booking/manage.table_booking.module#ManageTableBookingModule',
         data: {
-          roles: ['WAITER','CUSTOMER']
+          roles: ['ADMIN','CUSTOMER']
         }
       },
       {
         path: 'order',
         loadChildren: './views/waiter/manage-order/manage.order.module#ManageOrderModule',
         data: {
-          roles: ['WAITER','CUSTOMER']
+          roles: ['ADMIN','CUSTOMER']
         }
       },
       {
         path: 'cashier',
         loadChildren: './views/cashier/cashier.module#CashierModule',
         data: {
-          roles: ['CASHIER']
+          roles: ['EMPLOYEE']
         }
       },
       {

@@ -14,7 +14,7 @@ import { Page } from '../../../model/page';
 }) export class ManageFoodComponent implements OnInit, OnChanges {
 
   page = new Page();
-  @ViewChild('foodTable') table: any;
+  @ViewChild('productTable') table: any;
   @ViewChild('deleteModal') deleteModal: TemplateRef<any>;
   modalRef: BsModalRef;
   rows = [];
@@ -46,6 +46,7 @@ import { Page } from '../../../model/page';
       this.page.size = pageData.size;
       this.rows = pageData.content;
     });
+  
   }
 
   ngOnChanges() {
@@ -65,7 +66,7 @@ import { Page } from '../../../model/page';
   }
 
   confirm() {
-    this.foodService.deleteFood(this.deleteRow.id)
+    this.foodService.deleteFood(this.deleteRow.productId)
       .subscribe(data => {
         this.toastr.success('xóa thành công');
         this.modalRef.hide();

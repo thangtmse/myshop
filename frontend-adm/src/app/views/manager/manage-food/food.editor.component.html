@@ -10,59 +10,109 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="foodName">Tên sản phẩm *</label>
-                                <input formControlName="productName" class="form-control" id="productName" placeholder="Tên sản phẩm" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('foodName').invalid}">
+                                <label for="productId">Mã code sản phẩm *</label>
+                                <input formControlName="productId" class="form-control" id="productId" placeholder="mã code sản phẩm"
+                                    type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('productId').invalid}">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label for="status">danh mục sản phẩm</label>
-                                <select class="form-control" id="status" formControlName="status">
+                                <label for="productName">Tên sản phẩm *</label>
+                                <input formControlName="productName" class="form-control" id="productName" placeholder="Tên sản phẩm"
+                                    type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('productName').invalid}">
+                            </div>
+                        </div>
+                        <!-- <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="category">danh mục sản phẩm</label>
+                                <select class="form-control" id="category" formControlName="category">
                                     <option value="ACTIVE">Mỹ phẩm</option>
                                     <option value="INACTIVE">Bánh kẹo</option>
                                     <option value="ACTIVE_READY">Phục vụ-Không cần chế biến</option>
                                 </select>
                             </div>
+                        </div> -->
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="priceIn">Giá nhập vào *</label>
+                                <input formControlName="priceIn" class="form-control" id="priceIn" placeholder="Giá nhập vào"
+                                    type="number" [ngClass]="{'is-invalid': isSubmited && editorForm.get('priceIn').invalid}">
+                                <div class="invalid-feedback">
+                                    <span *ngIf="editorForm.get('priceIn').errors?.required">Trường này không thể để
+                                        trống</span>
+                                    <span *ngIf="editorForm.get('priceIn').errors?.message">{{editorForm.get('priceIn').errors?.message}}</span>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <div class="form-group">
-                                <label for="price">Giá tiền *</label>
-                                <input formControlName="price" class="form-control" id="price" placeholder="Giá" type="number" [ngClass]="{'is-invalid': isSubmited && editorForm.get('price').invalid}">
+                                <label for="priceOut">Giá bán *</label>
+                                <input formControlName="priceOut" class="form-control" id="priceOut" placeholder="Giá bán"
+                                    type="number" [ngClass]="{'is-invalid': isSubmited && editorForm.get('priceOut').invalid}">
                                 <div class="invalid-feedback">
-                                    <span *ngIf="editorForm.get('price').errors?.required">Trường này không thể để trống</span>
-                                    <span *ngIf="editorForm.get('price').errors?.message">{{editorForm.get('price').errors?.message}}</span>
+                                    <span *ngIf="editorForm.get('priceOut').errors?.required">Trường này không thể để
+                                        trống</span>
+                                    <span *ngIf="editorForm.get('priceOut').errors?.message">{{editorForm.get('priceOut').errors?.message}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="quantity">Số lượng *</label>
+                                <input formControlName="quantity" class="form-control" id="quantity" placeholder="số lượng"
+                                    type="number" [ngClass]="{'is-invalid': isSubmited && editorForm.get('quantity').invalid}">
+                                <div class="invalid-feedback">
+                                    <span *ngIf="editorForm.get('quantity').errors?.required">Trường này không thể để
+                                        trống</span>
+                                    <span *ngIf="editorForm.get('quantity').errors?.message">{{editorForm.get('quantity').errors?.message}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="category">Danh mục sản phẩm</label>
+                                <select formControlName="category" id="category" name="category" class="form-control"
+                                    required [ngClass]="{'is-invalid': isSubmited && editorForm.get('category').invalid}">
+                                    <option [value]="cat.categoryId" *ngFor="let cat of productcategory">{{cat.categoryName}}</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="editorForm.get('category').errors?.required">Trường này không thể để
+                                        trống</span>
+                                    <span *ngIf="editorForm.get('category').errors?.message">{{editorForm.get('category').errors?.message}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="supplier">Nhà cung cấp</label>
+                                <select formControlName="supplier" id="supplier" name="supplier" class="form-control"
+                                    required [ngClass]="{'is-invalid': isSubmited && editorForm.get('supplier').invalid}">
+                                    <option [value]="cat.supplierId" *ngFor="let cat of productsupplier">{{cat.supplierName}}</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    <span *ngIf="editorForm.get('supplier').errors?.required">Trường này không thể để
+                                        trống</span>
+                                    <span *ngIf="editorForm.get('supplier').errors?.message">{{editorForm.get('supplier').errors?.message}}</span>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="category">Danh mục sản phẩm</label>
-                                <ng-select class="form-control ng-select ng-select-multiple ng-select-searchable ng-valid ng-select-bottom ng-dirty ng-touched ng-select-opened" multiple="true" 
-                                   hideSelected="true" 
-                                   [items]="productcategory"
-                                   bindLabel="name"
-                                   bindValue="id"
-                                   [(ngModel)]="category"
-                                   [ngModelOptions]="{standalone: true}"></ng-select>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
                                 <label for="description">Mô tả</label>
-                                <textarea formControlName="description" class="form-control" id="description" rows="6" >
+                                <textarea formControlName="description" class="form-control" id="description" rows="6">
                                 </textarea>
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label for="image">Ảnh</label>
-                                <input formControlName="image" class="form-control" id="image"  type="file" [ngClass]="{'is-invalid': isSubmited && editorForm.get('image').invalid}" 
-                                (change)="readUrl($event)"/>
+                                <input formControlName="image" class="form-control" id="image" type="file" [ngClass]="{'is-invalid': isSubmited && editorForm.get('image').invalid}"
+                                    (change)="readUrl($event)" multiple />
                             </div>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <img width="100%" [src]="img">
+                                <img width="200px" [src]="i.imageUrl" *ngFor="let i of img" (click)="removeImage(i)">
                             </div>
                         </div>
                     </div>

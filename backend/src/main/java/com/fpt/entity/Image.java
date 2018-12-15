@@ -7,8 +7,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Proxy;
+
 @Entity
 @Table(name = "Image")
+@Proxy(lazy=false)
 public class Image {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -42,5 +45,11 @@ public class Image {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
+
+	@Override
+	public String toString() {
+		return "Image [imageId=" + imageId + ", productId=" + productId + ", imageUrl=" + imageUrl + "]";
+	}
+	
 
 }

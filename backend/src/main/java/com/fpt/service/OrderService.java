@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fpt.dto.request.OrderDTO;
@@ -13,6 +15,7 @@ import com.fpt.entity.Product;
 import com.fpt.repository.OrderDetailRepository;
 import com.fpt.repository.OrderRepository;
 import com.fpt.repository.ProductRepository;
+import com.fpt.repository.UserRepository;
 
 @Service
 public class OrderService {
@@ -23,7 +26,8 @@ public class OrderService {
 	private OrderDetailRepository orderDetailRepository;
 	@Autowired
 	private ProductRepository productRepository;
-
+     @Autowired
+     private UserRepository userRepository;
 	public Order create(OrderDTO orderdto) {
 		Order order = new Order();
 		order.setAddress(orderdto.getAddress());
@@ -50,15 +54,37 @@ public class OrderService {
 		// TODO Auto-generated method stub
 		return orderRepository.save(order);
 	}
+	
+	public Page<Order> getall(Pageable pageable){
+		return orderRepository.findAll(pageable);
+	}
 
-	public List<Order> findOrdersByUserId(Long id) {
+	public List<Order> findOrder(Long id) {
 		// TODO Auto-generated method stub
+		 
 		return orderRepository.findOrderByUserIdOrderByAddAtDesc(id);
 	}
+	
 
 	public List<OrderDetail> findOrderDetailsByOrderId(Long id) {
 		// TODO Auto-generated method stub
 		return orderDetailRepository.findOrderDetailByOrderId(id);
+	}
+
+	public Page<Order> getall(String phone, Pageable pageable) {
+		return orderRepository.findByPhoneContaining(phone, pageable);
+	}
+
+	public Order getById(Long id) {
+		// TODO Auto-generated method stub
+		return orderRepository.getOne(id);
+	}
+
+	public Order changeStatus(Long id, String status) {
+		Order order = getById(id);
+		order.setStatus(status);
+		order = orderRepository.save(order);
+		return order;
 	}
 
 }

@@ -51,41 +51,13 @@ export class AppComponent implements OnInit {
     })
   }
   initRealtime(){
-    var orderdetail = window.pusher.subscribe('orderdetail');
-    orderdetail.bind('change-status-food', function (data) {
-      SharedService.foodStatusChange.next();
-    });
+    
   }
   initNotiForChef() {
-    var chefChannel = window.pusher.subscribe('chef-channel');
-    chefChannel.bind('orderdetail-precook', function (data) {
-      SharedService.newFoodPreCook.next(data);
-      window.showNotification("Buzz! Buzz!", {
-        body: 'Có món cần nấu',
-        icon: 'assets/img/noti_icon.png',
-        vibrate: [200, 100, 200, 100, 200, 100, 200],
-        tag: 'vibration-sample',
-        data: {
-          url: '../#/manage/chef'
-        }
-      })
-    });
-  }
+    }
 
   initNotiForWaiter() {
-    var chefChannel = window.pusher.subscribe('waiter-channel');
-    chefChannel.bind('orderdetail-done', function (data) {
-      SharedService.newFoodReady.next(data);
-      window.showNotification("Buzz! Buzz!", {
-        body: 'Có món nấu xong',
-        icon: 'assets/img/noti_icon.png',
-        vibrate: [200, 100, 200, 100, 200, 100, 200],
-        tag: 'vibration-sample',
-        data: {
-          url: '../#/manage/chef'
-        }
-      })
-    });
+    
   }
 }
 interface Window {

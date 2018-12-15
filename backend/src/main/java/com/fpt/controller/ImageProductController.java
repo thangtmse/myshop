@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,19 @@ public class ImageProductController {
 		IOUtils.copy(inputStream, response.getOutputStream());
 		response.flushBuffer();
 		inputStream.close();
+	}
+	
+	@RequestMapping(path = "/upload", method = RequestMethod.POST)
+	public void saveImage(HttpServletResponse response) {
+		byte[] imageByte=Base64.decodeBase64("");
+
+        String directory= this.getClass().getClassLoader().getResource("").getPath()+"../../../images/";
+        Image image=new Image();
+        image.setImageUrl(directory);
+        imageService.create(image);
+   
+//        new FileOutputStream(directory).write(imageByte);
+//        return "success ";
 	}
 
 }

@@ -1,16 +1,14 @@
 package com.fpt.dto.response;
 
-import java.util.Date;
-
 import com.fpt.entity.Product;
 
 public class PromotionResponse {
      private Long promotionId;
      private Product product;
      private String discountCode;
-     private Float discount;
-     private Date createDate;
-     private Date exprieDate;
+     private Integer discount;
+     private Long createDate;
+     private Long exprieDate;
 	public Long getPromotionId() {
 		return promotionId;
 	}
@@ -29,22 +27,24 @@ public class PromotionResponse {
 	public void setDiscountCode(String discountCode) {
 		this.discountCode = discountCode;
 	}
-	public Float getDiscount() {
+	
+	public Integer getDiscount() {
 		return discount;
 	}
-	public void setDiscount(Float discount) {
+	public void setDiscount(Integer discount) {
 		this.discount = discount;
 	}
-	public Date getCreateDate() {
+	
+	public Long getCreateDate() {
 		return createDate;
 	}
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(Long createDate) {
 		this.createDate = createDate;
 	}
-	public Date getExprieDate() {
+	public Long getExprieDate() {
 		return exprieDate;
 	}
-	public void setExprieDate(Date exprieDate) {
+	public void setExprieDate(Long exprieDate) {
 		this.exprieDate = exprieDate;
 	}
 	@Override

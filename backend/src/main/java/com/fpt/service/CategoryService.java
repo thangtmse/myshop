@@ -14,10 +14,14 @@ import com.fpt.controller.error.APIException;
 import com.fpt.entity.Category;
 import com.fpt.repository.CategoryRepository;
 
-@Service
+@Service("categoryService")
 public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
+	
+	public List<Category> findAll(){
+		return categoryRepository.findAll();
+	}
 
 	public List<Long> findCategoryId(Long id) throws Exception {
 		try {

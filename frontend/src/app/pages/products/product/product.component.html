@@ -11,8 +11,8 @@
                 <div class="swiper-wrapper"> 
                     <div *ngFor="let image of product?.images" class="swiper-slide">
                         <mat-card (click)="selectImage(image)" class="p-1">
-                            <img [attr.data-src]="image.small" class="swiper-lazy"/>
-                            <div class="swiper-lazy-preloader"></div>
+                            <img [attr.src]="image.small" class="swiper-lazy"/>
+                            <!-- <div class="swiper-lazy-preloader"></div> -->
                         </mat-card>
                     </div>                    
                 </div>
@@ -31,7 +31,7 @@
 
         <h2>{{product?.name}}</h2>
         <div class="py-1 lh">
-            <p><span class="text-muted fw-500">Category: </span><span>{{ ( appService.Data.categories | filterById : product?.categoryId )?.name }}</span></p>
+            <!-- <p><span class="text-muted fw-500">Category: </span><span>{{ ( appService.Data.categories | filterById : product?.categoryId )?.name }}</span></p> -->
             <p><span class="text-muted fw-500">Trạng thái: </span><span>{{ (product?.availibilityCount > 0) ? 'Còn hàng':'Tạm hết hàng'}}</span></p>
         </div>                 
         <!-- <div class="py-1">
@@ -40,7 +40,7 @@
         <p class="py-1 text-muted lh">{{product?.description}}</p>
 
         <div class="divider mt-1"></div>
-        <h2 class="py-2 new-price">{{product?.newPrice | number : '1.0-0'}}</h2>
+        <h2 class="py-2 new-price">₫{{product?.newPrice | number : '1.0-0'}}</h2>
 
         <!-- <div fxLayout="row" fxLayout.xs="column" fxLayoutAlign="space-between center" class="details text-muted py-1">
             <div *ngIf="product?.color" class="color">

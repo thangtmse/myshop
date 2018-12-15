@@ -26,7 +26,11 @@ import com.fpt.service.CategoryService;
 public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
-
+	@RequestMapping(path = "/all", method = RequestMethod.GET)
+	public ResponseEntity<?> findAll()
+	{
+		return new ResponseEntity<>(categoryService.findAll(),HttpStatus.OK);
+	}
 	@RequestMapping(path = "", method = RequestMethod.GET)
 	public ResponseEntity<?> getCategory(@RequestParam(name = "name", required = false, defaultValue = "") String name,
 			Pageable pageable) {

@@ -120,9 +120,9 @@ export const navItems = [
     roles: ['CHEF','WAITER']
   },
   {
-    name: 'Thanh toán',
+    name: 'Quản lí hóa đơn',
     url: '/manage/cashier',
     icon: 'icon-paypal',
-    roles: ['CASHIER']
+    roles: ['ADMIN', 'EMPLOYEE']
   }
 ];
