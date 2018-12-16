@@ -62,6 +62,8 @@ public getOrdersByUser(userId:number):  Observable<any> {
         }));
     }
 
+    
+
     public login(data: any): Observable<any> {
         return this.http.post<any[]>(this.API_URL + '/user/authenticate', data).pipe(map((data: any) => {
                 console.log('end');
@@ -122,6 +124,8 @@ public getOrdersByUser(userId:number):  Observable<any> {
             return data;
         }));
     }
+
+   
 
     public checkout(cart): Observable<any> {
         return this.http.post<any[]>(this.API_URL + '/order', cart).pipe(map((data: any) => {
@@ -207,6 +211,13 @@ public getOrdersByUser(userId:number):  Observable<any> {
                 availibilityCount: 1000
             };
             return data;
+        }));
+    }
+
+    public getOrderDetailsByOrder(OrderId:number): Observable<any> {
+        return this.http.get(this.API_URL + "/order/"+OrderId+"/detail").pipe(map((orderDetails: any) => {
+            
+            return orderDetails;
         }));
     }
 

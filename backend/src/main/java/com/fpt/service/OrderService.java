@@ -28,6 +28,9 @@ public class OrderService {
 	private ProductRepository productRepository;
      @Autowired
      private UserRepository userRepository;
+@Autowired
+	private PromotionService promotionService;
+
 	public Order create(OrderDTO orderdto) {
 		Order order = new Order();
 		order.setAddress(orderdto.getAddress());
@@ -44,9 +47,15 @@ public class OrderService {
 		order = orderRepository.save(order);
 		for (OrderDetail orderDetail : orderdto.getOrderDetails()) {
 			Product product = productRepository.getOne(orderDetail.getProductId());
+			Integer discount = promotionService.getOneByProductId(product.getProductId());
+
 			orderDetail.setOrderId(order.getOrderId());
-			orderDetail.setPrice(product.getPriceOut());
-			orderDetail.setTotalPrice(product.getPriceOut() * orderDetail.getQuantity());
+			if (discount != null) {
+				orderDetail.setPrice(product.getPriceOut() * ((double) (100 - discount) / 100));
+			} else {
+				orderDetail.setPrice(product.getPriceOut());
+			}
+			orderDetail.setTotalPrice(orderDetail.getPrice() * orderDetail.getQuantity());
 			totalPrice += orderDetail.getTotalPrice();
 		}
 		order.setTotalPrice(totalPrice);

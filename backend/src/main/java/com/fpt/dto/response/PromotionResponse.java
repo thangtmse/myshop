@@ -12,18 +12,23 @@ public class PromotionResponse {
 	public Long getPromotionId() {
 		return promotionId;
 	}
+
 	public void setPromotionId(Long promotionId) {
 		this.promotionId = promotionId;
 	}
+
 	public Product getProduct() {
 		return product;
 	}
+
 	public void setProduct(Product product) {
 		this.product = product;
 	}
+
 	public String getDiscountCode() {
 		return discountCode;
 	}
+
 	public void setDiscountCode(String discountCode) {
 		this.discountCode = discountCode;
 	}
@@ -47,11 +52,12 @@ public class PromotionResponse {
 	public void setExprieDate(Long exprieDate) {
 		this.exprieDate = exprieDate;
 	}
+
 	@Override
 	public String toString() {
 		return "PromotionResponse [promotionId=" + promotionId + ", product=" + product + ", discountCode="
 				+ discountCode + ", discount=" + discount + ", createDate=" + createDate + ", exprieDate=" + exprieDate
 				+ "]";
 	}
-     
+
 }

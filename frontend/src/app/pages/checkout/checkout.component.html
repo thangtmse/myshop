@@ -26,7 +26,7 @@
               <mat-error *ngIf="billingForm.controls.phone.errors?.required">Điện thoại ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+        <!-- <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
             <mat-select placeholder="Đất nước" formControlName="country" required>
               <mat-option *ngFor="let country of countries" [value]="country">
@@ -35,7 +35,7 @@
             </mat-select>
             <mat-error *ngIf="billingForm.controls.country.errors?.required">Đất nước ( không được bỏ trống )</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
         <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
               <input matInput placeholder="Thành phố" formControlName="city" required>
@@ -47,12 +47,12 @@
               <input matInput placeholder="quận/Huyện" formControlName="state">
           </mat-form-field>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+        <!-- <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
               <input matInput placeholder="Mã bưu cục" formControlName="zip" required>
               <mat-error *ngIf="billingForm.controls.zip.errors?.required">Mã bưu cục ( không được bỏ trống )</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
         <div fxFlex="100" class="px-1">
           <mat-form-field class="w-100">
               <input matInput placeholder="Địa chỉ (Đường phố, Căn hộ, Tòa nhà...v.v)" formControlName="address" required>
@@ -165,10 +165,10 @@
         <p class="text-muted">Điện thoại:</p>
         <p>{{billingForm.controls.phone.value}}</p>
       </div>
-      <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
+      <!-- <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
         <p class="text-muted">Đất nước:</p>
         <p>{{billingForm.controls.country.value['name']}}</p>
-      </div>
+      </div> -->
       <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
         <p class="text-muted">Thành phố:</p>
         <p>{{billingForm.controls.city.value}}</p>
@@ -177,10 +177,10 @@
         <p class="text-muted">Quận/Huyện:</p>
         <p>{{billingForm.controls.state.value}}</p>
       </div>
-      <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
+      <!-- <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
         <p class="text-muted">Mã bưu cục:</p>
         <p>{{billingForm.controls.zip.value}}</p>
-      </div>
+      </div> -->
       <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
         <p class="text-muted">Địa chỉ:</p>
         <p>{{billingForm.controls.address.value}}</p>
@@ -194,11 +194,11 @@
       </div>
     </div>
     <div fxLayout="row">
-      <div fxFlex="100" class="p-1">
+      <!-- <div fxFlex="100" class="p-1">
         <h3 class="text-muted mt-2">Thông tin thanh toán</h3>
         <div class="divider"></div>
         <p class="py-1"><span class="text-muted mr-1">Số thẻ:</span><span>XXX-XXX-XXX-7224</span></p>
-      </div>
+      </div> -->
     </div>
     <div fxLayout="row" fxLayoutAlign="center center" class="p-1"> 
        <h2><span class="text-muted mr-1">Tổng giá tiền:</span><span>₫{{grandTotal | number : '1.0-0'}}</span></h2>    
@@ -249,7 +249,7 @@
               <mat-error *ngIf="billingForm.controls.phone.errors?.required">Điện thoại ( không được bỏ trống )</mat-error>
           </mat-form-field>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+        <!-- <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
             <mat-select placeholder="Đất nước" formControlName="country" required>
               <mat-option *ngFor="let country of countries" [value]="country">
@@ -258,7 +258,7 @@
             </mat-select>
             <mat-error *ngIf="billingForm.controls.country.errors?.required">Đất nước ( không được bỏ trống )</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
         <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
               <input matInput placeholder="Thành phố" formControlName="city" required>
@@ -270,12 +270,12 @@
               <input matInput placeholder="Quận/Huyện" formControlName="state">
           </mat-form-field>
         </div>
-        <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
+        <!-- <div fxFlex="100" fxFlex.gt-sm="25" class="px-1">
           <mat-form-field class="w-100">
               <input matInput placeholder="Mã bưu cục" formControlName="zip" required>
               <mat-error *ngIf="billingForm.controls.zip.errors?.required">Mã bưu cục ( không được bỏ trống )</mat-error>
           </mat-form-field>
-        </div>
+        </div> -->
         <div fxFlex="100" class="px-1">
           <mat-form-field class="w-100">
               <input matInput placeholder="Địa chỉ (Đường phố, Căn hộ, Tòa nhà...v.v)" formControlName="address" required>
@@ -388,10 +388,10 @@
         <p class="text-muted">Phone:</p>
         <p>{{billingForm.controls.phone.value}}</p>
       </div>
-      <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
+      <!-- <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
         <p class="text-muted">Country:</p>
         <p>{{billingForm.controls.country.value['name']}}</p>
-      </div>
+      </div> -->
       <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
         <p class="text-muted">City:</p>
         <p>{{billingForm.controls.city.value}}</p>
@@ -400,10 +400,10 @@
         <p class="text-muted">State:</p>
         <p>{{billingForm.controls.state.value}}</p>
       </div>
-      <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
+      <!-- <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
         <p class="text-muted">Zip/PostalCode:</p>
         <p>{{billingForm.controls.zip.value}}</p>
-      </div>
+      </div> -->
       <div fxLayout="column" fxFlex="100" fxFlex.gt-sm="25" class="p-1">
         <p class="text-muted">Address:</p>
         <p>{{billingForm.controls.address.value}}</p>
@@ -416,13 +416,13 @@
         <p class="py-1">{{deliveryForm.controls.deliveryMethod.value['name']}} <span class="text-muted">{{deliveryForm.controls.deliveryMethod.value['desc']}}</span></p>
       </div>
     </div>
-    <div fxLayout="row">
+    <!-- <div fxLayout="row">
       <div fxFlex="100" class="p-1">
         <h3 class="text-muted mt-2">Payment information</h3>
         <div class="divider"></div>
         <p class="py-1"><span class="text-muted mr-1">Card number:</span><span>XXX-XXX-XXX-7224</span></p>
       </div>
-    </div>
+    </div> -->
     <div fxLayout="row" fxLayoutAlign="center center" class="p-1"> 
        <h2><span class="text-muted mr-1">Total Price:</span><span>₫{{grandTotal | number : '1.0-0'}}</span></h2>    
     </div>

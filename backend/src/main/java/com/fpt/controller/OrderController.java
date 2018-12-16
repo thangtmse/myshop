@@ -37,7 +37,8 @@ public class OrderController {
 	}
 
 	@RequestMapping(path = "", method = RequestMethod.GET)
-	public ResponseEntity<?> getall(Pageable pageable, @RequestParam(value = "search", defaultValue="", required = false) String phone) {
+	public ResponseEntity<?> getall(Pageable pageable,
+			@RequestParam(value = "search", defaultValue = "", required = false) String phone) {
 		Page<Order> list = orderService.getall(phone, pageable);
 		return new ResponseEntity<>(orderMapper.toOrderResponse(list), HttpStatus.OK);
 	}
@@ -53,16 +54,23 @@ public class OrderController {
 		Order order = orderService.getById(id);
 		return new ResponseEntity<>(orderMapper.toOrderResponse(order), HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(path = "{id}/detail", method = RequestMethod.GET)
 	public ResponseEntity<?> findOrderDetailsByOrderId(@PathVariable("id") Long id) {
 		List<OrderDetail> orderDetail = orderService.findOrderDetailsByOrderId(id);
 		return new ResponseEntity<>(orderDetailMapper.toOrderDetailResponse(orderDetail), HttpStatus.OK);
 	}
+
 	@RequestMapping(path = "{id}/status", method = RequestMethod.POST)
 	public ResponseEntity<?> changeStatus(@PathVariable("id") Long id, String status) {
 		Order order = orderService.changeStatus(id, status);
 		return new ResponseEntity<>(orderMapper.toOrderResponse(order), HttpStatus.OK);
 	}
-	
+
+	@RequestMapping(path = "{id}/orderDetail", method = RequestMethod.GET)
+	public ResponseEntity<?> findOrderDetailByOrderId(@PathVariable("id") Long id) {
+		List<OrderDetail> orderDetails = orderService.findOrderDetailsByOrderId(id);
+		return new ResponseEntity<>(orderDetailMapper.toListODResponse(orderDetails), HttpStatus.OK);
+	}
+
 }

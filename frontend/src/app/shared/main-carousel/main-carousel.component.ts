@@ -18,7 +18,8 @@ export class MainCarouselComponent implements OnInit {
   
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit() {
+   }
 
   ngAfterViewInit(){
     this.config = {

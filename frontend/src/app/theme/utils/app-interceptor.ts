@@ -14,14 +14,14 @@ export class AppInterceptor implements HttpInterceptor {
         
         return next.handle(req).do((event: HttpEvent<any>) => {
           if (event instanceof HttpResponse) {        
-             this.spinner.hide();
+          this.spinner.hide();
           }
         }, (err: any) => {
           if (err instanceof HttpErrorResponse) {
-            this.spinner.hide();
+           this.spinner.hide();
             const started = Date.now();            
             const elapsed = Date.now() - started;
-            console.log(`Request for ${req.urlWithParams} failed after ${elapsed} ms.`);
+             console.log(`Request for ${req.urlWithParams} failed after ${elapsed} ms.`);
            // debugger;
           }
         })

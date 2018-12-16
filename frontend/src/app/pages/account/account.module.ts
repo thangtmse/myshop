@@ -8,6 +8,12 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { InformationComponent } from './information/information.component';
 import { AddressesComponent } from './addresses/addresses.component';
 import { OrdersComponent } from './orders/orders.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { 
+  MatDialogModule,
+ } from '@angular/material/dialog';
+  
+import { ProductDialogComponent } from './orders/product-dialog/product-dialog.component';
 
 export const routes = [
   { 
@@ -27,14 +33,29 @@ export const routes = [
     CommonModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    SharedModule
+    SharedModule,
+    FlexLayoutModule,
+
+    MatDialogModule,
+    
   ],
   declarations: [
     AccountComponent,
     DashboardComponent,
     InformationComponent,
     AddressesComponent,
-    OrdersComponent
+    OrdersComponent,
+    ProductDialogComponent
+  ],entryComponents:[
+    ProductDialogComponent
+  ],
+  exports: [
+    RouterModule,
+    FlexLayoutModule,
+    
+    MatDialogModule,
+   
+    ProductDialogComponent
   ]
 })
 export class AccountModule { }

@@ -39,4 +39,23 @@ public class OrderDetailMapper {
 		}
 		return pl;
 	}
+
+	public List<OrderDetailResponse> toListODResponse(List<OrderDetail> orderDetails) {
+		List<OrderDetailResponse> detailResponses = new ArrayList<>();
+		for (OrderDetail orderDetail : orderDetails) {
+			detailResponses.add(toODResponse(orderDetail));
+		}
+
+		return detailResponses;
+	}
+
+	private OrderDetailResponse toODResponse(OrderDetail orderDetail) {
+		OrderDetailResponse detailResponse = new OrderDetailResponse();
+		detailResponse.setId(orderDetail.getId());
+		detailResponse.setPrice(orderDetail.getPrice());
+		detailResponse.setQuantity(orderDetail.getQuantity());
+		detailResponse.setTotalprice(orderDetail.getTotalPrice());
+		detailResponse.setProductName(productRepository.getOne(orderDetail.getProductId()).getProductName());
+		return detailResponse;
+	}
 }

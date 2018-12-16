@@ -1,0 +1,60 @@
+<div class="close-btn-outer">
+    <button mat-mini-fab color="warn" (click)="close()">
+        <mat-icon>close</mat-icon>
+    </button>
+</div>
+<div mat-dialog-content>
+    <div fxLayout="row wrap">
+        <!-- <div fxFlex="100" fxFlex.gt-sm="50">
+            <div class="swiper-container h-100" [swiper]="config">
+            
+                <button mat-icon-button class="swiper-button-prev swipe-arrow">
+                    <mat-icon>keyboard_arrow_left</mat-icon>
+                </button>
+                <button mat-icon-button class="swiper-button-next swipe-arrow">
+                    <mat-icon>keyboard_arrow_right</mat-icon>
+                </button>
+            </div>
+        </div>
+        <div fxFlex="100" fxFlex.gt-sm="50" ngClass.gt-sm="px-2 m-0" ngClass.sm="mt-2" ngClass.xs="mt-2"> -->
+            <div class="mat-table orders-table">
+                <div class="mat-header-row">
+                  <div class="mat-header-cell">Order</div>
+                  <div class="mat-header-cell">Sản phẩm</div>
+                  <div class="mat-header-cell">Giá tiền</div>
+                  <div class="mat-header-cell">Số lượng</div>
+                  <div class="mat-header-cell">Thành tiền</div>
+                </div>
+                <div *ngFor="let orderDetail of orderdetails" class="mat-row">
+                  <div class="mat-cell"><span class="order">#{{orderDetail.id}}</span></div>
+                  <div class="mat-cell">{{orderDetail.product.productName}}</div>
+                  <div class="mat-cell">{{orderDetail.price}}</div>
+                  <div class="mat-cell">{{orderDetail.quantity}}</div>     
+                  <div class="mat-cell">{{orderDetail.totalprice}}</div>   
+                </div>
+            </div>
+        <!-- </div> -->
+    </div>
+</div>
+
+
+
+
+
+<!-- <div class="mat-table orders-table">
+                <div class="mat-header-row">
+                  <div class="mat-header-cell">Order</div>
+                  <div class="mat-header-cell">Sản phẩm</div>
+                  <div class="mat-header-cell">Giá tiền</div>
+                  <div class="mat-header-cell">Số lượng</div>
+                  <div class="mat-header-cell">Thành tiền</div>
+                </div>
+                <div *ngFor="let orderDetail of orderDetails" class="mat-row">
+                  <div class="mat-cell"><span class="order">{{orderDetail.id}}</span></div>
+                  <div class="mat-cell">{{orderDetail.productId}}</div>
+                  <div class="mat-cell">{{orderDetail.price}}</div>
+                  <div class="mat-cell">{{orderDetail.quantity}}</div>     
+                  <div class="mat-cell">{{orderDetail.totalPrice}}</div>   
+                </div>
+              </div>
+            </div> -->
