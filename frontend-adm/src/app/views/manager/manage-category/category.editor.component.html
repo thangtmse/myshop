@@ -31,18 +31,6 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="parent">Đường dẫn ảnh</label>
-                                <input formControlName="image" class="form-control" id="image"
-                                    placeholder="Tên" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('image').invalid}">
-                                <div class="invalid-feedback">
-                                    <span *ngIf="editorForm.get('image').errors?.required">Trường này không được
-                                        bỏ trống</span>
-                                    <span *ngIf="editorForm.get('image').errors?.message">{{editorForm.get('image').errors?.message}}</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
                                 <label for="description">Mô tả</label>
                                 <textarea formControlName="description" class="form-control" id="description"
                                     placeholder="Mô tả" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('description').invalid}">
@@ -54,7 +42,23 @@
                                 </div>
                             </div>
                         </div>
-
+                        <div class="col-md-3">
+                            <div class="form-group">
+                                <label for="image">Ảnh</label>
+                                <input formControlName="image" class="form-control" id="image" type="file" [ngClass]="{'is-invalid': isSubmited && editorForm.get('image').invalid}"
+                                    (change)="readUrl($event)" />
+                                <div class="invalid-feedback">
+                                    <span *ngIf="editorForm.get('image').errors?.required">Trường này không được
+                                        bỏ trống</span>
+                                    <span *ngIf="editorForm.get('image').errors?.message">{{editorForm.get('image').errors?.message}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <img height="100px" [src]="i.imageUrl" *ngFor="let i of img">
+                            </div>
+                        </div>
 
                     </div>
                 </div>

@@ -24,6 +24,7 @@ export class PagesComponent implements OnInit {
   });
   @ViewChild('sidenav') sidenav: any;
 
+  
   public settings: Settings;
   constructor(public appSettings: AppSettings,
     public appService: AppService,

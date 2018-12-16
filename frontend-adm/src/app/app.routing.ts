@@ -98,7 +98,7 @@ export const routes: Routes = [
         path: 'cashier',
         loadChildren: './views/cashier/cashier.module#CashierModule',
         data: {
-          roles: ['EMPLOYEE']
+          roles: ['EMPLOYEE','ADMIN']
         }
       },
       {

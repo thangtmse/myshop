@@ -42,11 +42,14 @@
         (page)='setPage($event)'>
 
         <!-- Row Detail Template -->
-        <ngx-datatable-row-detail [rowHeight]="100" #rowDetail>
+        <ngx-datatable-row-detail [rowHeight]="200" #rowDetail>
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
                 <div style="padding-left:35px;">
                 <div><strong>Miêu tả</strong></div>
                 <div>{{row.description}}</div>
+                <div>
+                    <img height="100px" [src]="imagePath+i.imageId" *ngFor="let i of row.images" class="mx-1 my-2">
+                </div>
                 </div>
             </ng-template>
         </ngx-datatable-row-detail>
@@ -81,12 +84,12 @@
         </ngx-datatable-column> -->
         <ngx-datatable-column name="Nhập vào" maxWidth="120" >
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <span>{{row.priceIn}}</span>
+            <span>{{row.priceIn | number: '1.0-0'}} đ</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Bán ra" maxWidth="120" >
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <span>{{row.priceOut}}</span>
+            <span>{{row.priceOut | number: '1.0-0'}} đ</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Danh mục" maxWidth="150">

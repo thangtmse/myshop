@@ -8,6 +8,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Page } from '../../../model/page';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   templateUrl: './manage.food.component.html'
@@ -18,6 +19,7 @@ import { Page } from '../../../model/page';
   @ViewChild('deleteModal') deleteModal: TemplateRef<any>;
   modalRef: BsModalRef;
   rows = [];
+  imagePath = environment.url+'api/image/'
 
   filterForm = new FormGroup({
     search: new FormControl('')
@@ -37,7 +39,7 @@ import { Page } from '../../../model/page';
     let name = this.filterForm.get('search').value;
     this.request.page = pageInfo.offset;
     this.foodService.findFood({
-      name: name,
+      name: name.replace(/ +(?= )/g,''),
       page: this.request.page,
       size: 9
     }).subscribe(pageData => {

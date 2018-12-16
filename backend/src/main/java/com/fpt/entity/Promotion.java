@@ -1,7 +1,5 @@
 package com.fpt.entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,8 +20,8 @@ public class Promotion {
 
 	@Column(name = "productId", nullable = false)
 	private Long productId;
-	@Column(name = "discountCode", nullable = false)
-	private String disountCode;
+	@Column(name = "discountCode")
+	private String discountCode;
 	@Column(name = "discount", nullable = false)
 	private Integer discount;
 	@Column(name = "createDate", nullable = false)
@@ -48,11 +46,11 @@ public class Promotion {
 	}
 
 	public String getDisountCode() {
-		return disountCode;
+		return discountCode;
 	}
 
 	public void setDisountCode(String disountCode) {
-		this.disountCode = disountCode;
+		this.discountCode = disountCode;
 	}
 
 	public Integer getDiscount() {

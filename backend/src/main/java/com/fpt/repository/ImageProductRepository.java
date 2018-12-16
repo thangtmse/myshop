@@ -13,4 +13,6 @@ public interface ImageProductRepository extends JpaRepository<Image, Long> {
 
 	@Transactional
 	public void deleteAllByImageIdNotInAndProductId(List<Long> ids, Long pid);
+
+	public List<Image> findAllByImageIdNotInAndProductId(List<Long> imgIds, Long productId);
 }

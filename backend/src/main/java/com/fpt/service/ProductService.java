@@ -29,7 +29,7 @@ public class ProductService {
 	private CategoryService categoryService;
 	@Autowired
 	private ImageService imageService;
-	
+
 	public Product delete(Long id) {
 		Product p = productRepository.getOne(id);
 		p.setDeleted(true);
@@ -94,7 +94,7 @@ public class ProductService {
 	}
 
 	public Product update(Product product) {
-		Product p=productRepository.getOne(product.getProductId());
+		Product p = productRepository.getOne(product.getProductId());
 		p.setCreatedDate(new Date());
 		p.setCategoryId(product.getCategoryId());
 		p.setDescription(product.getDescription());
@@ -105,7 +105,6 @@ public class ProductService {
 		p.setSupplierId(product.getSupplierId());
 		List<Image> imgs = product.getImages();
 		p.setImages(null);
-		product = productRepository.save(p);
 		List<Image> imgs2 = new ArrayList<>();
 		List<Long> imgIds = new ArrayList<>();
 		for (Image image : imgs) {
@@ -126,11 +125,19 @@ public class ProductService {
 			}
 			image = new Image();
 			image.setImageUrl(fileName);
-			image.setProductId(product.getProductId());
+			image.setProductId(p.getProductId());
 			imgs2.add(image);
 		}
 		p.setImages(imgs2);
-		imageService.deleteIdNotIn(imgIds, product.getProductId());
+		List<Image> deleteImages = imageService.findIdNotIn(imgIds, p.getProductId());
+		for (Image image : deleteImages) {
+			File oldFile = new File(image.getImageUrl());
+			oldFile.delete();
+		}
+		imageService.deleteIdNotIn(imgIds, p.getProductId());
+		product = productRepository.save(p);
+		System.out.println("=================");
+		System.out.println(deleteImages);
 		return productRepository.save(p);
 	}
 

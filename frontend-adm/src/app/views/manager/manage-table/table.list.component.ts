@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Page } from '../../../model/page';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { Table } from '../../../model/table';
-import { TableServiceService } from '../../../service/table.service';
+import { PromotionService } from '../../../service/promotion.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl } from '@angular/forms';
 
@@ -14,50 +14,22 @@ export class TableListComponent implements OnInit {
   @ViewChild('tableTable') table: any;
   @ViewChild('deleteModal') deleteModal: TemplateRef<any>;
   modalRef: BsModalRef;
-  rows: Table[] = [];
-  deleteId: number;
-  tableName: string;
-  tableNote: string;
-  numberOfSeat: number;
-  request: any = {};
-  deleted: boolean = false;
-  idTable: number;
-
-  constructor(private modalService: BsModalService,
-    private tableService: TableServiceService,
-    private toastr: ToastrService) { }
-
-  ngOnInit(): void {
-    this.setPage({ offset: 0 });
-  }
-
+  rows = [];
   filterForm = new FormGroup({
     search: new FormControl(''),
-    numberOfSeating: new FormControl(''),
   });
-
-  filterFormSubmit() {
-    this.request.search = this.filterForm.get('search').value;
-    this.request.numberOfSeating = parseInt(this.filterForm.get('numberOfSeating').value);
-    
-
-    if(Number.isNaN(this.request.numberOfSeating)) {
-      this.request.numberOfSeating = '-1';
-      this.setPage({ offset: 0 });
-      return;
-    }
-
-    if(this.request.numberOfSeating < 0 || this.request.numberOfSeating >40 ) {
-      this.toastr.error('Number of seating must between 0 and 40');
-      return;
-    }
-  
+  deleteRow: any = {};
+  request: any = {};
+  constructor(private modalService: BsModalService, private promotionService: PromotionService, private toastr: ToastrService) { 
+  } // step 2
+  ngOnInit(): void {
+    console.log(1278612789361298763)
     this.setPage({ offset: 0 });
   }
 
   setPage(pageInfo) {
     this.request.page = pageInfo.offset;
-    this.tableService.getAllTable(this.request).subscribe(pagedData => {
+    this.promotionService.getPromotion(this.request).subscribe(pagedData => {
       this.page.totalElements = pagedData.totalElements;
       this.page.pageNumber = pagedData.number;
       this.page.size = pagedData.size;
@@ -67,39 +39,41 @@ export class TableListComponent implements OnInit {
       }
     });
   }
-  
-  openModal(row) {
+
+  toggleExpandRow(row) {
+    this.table.rowDetail.toggleExpandRow(row);
+  }
+  openModal(row: any) {
+    this.deleteRow = row;
     this.modalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' });
-    console.log('roww ', row);
-    // this.deleteId = rowId;
-    // this.tableName = tableName;
-    this.tableName = row.name;
-    this.tableNote = row.note;
-    this.numberOfSeat = row.numberOfSeating
-    this.idTable = row.id;
   }
 
-  confirm() {
-    let data = {
-      "name": this.tableName,
-      "note": this.tableNote,
-      "numberOfSeat": this.numberOfSeat,
-      "status": 2,
-    }
-
-    this.tableService.editTableById(this.idTable, data).subscribe(respone => {
-      this.toastr.success('Xoá bàn thành công');
-      this.setPage({ offset: this.request.page });
-    },
-      error => {
-        this.toastr.error(error.error.massage);
-      }
-    );
-    this.modalRef.hide();
+  filterFormSubmit() {
+    this.request.name = this.filterForm.get('search').value;
+    this.setPage({ offset: 0 });
   }
 
   decline() {
     this.modalRef.hide();
   }
 
+  //confirm() {
+    // step 3: su dung
+  //   this.supplierService.deleteSuppliers(this.deleteRow.supplierId)
+  //     .subscribe(data => {
+  //       this.toastr.success('Danh mục được xóa thành công.');
+  //       this.modalRef.hide();
+  //       this.setPage({ offset: this.request.page });
+  //     },
+  //       error => {
+  //         this.toastr.error(error.error.message);
+  //         this.modalRef.hide();
+  //         this.setPage({ offset: this.request.page });
+  //       }
+  //     );
+  // }
+
+  getHeight(row: any, index: number): number {
+    return 150;
+  }
 }

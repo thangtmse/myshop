@@ -3,12 +3,16 @@ package com.fpt.controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.fpt.entity.Image;
 import com.fpt.service.ImageService;
+
 
 @Controller
 @RequestMapping("/api/image")
@@ -53,6 +58,14 @@ public class ImageProductController {
    
 //        new FileOutputStream(directory).write(imageByte);
 //        return "success ";
+	}
+	
+	@RequestMapping(path = "test", method = RequestMethod.GET)
+	public ResponseEntity<?> test() throws Exception {
+		List<Long> x =new ArrayList<Long>();
+		x.add(51L);
+		x.add(52L);
+		return new ResponseEntity<>(imageService.findIdNotIn(x, 1L), HttpStatus.OK);
 	}
 
 }

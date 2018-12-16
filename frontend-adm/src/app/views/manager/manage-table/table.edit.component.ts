@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import { TableServiceService } from '../../../service/table.service';
+import { PromotionService } from '../../../service/promotion.service';
 import { Table } from '../../../model/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -15,74 +15,56 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class EditTableComponent implements OnInit {
 
-  idTable: number;
-  tableDetail: Table;
-  isSubmited = false;
-  isNameValid: boolean;
-  idSeatingValid: boolean;
-
-  constructor(private route: ActivatedRoute,
-    private tableService: TableServiceService,
-    private router: Router,
-    private toastr: ToastrService) { }
-
-  ngOnInit() {
-    let id = +this.route.snapshot.paramMap.get('id');
-    if (id == 0) {
-      this.idTable = 0;
-      this.tableDetail = new Table;
-    } else {
-      this.idTable = id;
-      this.getTableById(this.idTable);
-    }
-  }
-
-  editForm = new FormGroup({
-    name: new FormControl('', Validators.required),
-    numberOfSeating: new FormControl('', Validators.required),
-    note: new FormControl('')
+  isSubmited: boolean = false;
+  promotionId: number = Number.NaN;
+  editorForm = new FormGroup({
+    discount: new FormControl('', Validators.required),
+    productId: new FormControl(''),
+    discountCode: new FormControl()
   });
+  listSupplierParent: any[] = [];
+  constructor(private route: ActivatedRoute,
+    private promotionService: PromotionService,
+    private router: Router,
+    private toastr: ToastrService) {
 
-  getTableById(tableId: number) {
-    this.tableService.getTableByID(tableId).subscribe(res => {
-      this.tableDetail = res;
-    })
   }
+  ngOnInit(): void {
 
-  onFormSubmit() {
+    this.promotionId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+    this.promotionService.getPromotion(this.promotionId).subscribe(data => {
+      this.editorForm.get('discount').setValue(data.discount);
+      this.editorForm.get('productId').setValue(data.productId);
+      this.editorForm.get('discountCode').setValue(data.discountCode);
+    });
+  };
+
+  editorFormSubmit() {
     this.isSubmited = true;
-    let data = {
-      "name": this.tableDetail.name,
-      "note": this.tableDetail.note,
-      "numberOfSeat": this.tableDetail.numberOfSeating,
-      "status": 0,
-    }
-
-    if (this.editForm.valid) {
-      if (parseInt(data.numberOfSeat) < 0 || parseInt(data.numberOfSeat) > 40) {
-        this.toastr.error('Number of seating must between 0 and 40');
-        return;
-      }
-      if (this.idTable != 0) {
-        this.tableService.editTableById(this.idTable, data).subscribe(respone => {
-          this.toastr.success('Edit table success');
-          this.router.navigate(['/manage/table']);
-        },
+    let data = this.editorForm.getRawValue();
+    data.deleted = false;
+    if (this.editorForm.valid) {
+      if (Number.isNaN(this.promotionId)) {
+        this.promotionService.createPromotion(data).subscribe(
+          data => {
+            this.toastr.success(' tạo thành công.');
+            this.router.navigate(['/manage/table/list']);
+          },
           error => {
-            this.toastr.error(error.error.massage);
+            this.toastr.error(error.message);
           }
-        );
+        )
       } else {
-        this.tableService.createNewTable(data).subscribe(respone => {
-          this.toastr.success('Create new table success');
-          this.router.navigate(['/manage/table']);
-        },
+        this.promotionService.updatePromotion(this.promotionId, data).subscribe(
+          data => {
+            this.toastr.success(' cập nhật thành công');
+            this.router.navigate(['/manage/table/list']);
+          },
           error => {
-            this.toastr.error(error.error.massage);
+            this.toastr.error(error.error.message);
           }
-        );
+        )
       }
     }
   }
-
-}
+  }

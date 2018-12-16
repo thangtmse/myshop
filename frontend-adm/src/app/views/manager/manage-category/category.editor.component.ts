@@ -5,6 +5,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   templateUrl: 'category.editor.component.html'
@@ -18,6 +19,7 @@ export class CategoryEditorComponent implements OnInit {
     image: new FormControl(),
     parent: new FormControl("0"),
   });
+  img=[];
   listCategoryParent: any[] = [];
   constructor(private route: ActivatedRoute,
     private categoryService: CategoryService,
@@ -34,8 +36,8 @@ export class CategoryEditorComponent implements OnInit {
         console.log(data);
         this.editorForm.get('categoryname').setValue(data.categoryName);
         this.editorForm.get('description').setValue(data.description);
-        this.editorForm.get('image').setValue(data.imageurl);
         this.editorForm.get('parent').setValue(data.categoryParentId);
+        this.img.push({ imageUrl: environment.url+'api/category/'+data.categoryId+'/image' });
         this.getListCategoryParent(this.categoryId);
       });
     } else {
@@ -58,12 +60,15 @@ export class CategoryEditorComponent implements OnInit {
       categoryName: this.editorForm.get('categoryname').value.trim(),
       description: this.editorForm.get('description').value,
       categoryParentId: this.editorForm.get('parent').value,
-      imageurl: this.editorForm.get('image').value,
+      imageurl: this.img.length>0?this.img[0].imageUrl:'',
       deleted: 0
     }
     console.log("catagory: ", data);
     console.log("validate value");
-
+    if (this.img.length < 1) {
+      console.log(this.img.length);
+      this.editorForm.get('image').setErrors({ message: 'Trường này không được bỏ trống' })
+    }
     if (this.editorForm.valid) {
       if (Number.isNaN(this.categoryId)) {
         console.log("start call api");
@@ -93,5 +98,25 @@ export class CategoryEditorComponent implements OnInit {
   validateByRegex(string: string, patterns: string) {
     let pattern = new RegExp(patterns);
     return pattern.test(string);
+  }
+
+  readUrl(event: any) {
+    let imageName = "";
+    if (event.srcElement) {
+      for (var i = 0; i < event.srcElement.files.length; i++) {
+        let file = event.srcElement.files[i];
+        imageName = file.name.toUpperCase();
+        if (!imageName.endsWith('JPG') && !imageName.endsWith('PNG')) {
+          this.toastr.error("Chỉ có thể upload file ảnh (jpg hoặc png)");
+          return;
+        }
+        var reader = new FileReader();
+        reader.onload = (event: any) => {
+          this.img = [];
+          this.img.push({ imageUrl: event.target.result });
+        }
+        reader.readAsDataURL(file);
+      }
+    }
   }
 }

@@ -1,9 +1,17 @@
 package com.fpt.service;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
+import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,8 +26,8 @@ import com.fpt.repository.CategoryRepository;
 public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
-	
-	public List<Category> findAll(){
+
+	public List<Category> findAll() {
 		return categoryRepository.findAll();
 	}
 
@@ -45,11 +53,42 @@ public class CategoryService {
 		oldCategory.setCategoryName(category.getCategoryName());
 		oldCategory.setCategoryParentId(category.getCategoryParentId());
 		oldCategory.setDescription(category.getDescription());
+//		oldCategory.setImageurl(category.getImageurl());
+		String[] strings = category.getImageurl().split(",");
+		if (strings.length >= 2) {
+			// delete file cu
+			byte[] imageByte = Base64.decodeBase64(strings[1]);
+			String directory = this.getClass().getClassLoader().getResource("").getPath() + "../../../images/cat-";
+			String fileName = directory + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
+			File file = new File(fileName);
+			try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
+				outputStream.write(imageByte);
+				File oldFile = new File(oldCategory.getImageurl());
+				oldFile.delete();
+				oldCategory.setImageurl(fileName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return categoryRepository.save(oldCategory);
 	}
 
 	public Category create(Category category) {
 		// TODO Auto-generated method stub
+		String[] strings = category.getImageurl().split(",");
+		if (strings.length >= 2) {
+			// delete file cu
+			byte[] imageByte = Base64.decodeBase64(strings[1]);
+			String directory = this.getClass().getClassLoader().getResource("").getPath() + "../../../images/cat-";
+			String fileName = directory + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
+			File file = new File(fileName);
+			try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
+				outputStream.write(imageByte);
+				category.setImageurl(fileName);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 		return categoryRepository.save(category);
 	}
 
@@ -63,7 +102,7 @@ public class CategoryService {
 	public Page<Category> findByNameContaining(String q, Pageable pageable) {
 		return categoryRepository.findBycategoryNameContainingAndDeleted(q, false, pageable);
 	}
-	
+
 	public List<Category> listCategoryParent(Long categoryId) {
 		List<Category> response = null;
 		response = categoryRepository.listCategoryParent(categoryId);

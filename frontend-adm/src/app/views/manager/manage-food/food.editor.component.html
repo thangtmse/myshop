@@ -108,11 +108,17 @@
                                 <label for="image">Ảnh</label>
                                 <input formControlName="image" class="form-control" id="image" type="file" [ngClass]="{'is-invalid': isSubmited && editorForm.get('image').invalid}"
                                     (change)="readUrl($event)" multiple />
+                                <div class="invalid-feedback">
+                                    <span *ngIf="editorForm.get('image').errors?.required">Trường này không được
+                                        bỏ trống</span>
+                                    <span *ngIf="editorForm.get('image').errors?.message">{{editorForm.get('image').errors?.message}}</span>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-9">
                             <div class="form-group">
-                                <img width="200px" [src]="i.imageUrl" *ngFor="let i of img" (click)="removeImage(i)">
+                                <img height="100px" [src]="i.imageUrl" *ngFor="let i of img" (click)="removeImage(i)"
+                                    class="mx-1 my-2">
                             </div>
                         </div>
                     </div>

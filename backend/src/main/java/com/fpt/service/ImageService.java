@@ -25,9 +25,10 @@ public class ImageService {
 		return imageProductRepository.save(image);
 	}
 	public void deleteIdNotIn(List<Long> ids, Long pid) {
-		System.out.println("===uimage service ===");
-		System.out.println(ids);
-		System.out.println(pid);
 		imageProductRepository.deleteAllByImageIdNotInAndProductId(ids, pid);
+	}
+
+	public List<Image> findIdNotIn(List<Long> imgIds, Long productId) {
+		return imageProductRepository.findAllByImageIdNotInAndProductId(imgIds, productId);
 	}
 }

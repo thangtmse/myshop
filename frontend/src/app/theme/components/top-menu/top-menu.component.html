@@ -41,7 +41,7 @@
             <mat-icon class="mat-icon-sm caret">arrow_drop_down</mat-icon>
         </div>
     </a>
-    <mat-menu #accountMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-dropdown account">
+    <mat-menu #accountMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="app-dropdown account"  *ngIf="userInfo != null">
         <span (mouseleave)="accountMenuTrigger.closeMenu()">
             <div *ngIf="userInfo != null">
                 <div fxLayout="row" fxLayoutAlign="space-around center" class="user-info">

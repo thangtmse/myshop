@@ -10,6 +10,7 @@ import { CategoryService } from '../../../service/category.service';
 import { from } from 'rxjs';
 import { ProductSupplier } from '../../../model/productSupplier';
 import { environment } from '../../../../environments/environment';
+import { map } from 'rxjs/operators';
 var self;
 
 @Component({
@@ -51,7 +52,11 @@ export class FoodEditorComponent implements OnInit {
       this.productsupplier = data;
       console.log(this.productsupplier);
     })
-    this.foodService.getAllCategory().subscribe(data => {
+    this.foodService.getAllCategory().pipe(
+      map(content=>{
+        return content.filter(cat=>!cat.deleted);
+      })
+    ).subscribe(data => {
       this.productcategory = data;
       console.log("aaaaaaaaaaaa", this.productcategory);
 
@@ -113,6 +118,10 @@ export class FoodEditorComponent implements OnInit {
     //   console.log(this.img.length);
     //   this.editorForm.get('image').setErrors({ message: 'Image too large' })
     // }
+    if (this.img.length < 1) {
+      console.log(this.img.length);
+      this.editorForm.get('image').setErrors({ message: 'Trường này không được bỏ trống' })
+    }
     if (this.editorForm.valid) {
       if (Number.isNaN(this.proID)) {
 

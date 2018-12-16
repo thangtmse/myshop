@@ -4,6 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { CategoryService } from '../../../service/category.service';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { FoodService } from '../../../service/food.service';
 
 @Component({
   templateUrl: 'category.list.component.html'
@@ -19,7 +20,7 @@ export class CategoryListComponent implements OnInit {
   });
   deleteRow: any = {};
   request: any = {};
-  constructor(private modalService: BsModalService, private categoryService: CategoryService, private toastr: ToastrService) { 
+  constructor(private modalService: BsModalService, private categoryService: CategoryService, private foodService: FoodService, private toastr: ToastrService) {
   }
   ngOnInit(): void {
     this.setPage({ offset: 0 });
@@ -33,7 +34,7 @@ export class CategoryListComponent implements OnInit {
       this.page.pageNumber = pagedData.number;
       this.page.size = pagedData.size;
       this.rows = pagedData.content;
-      if(pagedData.number >= pagedData.totalPages) {
+      if (pagedData.number >= pagedData.totalPages) {
         this.setPage({ offset: 0 });
       }
     });
@@ -57,18 +58,24 @@ export class CategoryListComponent implements OnInit {
   }
 
   confirm() {
-    this.categoryService.deleteCategorys(this.deleteRow.categoryId)
-      .subscribe(data => {
-        this.toastr.success('Danh mục được xóa thành công.');
-        this.modalRef.hide();
-        this.setPage({ offset: this.request.page });
-      },
-        error => {
-          this.toastr.error(error.error.message);
-          this.modalRef.hide();
-          this.setPage({ offset: this.request.page });
-        }
-      );
+    this.foodService.findFood({ categoryid: this.deleteRow.categoryId }).subscribe(data => {
+      if (data.totalElements > 0) {
+        this.toastr.error("Danh mục còn sản phẩm, không thể xóa");
+      } else {
+        this.categoryService.deleteCategorys(this.deleteRow.categoryId)
+          .subscribe(data => {
+            this.toastr.success('Danh mục được xóa thành công.');
+            this.modalRef.hide();
+            this.setPage({ offset: this.request.page });
+          },
+            error => {
+              this.toastr.error(error.error.message);
+              this.modalRef.hide();
+              this.setPage({ offset: this.request.page });
+            }
+          );
+      }
+    })
   }
 
   getHeight(row: any, index: number): number {
