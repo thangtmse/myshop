@@ -16,17 +16,23 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   orderInfo: any;
   returnMoneyGlobal: number;
   total: number = 0;
-
+  
   orderDetail: any[] = [];
-
+  
   constructor(private route: ActivatedRoute,
     private orderService: OrderService,
     private router: Router,
     private toastr: ToastrService) { }
-
+    showHuy: boolean = false;
+    showDangXuly: boolean = false;
+    showDanggiaohang: boolean=false;
+    showHoanThanh: boolean = false;
   ngOnInit(): void {
     this.orderId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+    
     this.orderService.getOrder(this.orderId).subscribe(data => {
+      console.log(data);
+     
       this.orderDetail = [];
       this.total = 0;
       for (let detail of data) {
@@ -35,6 +41,23 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
       }
     });
     this.orderService.getOrderInfo(this.orderId).subscribe(data => {
+      if(data.status=="Hủy"){
+        console.log(data.status);
+        this.showDanggiaohang=true;
+        this.showHoanThanh=true;
+      }  if(data.status=="Đang xử lý"){
+        this.showDanggiaohang=false;
+        this.showHuy=true;
+        this.showHoanThanh=true;
+      } if(data.status=="Đang giao hàng"){
+        this.showHoanThanh=false;
+        this.showHuy=true;
+        this.showDangXuly=true;
+      } if(data.status=="Hoàn thành"){
+        this.showDangXuly=true;
+        this.showDanggiaohang=true;
+        this.showHuy=true;
+      }
       this.orderInfo = data;
       this.orderInfo.customerName = data.user.username + ' - ' + data.user.fullName;
       this.orderInfo.dateNow = new Date(data.addAt).toLocaleString();
@@ -44,6 +67,23 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
   changeStatus(status: any) {
+    if(status=="Hủy"){
+       
+      this.showDanggiaohang=true;
+      this.showHoanThanh=true;
+    }  if(status=="Đang xử lý"){
+      this.showDanggiaohang=false;
+      this.showHuy=true;
+      this.showHoanThanh=true;
+    } if(status=="Đang giao hàng"){
+      this.showHoanThanh=false;
+      this.showHuy=true;
+      this.showDangXuly=true;
+    } if(status=="Hoàn thành"){
+      this.showDangXuly=true;
+      this.showDanggiaohang=true;
+      this.showHuy=true;
+    }
     this.orderService.changeStatus(this.orderId, status).subscribe(
       data => {
         this.toastr.success('Cập nhật thông tin đơn hàng thành công');

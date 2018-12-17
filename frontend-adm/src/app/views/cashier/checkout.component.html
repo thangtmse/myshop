@@ -8,18 +8,18 @@
 			<div class="col-sm-6">
 				<h6 class="mb-3">Tên khách hàng:</h6>
 				<div>
-					<strong>{{orderInfo.customerName}}</strong>
+					<strong>{{orderInfo?.customerName}}</strong>
 				</div>
-				<div>Số điện thoại: {{orderInfo.phone}}</div>
-				<div>Địa chỉ: {{orderInfo.address}}</div>
+				<div>Số điện thoại: {{orderInfo?.phone}}</div>
+				<div>Địa chỉ: {{orderInfo?.address}}</div>
 			</div>
 
 			<div class="col-sm-6">
-				<h6 class="mb-3">Thông tin hóa đơn: <strong>{{orderInfo.status}}</strong></h6>
+				<h6 class="mb-3">Thông tin hóa đơn: <strong>{{orderInfo?.status}}</strong></h6>
 				<div>Hóa Đơn:
 					<strong>#{{orderId}}</strong>
 				</div>
-				<div>{{orderInfo.dateNow}}</div>
+				<div>{{orderInfo?.dateNow}}</div>
 			</div>
 		</div>
 		<div class="table-responsive-sm">
@@ -48,7 +48,7 @@
 			<div class="col-lg-4 col-sm-5">
 			</div>
 			<div class="col-lg-4 col-sm-5 ml-auto">
-				<div [formGroup]="myGroup">
+				<div >
 					<table class="table table-clear">
 						<tbody>
 							<tr>
@@ -59,16 +59,31 @@
 						</tbody>
 					</table>
 				</div>
-				<button class="mx-2 btn btn-danger" (click)="changeStatus('Hủy')" *ngIf="orderInfo.status=='Đang xử lý'">
+				<button class="mx-2 btn btn-danger" (click)="changeStatus('Hủy')" *ngIf="showHuy==true" disabled>
 					Hủy
 				</button> 
-				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lý')" *ngIf="orderInfo.status=='Đang giao hàng'">
+				<button class="mx-2 btn btn-danger" (click)="changeStatus('Hủy')" *ngIf="showHuy==false" >
+					Hủy
+				</button> 
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lý')"*ngIf="showDangXuly==true" disabled >
 					Đang xử lý
 				</button> 
-				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang giao hàng')"  *ngIf="orderInfo.status=='Hoàn thành'">
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lý')"*ngIf="showDangXuly==false"  >
+					Đang xử lý
+				</button>
+				<!-- <button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lý')"*ngIf="showDanggiaohang==true" disabled>
+					Đang xử lý
+				</button>  -->
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang giao hàng')"  *ngIf="showDanggiaohang==true" disabled >
 					Đang giao hàng
-				</button> 
-				<button class="mx-2 btn btn-success" (click)="changeStatus('Hoàn thành')">
+				</button>
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang giao hàng')"  *ngIf="showDanggiaohang==false"  >
+					Đang giao hàng
+				</button>
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Hoàn thành')" *ngIf="showHoanThanh==true" disabled>
+					Hoàn thành
+				</button>
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Hoàn thành')" *ngIf="showHoanThanh==false" >
 					Hoàn thành
 				</button>
 			</div>
