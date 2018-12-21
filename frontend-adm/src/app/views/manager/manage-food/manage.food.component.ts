@@ -9,6 +9,8 @@ import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Page } from '../../../model/page';
 import { environment } from '../../../../environments/environment';
+import { ProductCategory } from '../../../model/productCategory';
+import { map } from 'rxjs/operators';
 
 @Component({
   templateUrl: './manage.food.component.html'
@@ -20,9 +22,10 @@ import { environment } from '../../../../environments/environment';
   modalRef: BsModalRef;
   rows = [];
   imagePath = environment.url+'api/image/'
-
+  productcategory: ProductCategory[] = []
   filterForm = new FormGroup({
-    search: new FormControl('')
+    search: new FormControl(''),
+    category: new FormControl('')
   });
   deleteRow: any = {};
   request: any = {}
@@ -33,6 +36,14 @@ import { environment } from '../../../../environments/environment';
 
   ngOnInit(): void {
     this.setPage({ offset: 0 });
+
+    this.foodService.getAllCategory().pipe(
+      map(content=>{
+        return content.filter(cat=>!cat.deleted);
+      })
+    ).subscribe(data => {
+      this.productcategory = data;
+    });
   }
 
   setPage(pageInfo) {
@@ -40,6 +51,7 @@ import { environment } from '../../../../environments/environment';
     this.request.page = pageInfo.offset;
     this.foodService.findFood({
       name: name.replace(/ +(?= )/g,''),
+      categoryid: this.filterForm.get('category').value,
       page: this.request.page,
       size: 9
     }).subscribe(pageData => {

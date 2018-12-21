@@ -1,5 +1,7 @@
 package com.fpt.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -10,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.fpt.dto.request.PromotionRequest;
 import com.fpt.entity.Promotion;
 import com.fpt.mapper.PromotionMapper;
 import com.fpt.service.PromotionService;
@@ -24,10 +28,12 @@ public class PromotionController {
        private PromotionMapper promotionMapper;
        
        @RequestMapping(path = "/accept", method = RequestMethod.POST)
-   	public ResponseEntity<?> create(@RequestBody Promotion promotion) {
-   		return new ResponseEntity<>(
-   				promotionMapper.toPromotionResponse(promotionService.create(promotion)),
-   				HttpStatus.CREATED);
+       @ResponseStatus(value = HttpStatus.CREATED)
+   	public void create(@RequestBody PromotionRequest pr) {
+    	   List<Promotion> lp=promotionMapper.toPromotion(pr);
+   		promotionService.create(lp);
+   				
+   				
    	}
        @RequestMapping(path = "/all", method = RequestMethod.GET)
        public ResponseEntity<?> getAllPromotion(Pageable pageable){
@@ -42,5 +48,10 @@ public class PromotionController {
        public ResponseEntity<?> getPromotion(@RequestParam String code){
     	   return new ResponseEntity<>(promotionService.getpromotion(code),HttpStatus.OK);
        }
+       @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+       @ResponseStatus(value = HttpStatus.OK)
+   	public void delete(@PathVariable("id") Long id) {
+   		promotionService.delete(id);
+   	}
        
 }

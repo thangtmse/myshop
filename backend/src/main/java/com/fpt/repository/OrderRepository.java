@@ -12,5 +12,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 
 	List<Order> findOrderByUserIdOrderByAddAtDesc(Long id);
     List<Order> findOrderByphone(String phone);
-	Page<Order> findByPhoneContaining(String phone, Pageable pageable);
+	Page<Order> findByPhoneAndStatusContaining(String phone,String status, Pageable pageable);
+	Page<Order> findByPhoneContainingAndStatusContaining(String phone, String status, Pageable pageable);
 }

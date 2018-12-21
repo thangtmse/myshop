@@ -7,7 +7,7 @@
     </div>
     <div *ngIf="type!='wish'">
         <!-- <button mat-icon-button matTooltip="Add to wishlist" (click)="addToWishList(product)"><mat-icon>favorite</mat-icon></button> -->
-        <button mat-button matTooltip="Thêm vào giỏ hàng" *ngIf="product?.availibilityCount > 0" (click)="addToCart(product)"><mat-icon>shopping_cart</mat-icon> Thêm vào giỏ hàng</button>
+        <button mat-button matTooltip="Thêm vào giỏ hàng" style="color:red" *ngIf="product?.availibilityCount > 0" (click)="addToCart(product)"><mat-icon>shopping_cart</mat-icon> Thêm vào giỏ hàng</button>
         <!-- <button mat-icon-button matTooltip="Add to compare" (click)="addToCompare(product)"><mat-icon>compare</mat-icon></button> -->
         <button *ngIf="type!='all'" mat-button matTooltip="Quick view" (click)="openProductDialog(product)"><mat-icon>remove_red_eye</mat-icon> Xem nhanh</button>
     </div>

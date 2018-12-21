@@ -17,7 +17,7 @@ export class UserListComponent implements OnInit {
   filterForm = new FormGroup({
     search: new FormControl(''),
     role: new FormControl(-1),
-    status: new FormControl(-1)
+   
   });
   deleteRow: any = {};
   request: any = {}
@@ -28,7 +28,8 @@ export class UserListComponent implements OnInit {
 
   setPage(pageInfo) {
     this.request.page = pageInfo.offset;
-    this.userService.getUsers(this.request).subscribe(pagedData => {
+    console.log(this.request);
+    this.userService.getAllUser(this.request).subscribe(pagedData => {
       this.page.totalElements = pagedData.totalElements;
       this.page.pageNumber = pagedData.number;
       this.page.size = pagedData.size;

@@ -77,4 +77,10 @@ public class Promotion {
 		this.exprieDate = exprieDate;
 	}
 
+	@Override
+	public String toString() {
+		return "Promotion [promotionId=" + promotionId + ", productId=" + productId + ", discountCode=" + discountCode
+				+ ", discount=" + discount + ", createDate=" + createDate + ", exprieDate=" + exprieDate + "]";
+	}
+
 }

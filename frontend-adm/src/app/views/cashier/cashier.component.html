@@ -7,11 +7,23 @@
                         <div class="col-md-9">
                             <div class="form-group">
                                 <label for="name">Tìm kiếm:</label>
-                                <input formControlName="search" class="form-control" id="search" placeholder="Nhập tên hoặc số điện thoại" type="text">
+                                <input formControlName="search" class="form-control" id="search" placeholder="Nhập tên hoặc số điện thoại"
+                                    type="text">
                             </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="status">Trạng thái</label>
+                            <select formControlName="status" id="status" name="status" class="form-control" required>
+                                <option [value]="''">Tất cả</option>
+                                <option [value]="'Đang xử lý'">Đang xử lý</option>
+                                <option [value]="'Đang giao hàng'">Đang giao hàng</option>
+                                <option [value]="'Hoàn thành'">Hoàn thành</option>
+                                <option [value]="'Hủy'">Hủy</option>
+                            </select>
                         </div>
                     </div>
                 </div>
+
                 <div class="card-footer">
                     <button type="submit" class="btn btn-sm btn-primary">
                         <i class="fa fa-dot-circle-o"></i> Tìm
@@ -27,20 +39,9 @@
             </div>
         </div>
     </div>
-    <ngx-datatable *ngIf="rows.length>0"
-        #orderTable
-        class="material"
-        [rows]="rows"
-        [columnMode]="'force'"
-        [headerHeight]="50"
-        [footerHeight]="50"
-        [rowHeight]="'auto'"
-        [externalPaging]="true"
-        [count]="page.totalElements"
-        [offset]="page.pageNumber"
-        [limit]="page.size"
-        (page)='setPage($event)'
-        >
+    <ngx-datatable *ngIf="rows.length>0" #orderTable class="material" [rows]="rows" [columnMode]="'force'"
+        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements"
+        [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)'>
 
         <!-- Row Detail Template -->
         <ngx-datatable-row-detail [rowHeight]="100" #rowDetail>
@@ -58,31 +59,26 @@
         </ngx-datatable-row-detail>
 
         <!-- Column Templates -->
-        <ngx-datatable-column
-            [width]="50"
-            [resizeable]="false"
-            [sortable]="false"
-            [draggable]="false"
-            [canAutoResize]="false">
+        <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <button class="btn btn-link" (click)="toggleExpandRow(row)">
-                <i [class.icon-arrow-right]="!expanded" [class.icon-arrow-down]="expanded"></i>
-            </button>
+                <button class="btn btn-link" (click)="toggleExpandRow(row)">
+                    <i [class.icon-arrow-right]="!expanded" [class.icon-arrow-down]="expanded"></i>
+                </button>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="No." maxWidth="80">
             <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
-            <strong>{{rowIndex+1}}</strong>
+                <strong>{{rowIndex+1}}</strong>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Tên khách hàng" maxWidth="250">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <strong>{{row.user.username}} - {{row.user.fullName}}</strong>
+                <strong>{{row.user.username}} - {{row.user.fullName}}</strong>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Số điện thoại" maxWidth="150" >
+        <ngx-datatable-column name="Số điện thoại" maxWidth="150">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <span>{{row.phone}}</span>
+                <span>{{row.phone}}</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Thành tiền" maxWidth="250">
@@ -98,7 +94,8 @@
         <ngx-datatable-column name="">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
                 <div class="row">
-                    <button type="button" class="btn btn-sm btn-secondary btn-success mx-2" routerLink="/manage/cashier/checkout/{{row.orderId}}">Xem chi tiết</button>
+                    <button type="button" class="btn btn-sm btn-secondary btn-success mx-2" routerLink="/manage/cashier/checkout/{{row.orderId}}">Xem
+                        chi tiết</button>
                 </div>
             </ng-template>
         </ngx-datatable-column>

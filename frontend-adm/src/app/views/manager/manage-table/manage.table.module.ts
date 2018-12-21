@@ -5,11 +5,12 @@ import { NgModule } from '@angular/core';
 import { ManageTableRoutingModule } from './manage.table.routing.module';
 import { TableListComponent } from './table.list.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { EditTableComponent } from './table.edit.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -18,8 +19,10 @@ import { ToastrModule } from 'ngx-toastr';
     ManageTableRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    NgSelectModule,
     ModalModule.forRoot(),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   declarations: [
     TableListComponent,

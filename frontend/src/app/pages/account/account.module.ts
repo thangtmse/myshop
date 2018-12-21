@@ -20,10 +20,10 @@ export const routes = [
       path: '', 
       component: AccountComponent, children: [
           { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-          { path: 'dashboard', component: DashboardComponent, data: {  breadcrumb: 'Dashboard' } },
-          { path: 'information', component: InformationComponent, data: {  breadcrumb: 'Information' } },
-          { path: 'addresses', component: AddressesComponent, data: {  breadcrumb: 'Addresses' } },
-          { path: 'orders', component: OrdersComponent, data: {  breadcrumb: 'Orders' } }
+          { path: 'dashboard', component: DashboardComponent, data: {  breadcrumb: 'Chỉnh sửa tài khoản' } },
+          { path: 'information', component: InformationComponent, data: {  breadcrumb: 'Thông tin' } },
+          { path: 'addresses', component: AddressesComponent, data: {  breadcrumb: 'Địa chỉ' } },
+          { path: 'orders', component: OrdersComponent, data: {  breadcrumb: 'Đơn hàng' } }
       ]
   }
 ];

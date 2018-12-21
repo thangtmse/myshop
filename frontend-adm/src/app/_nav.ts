@@ -24,18 +24,18 @@ export const navItems = [
     ]
   },
   {
-    name: 'Quản lý Bàn',
+    name: 'Quản lý giảm giá',
     url: '/manage/table',
     icon: 'icon-puzzle',
     roles: ['ADMIN'],
     children: [
       {
-        name: 'Danh sách bàn',
+        name: 'Danh sách giảm giá',
         url: '/manage/table',
         icon: 'icon-people'
       },
       {
-        name: 'Tạo bàn',
+        name: 'Tạo sự kiện giảm giá',
         url: '/manage/table/create',
         icon: 'icon-table-follow'
       }

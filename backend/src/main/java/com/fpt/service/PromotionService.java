@@ -1,6 +1,7 @@
 package com.fpt.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -15,10 +16,18 @@ public class PromotionService {
 	@Autowired
 	private PromotionRepository promotionRepository;
 
-	public Promotion create(Promotion p) {
-		p.setCreateDate(1L);
-		p.setExprieDate(2L);
-		return promotionRepository.save(p);
+	public void create(List<Promotion> lp) {
+		
+		for (Promotion p : lp) {
+			Promotion promotion=new Promotion();
+		 promotion.setCreateDate(p.getCreateDate());
+		 promotion.setDiscount(p.getDiscount());
+		 promotion.setDisountCode(p.getDisountCode());
+		 promotion.setExprieDate(p.getExprieDate());
+		 promotion.setProductId(p.getProductId());
+		 promotionRepository.save(promotion);
+		}
+		
 	}
 
 	public Promotion getPromoton(Long id) {
@@ -42,5 +51,10 @@ public class PromotionService {
 	}
 	public Promotion getpromotion(String code) {
 		return promotionRepository.findBydiscountCode(code);
+	}
+	public void delete(Long id) {
+		Promotion p =promotionRepository.getOne(id);
+		System.out.println(p);
+		promotionRepository.delete(p);
 	}
 }

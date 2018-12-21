@@ -57,21 +57,21 @@ export class TableListComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  //confirm() {
-    // step 3: su dung
-  //   this.supplierService.deleteSuppliers(this.deleteRow.supplierId)
-  //     .subscribe(data => {
-  //       this.toastr.success('Danh mục được xóa thành công.');
-  //       this.modalRef.hide();
-  //       this.setPage({ offset: this.request.page });
-  //     },
-  //       error => {
-  //         this.toastr.error(error.error.message);
-  //         this.modalRef.hide();
-  //         this.setPage({ offset: this.request.page });
-  //       }
-  //     );
-  // }
+  confirm() {
+    
+    this.promotionService.deletePromotion(this.deleteRow.promotionId)
+      .subscribe(data => {
+        this.toastr.success(' xóa thành công.');
+        this.modalRef.hide();
+        this.setPage({ offset: this.request.page });
+      },
+        error => {
+          this.toastr.error(error.error.message);
+          this.modalRef.hide();
+          this.setPage({ offset: this.request.page });
+        }
+      );
+  }
 
   getHeight(row: any, index: number): number {
     return 150;

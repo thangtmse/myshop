@@ -28,7 +28,7 @@
                     <mat-icon>menu</mat-icon>
                 </button> 
             </span>
-            <span fxShow="false" fxShow.gt-xs fxLayoutAlign="center center"><mat-icon class="mat-icon-sm">call</mat-icon>  Hotline: (+84) 123 456 7890 </span>
+            <span fxShow="false" fxShow.gt-xs fxLayoutAlign="center center"><mat-icon class="mat-icon-sm">call</mat-icon>  Hỗ trợ: (+84) 123 456 7890 </span>
             <!-- <span fxShow="false" fxShow.gt-sm>Welcome to our market!</span> -->
             <app-top-menu></app-top-menu>       
         </mat-toolbar-row>
@@ -59,7 +59,7 @@
                         <span *ngIf="appService.Data.cartList.length > 0" class="cart-items-count">{{appService.Data.cartList.length}}</span>
                         <div fxLayout="column" fxLayoutAlign="center center" fxShow="false" fxShow.gt-xs class="top-cart">
                             <span>Giỏ hàng</span>
-                            <span *ngIf="appService.Data.cartList.length > 0">{{appService.Data.cartList.length}} item<span *ngIf="appService.Data.cartList.length > 1">s</span> - 
+                            <span *ngIf="appService.Data.cartList.length > 0">{{appService.Data.cartList.length}} sản phẩm<span *ngIf="appService.Data.cartList.length > 1">s</span> - 
                                 <span>₫{{appService.Data.totalPrice | number : '1.0-0'}}</span>
                             </span>
                         </div>
@@ -68,11 +68,11 @@
                     <mat-menu #cartMenu="matMenu" [overlapTrigger]="false" xPosition="before" class="top-menu-dropdown cart-dropdown">
                         <span (mouseleave)="cartMenuTrigger.closeMenu()" class="d-block">
                             <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted">
-                                <b><span>{{appService.Data.cartList.length}} ITEM<span *ngIf="appService.Data.cartList.length > 1">S</span></span></b>
-                                <b><a [routerLink]="['/cart']" class="text-muted">VIEW CART</a></b>
+                                <b><span>{{appService.Data.cartList.length}} sản phẩm<span *ngIf="appService.Data.cartList.length > 1">S</span></span></b>
+                                <b><a [routerLink]="['/cart']" class="text-muted">Xem giỏ hàng</a></b>
                             </div>
                             <div class="divider mt-1"></div>
-                            <div *ngIf="appService.Data.cartList.length == 0" class="py-1 text-muted text-center">You have no items in your shopping cart.</div>
+                            <div *ngIf="appService.Data.cartList.length == 0" class="py-1 text-muted text-center">Bạn không có sản phẩm nào trong giỏ hàng.</div>
                             <mat-list>
                                 <mat-list-item *ngFor="let product of appService.Data.cartList">                                   
                                     <h3 matLine class="text-muted"> {{product.name}} </h3>
@@ -88,12 +88,12 @@
                             <div *ngIf="appService.Data.cartList.length > 0" class="cart-dropdown-footer">
                                 <div class="divider mt-1"></div>
                                 <div fxLayout="row" fxLayoutAlign="space-between center" class="text-muted mt-1">
-                                    <b>TOTAL:</b>
+                                    <b>Tổng giá:</b>
                                     <b class="new-price">₫{{appService.Data.totalPrice | number : '1.0-0'}}</b>
                                 </div>
                                 <div class="divider mt-1"></div>
                                 <div fxLayout="row" fxLayoutAlign="space-between center" class="mt-1">
-                                    <button mat-mini-fab color="warn" (click)="clear();stopClickPropagate($event)" matTooltip="Clear All" matTooltipPosition="after">
+                                    <button mat-mini-fab color="warn" (click)="clear();stopClickPropagate($event)" matTooltip="Xóa tất cả" matTooltipPosition="after">
                                         <mat-icon>remove_shopping_cart</mat-icon>
                                     </button>
                                     <a [routerLink]="['/checkout']" mat-mini-fab color="primary" matTooltip="Checkout" matTooltipPosition="before">

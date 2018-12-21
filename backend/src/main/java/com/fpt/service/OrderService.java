@@ -39,7 +39,7 @@ public class OrderService {
 		order.setMessage(orderdto.getMessage());
 		order.setPhone(orderdto.getPhone());
 		order.setUserId(orderdto.getUserId());
-		order.setStatus("PENDING");
+		order.setStatus("Chờ xử lí");
 		order.setAddAt(new Date().getTime());
 		order.setDeliveryMethod(orderdto.getDeliveryMethod());
 		order.setAmount(orderdto.getOrderDetails().size());
@@ -80,8 +80,8 @@ public class OrderService {
 		return orderDetailRepository.findOrderDetailByOrderId(id);
 	}
 
-	public Page<Order> getall(String phone, Pageable pageable) {
-		return orderRepository.findByPhoneContaining(phone, pageable);
+	public Page<Order> getall(String phone,String status, Pageable pageable) {
+		return orderRepository.findByPhoneContainingAndStatusContaining(phone, status, pageable);
 	}
 
 	public Order getById(Long id) {

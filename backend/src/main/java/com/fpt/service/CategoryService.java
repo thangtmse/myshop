@@ -79,7 +79,7 @@ public class CategoryService {
 		if (strings.length >= 2) {
 			// delete file cu
 			byte[] imageByte = Base64.decodeBase64(strings[1]);
-			String directory = this.getClass().getClassLoader().getResource("").getPath() + "../../../images/cat-";
+			String directory = this.getClass().getClassLoader().getResource("").getPath() +"../../../images/cat-";
 			String fileName = directory + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
 			File file = new File(fileName);
 			try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
@@ -91,7 +91,7 @@ public class CategoryService {
 		}
 		return categoryRepository.save(category);
 	}
-
+	//"../../../images/cat-
 	public Category delete(Long id) {
 		Category category = categoryRepository.getOne(id);
 		category.setDeleted(true);

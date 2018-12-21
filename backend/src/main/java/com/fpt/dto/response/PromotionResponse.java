@@ -9,6 +9,7 @@ public class PromotionResponse {
      private Integer discount;
      private Long createDate;
      private Long exprieDate;
+    
 	public Long getPromotionId() {
 		return promotionId;
 	}

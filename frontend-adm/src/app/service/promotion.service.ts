@@ -82,8 +82,8 @@ export class PromotionService {
             );
     }
 
-    deleteSuppliers(id: any): Observable<any> {
-        return this.httpClient.delete(environment.url + 'api/supplier/' + id)
+    deletePromotion(id: any): Observable<any> {
+        return this.httpClient.delete(environment.url + 'api/promotion/' + id)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     return new Observable((observer: InnerSubscriber<any, any>) => {

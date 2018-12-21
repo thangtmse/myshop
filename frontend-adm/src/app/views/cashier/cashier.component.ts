@@ -18,7 +18,8 @@ import { SharedService } from '../../service/shared.service';
   rows = [];
 
   filterForm = new FormGroup({
-    search: new FormControl('')
+    search: new FormControl(''),
+    status: new FormControl('')
   });
   request: any = {}
 
@@ -41,7 +42,7 @@ import { SharedService } from '../../service/shared.service';
     this.request.page = pageInfo.offset;
     this.orderService.getOrders({
     	"search": search, 
-    	"status": 3, 
+    	"status": this.filterForm.get('status').value, 
     	"page": this.request.page,
       "size": 9
     }).subscribe(pageData => {

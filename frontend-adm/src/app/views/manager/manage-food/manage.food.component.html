@@ -4,11 +4,20 @@
             <form class="card" [formGroup]="filterForm" (ngSubmit)="filterFormSubmit()">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-12">
+                        <div class="col-md-9">
                             <div class="form-group">
                                 <label for="name">Tên sản phẩm</label>
-                                <input formControlName="search" class="form-control" id="name" placeholder="Nhập tên sản phẩm" type="text">
+                                <input formControlName="search" class="form-control" id="name" placeholder="Nhập tên sản phẩm"
+                                    type="text">
                             </div>
+                        </div>
+                        <div class="col-md-3">
+                            <label for="status">Danh muc</label>
+                            <select formControlName="category" id="category" name="category" class="form-control"
+                                required>
+                                <option [value]="''">Tất cả</option>
+                                <option [value]="cat.categoryId" *ngFor="let cat of productcategory">{{cat.categoryName}}</option>
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -27,54 +36,39 @@
             </div>
         </div>
     </div>
-    <ngx-datatable *ngIf="rows.length>0"
-        #productTable
-        class="material"
-        [rows]="rows"
-        [columnMode]="'force'"
-        [headerHeight]="50"
-        [footerHeight]="50"
-        [rowHeight]="'auto'"
-        [externalPaging]="true"
-        [count]="page.totalElements"
-        [offset]="page.pageNumber"
-        [limit]="page.size"
-        (page)='setPage($event)'>
+    <ngx-datatable *ngIf="rows.length>0" #productTable class="material" [rows]="rows" [columnMode]="'force'"
+        [headerHeight]="50" [footerHeight]="50" [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements"
+        [offset]="page.pageNumber" [limit]="page.size" (page)='setPage($event)'>
 
         <!-- Row Detail Template -->
         <ngx-datatable-row-detail [rowHeight]="200" #rowDetail>
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
                 <div style="padding-left:35px;">
-                <div><strong>Miêu tả</strong></div>
-                <div>{{row.description}}</div>
-                <div>
-                    <img height="100px" [src]="imagePath+i.imageId" *ngFor="let i of row.images" class="mx-1 my-2">
-                </div>
+                    <div><strong>Miêu tả</strong></div>
+                    <div>{{row.description}}</div>
+                    <div>
+                        <img height="100px" [src]="imagePath+i.imageId" *ngFor="let i of row.images" class="mx-1 my-2">
+                    </div>
                 </div>
             </ng-template>
         </ngx-datatable-row-detail>
 
         <!-- Column Templates -->
-        <ngx-datatable-column
-            [width]="50"
-            [resizeable]="false"
-            [sortable]="false"
-            [draggable]="false"
-            [canAutoResize]="false">
+        <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false" [canAutoResize]="false">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <button class="btn btn-link" (click)="toggleExpandRow(row)">
-                <i [class.icon-arrow-right]="!expanded" [class.icon-arrow-down]="expanded"></i>
-            </button>
+                <button class="btn btn-link" (click)="toggleExpandRow(row)">
+                    <i [class.icon-arrow-right]="!expanded" [class.icon-arrow-down]="expanded"></i>
+                </button>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="STT" maxWidth="80">
             <ng-template let-rowIndex="rowIndex" let-row="row" ngx-datatable-cell-template>
-            <strong>{{rowIndex+1}}</strong>
+                <strong>{{rowIndex+1}}</strong>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Tên sản phẩm" maxWidth="150">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <strong>{{row.productName}}</strong>
+                <strong>{{row.productName}}</strong>
             </ng-template>
         </ngx-datatable-column>
         <!-- <ngx-datatable-column name="Description">
@@ -82,14 +76,14 @@
             <strong>{{row.description}}</strong>
             </ng-template>
         </ngx-datatable-column> -->
-        <ngx-datatable-column name="Nhập vào" maxWidth="120" >
+        <ngx-datatable-column name="Nhập vào" maxWidth="120">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <span>{{row.priceIn | number: '1.0-0'}} đ</span>
+                <span>{{row.priceIn | number: '1.0-0'}} đ</span>
             </ng-template>
         </ngx-datatable-column>
-        <ngx-datatable-column name="Bán ra" maxWidth="120" >
+        <ngx-datatable-column name="Bán ra" maxWidth="120">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-            <span>{{row.priceOut | number: '1.0-0'}} đ</span>
+                <span>{{row.priceOut | number: '1.0-0'}} đ</span>
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Danh mục" maxWidth="150">
@@ -114,8 +108,8 @@
 </div>
 <ng-template #deleteModal>
     <div class="modal-body text-center">
-        <p>Bạn muốn xóa  <strong>{{deleteRow.name}}</strong>?</p>
-        <button type="button" class="btn btn-sm btn-default mx-2" (click)="confirm()" >Xóa</button>
-        <button type="button" class="btn btn-sm btn-primary mx-2" (click)="decline()" >Quay lại</button>
+        <p>Bạn muốn xóa <strong>{{deleteRow.name}}</strong>?</p>
+        <button type="button" class="btn btn-sm btn-default mx-2" (click)="confirm()">Xóa</button>
+        <button type="button" class="btn btn-sm btn-primary mx-2" (click)="decline()">Quay lại</button>
     </div>
 </ng-template>

@@ -40,7 +40,7 @@ public getOrdersByUser(userId:number):  Observable<any> {
             return { number: ele.orderId, 
             date: new Date(ele.addAt), 
             status: ele.status, 
-            total: ele.totalPrice +' for ' +ele.amount+ ' items', 
+            total: ele.totalPrice +' cho ' +ele.amount+ ' sản phẩm', 
             invoice: true }
         })
         return data;
@@ -268,7 +268,7 @@ public getOrdersByUser(userId:number):  Observable<any> {
     public addToCart(product: Product) {
         let message, status;
         if (this.Data.cartList.filter(item => item.id == product.id)[0]) {
-            message = 'The product ' + product.name + ' already added to cart.';
+            message = 'Sản phẩm ' + product.name + ' đã được thêm vào giỏ hàng.Vui lòng xóa sản phẩm trước khi thêm số lượng mong muốn.';
             status = 'error';
         }
         else {
@@ -277,7 +277,7 @@ public getOrdersByUser(userId:number):  Observable<any> {
             this.Data.cartList.forEach(product => {
                 this.Data.totalPrice = this.Data.totalPrice + (product.newPrice*product.quantity);
             })
-            message = 'The product ' + product.name + ' has been added to cart.';
+            message = 'Sản phẩm ' + product.name + ' đã được thêm vào giỏ hàng';
             status = 'success';
         }
         this.snackBar.open(message, '×', { panelClass: [status], verticalPosition: 'top', duration: 3000 });
@@ -572,9 +572,9 @@ public getOrdersByUser(userId:number):  Observable<any> {
 
     public getDeliveryMethods() {
         return [
-            { value: 'free', name: 'Giao hàng miễn phí', desc: '0 $ / Giao hàng trong 7 đến 14 ngày làm việc' },
-            { value: 'standard', name: 'Giao hàng tiêu chuẩn', desc: '$7.99 /  Giao hàng trong 5 đến 7 ngày làm việc' },
-            { value: 'express', name: 'Chuyển phát nhanh', desc: '$29.99 / Giao hàng trong 1 ngày làm việc' }
+            { value: 'free', name: 'Giao hàng miễn phí(trong Hà Nội) trong 2 đến 3 ngày', desc: '/50.000 đ(với các tỉnh ngoài Hà Nội)  Giao hàng trong 5 đến 7 ngày ' },
+            { value: 'standard', name: 'Giao hàng nhanh:30 000 đ(khu vực Hà Nội trong vòng 1 ngày )', desc: ' /  75.000 đ(dành cho các tỉnh ngoài Hà Nội giao hàng trong 3 đến 4 ngày làm việc' },
+            //{ value: 'express', name: 'Chuyển phát nhanh', desc: '$29.99 / Giao hàng trong 1 ngày làm việc' }
         ]
     }
 

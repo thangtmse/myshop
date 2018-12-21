@@ -8,12 +8,11 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="discount">Phần trăm giảm giá *</label>
-                                <textarea formControlName="discount" class="form-control" id="discount"
-									placeholder="Nhập phàn trăm giảm giá" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('discount').invalid}">
-									</textarea>
+                                <input formControlName="discount" class="form-control" id="discount" placeholder="Nhập phàn trăm giảm giá"
+                                    type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('discount').invalid}"/>
                                 <div class="invalid-feedback">
                                     <span *ngIf="editorForm.get('discount').errors?.required">Trường này không được
                                         bỏ trống</span>
@@ -21,12 +20,24 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="createDate">Ngày bắt đầu</label>
+                                <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsValue]="bsValue" formControlName="createDate">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="exprieDate">Ngày kết thúc</label>
+                                <input type="text" class="form-control" #dp="bsDatepicker" bsDatepicker [bsValue]="bsValue" formControlName="exprieDate">
+                            </div>
+                        </div>
+                        <div class="col-md-12">
                             <div class="form-group">
                                 <label for="productId">Sản phẩm áp dụng *</label>
-                                <textarea formControlName="productId" class="form-control" id="productId"
-									placeholder="Mã sản phẩm" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('productId').invalid}">
-									</textarea>
+                                <ng-select class="form-control" multiple="true" hideSelected="true" [items]="sanpham | async"
+                                    bindLabel="productName" [typeahead]="sanphamInput" bindValue="productId"
+                                    [(ngModel)]="products" [ngModelOptions]="{standalone: true}"></ng-select>
                                 <div class="invalid-feedback">
                                     <span *ngIf="editorForm.get('productId').errors?.required">Trường này không được
                                         bỏ trống</span>
@@ -34,17 +45,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="discountCode">Mã giảm giá</label>
-                                <textarea formControlName="discountCode" class="form-control" id="discountCode"
-                                    placeholder="nhập mã giảm giá" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('discountCode').invalid}">
-                                </textarea>
-                                
-                            </div>
-                        </div>
-
-
                     </div>
                 </div>
                 <div class="card-footer">

@@ -38,8 +38,9 @@ public class OrderController {
 
 	@RequestMapping(path = "", method = RequestMethod.GET)
 	public ResponseEntity<?> getall(Pageable pageable,
-			@RequestParam(value = "search", defaultValue = "", required = false) String phone) {
-		Page<Order> list = orderService.getall(phone, pageable);
+			@RequestParam(value = "search", defaultValue = "", required = false) String phone,
+			@RequestParam(value = "status", defaultValue = "", required = false) String status) {
+		Page<Order> list = orderService.getall(phone,status, pageable);
 		return new ResponseEntity<>(orderMapper.toOrderResponse(list), HttpStatus.OK);
 	}
 
