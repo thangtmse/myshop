@@ -208,7 +208,7 @@ public getOrdersByUser(userId:number):  Observable<any> {
                 newPrice: pro.priceOut*((100-pro.discount)/100),
                 discount: pro.discount,
                 description: pro.description,
-                availibilityCount: 1000
+                availibilityCount: pro.quantity
             };
             return data;
         }));

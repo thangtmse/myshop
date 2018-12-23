@@ -39,6 +39,7 @@ export class ControlsComponent implements OnInit {
 
 
   public increment(count){
+    console.log(this.product);
     if(this.count < this.product.availibilityCount){
       this.count++;
       let obj = {
@@ -50,7 +51,7 @@ export class ControlsComponent implements OnInit {
       this.changeQuantity(obj);
     }
     else{
-      this.snackBar.open('You can not choose more items than available. In stock ' + this.count + ' items.', '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
+      this.snackBar.open('bạn không thể đặt hàng nhiều hơn số sản phẩm hiện có: ' + this.count + ' sản phẩm.', '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
     }    
   }
 
