@@ -40,7 +40,7 @@ public class OrderController {
 	public ResponseEntity<?> getall(Pageable pageable,
 			@RequestParam(value = "search", defaultValue = "", required = false) String phone,
 			@RequestParam(value = "status", defaultValue = "", required = false) String status) {
-		Page<Order> list = orderService.getall(phone,status, pageable);
+		Page<Order> list = orderService.getall(phone, status, pageable);
 		return new ResponseEntity<>(orderMapper.toOrderResponse(list), HttpStatus.OK);
 	}
 
@@ -72,6 +72,12 @@ public class OrderController {
 	public ResponseEntity<?> findOrderDetailByOrderId(@PathVariable("id") Long id) {
 		List<OrderDetail> orderDetails = orderService.findOrderDetailsByOrderId(id);
 		return new ResponseEntity<>(orderDetailMapper.toListODResponse(orderDetails), HttpStatus.OK);
+	}
+
+	@RequestMapping(path = "{id}/review", method = RequestMethod.GET)
+	public ResponseEntity<?> getReviewOrder(@PathVariable("id") Long userId) {
+
+		return new ResponseEntity<>(orderService.getReviewOrder(userId), HttpStatus.OK);
 	}
 
 }

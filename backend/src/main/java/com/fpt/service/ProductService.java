@@ -17,6 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.fpt.dto.response.RangOfProductPrice;
 import com.fpt.entity.Image;
 import com.fpt.entity.Product;
 import com.fpt.repository.ProductRepository;
@@ -139,6 +140,11 @@ public class ProductService {
 		System.out.println("=================");
 		System.out.println(deleteImages);
 		return productRepository.save(p);
+	}
+
+	public RangOfProductPrice getRankOfPrice() {
+
+		return productRepository.getRankOfPrice();
 	}
 
 	// public Page<Product> findProductByCategory(Long id, Pageable pageable) {

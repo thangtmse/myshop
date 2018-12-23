@@ -62,6 +62,10 @@ export class ProductsComponent implements OnInit {
     this.getCategories();
     this.getBrands();
     // this.getAllProducts();
+    this.appService.getRankOfPrice().subscribe((data: any) => {
+        this.min=data.minPrice -100;
+        this.max=data.maxPrice + 100;
+    });
   }
 
   public getAllProducts() {
@@ -81,8 +85,6 @@ export class ProductsComponent implements OnInit {
     this.appService.getProducts(this.search.replace(/ +(?= )/g,''), this.category.id ? this.category.id : null, 1, 5000000000, this.page - 1, this.count, sortText).subscribe((data: any) => {
       this.priceFrom = data.minPrice-100;
       this.priceTo = data.maxPrice+100;
-      this.max = data.maxPrice+100;
-      this.min = data.minPrice-100;
     })
     
   }

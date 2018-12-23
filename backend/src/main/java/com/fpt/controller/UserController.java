@@ -72,8 +72,9 @@ public class UserController {
 		user = userService.save(user);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
+
 	@RequestMapping(path = "all", method = RequestMethod.GET)
-	public ResponseEntity<?> getAllUser(Pageable pageable){
-		return new ResponseEntity<>(userService.getAll(pageable),HttpStatus.OK);
+	public ResponseEntity<?> getAllUser(Pageable pageable) {
+		return new ResponseEntity<>(userService.getAll(pageable), HttpStatus.OK);
 	}
 }

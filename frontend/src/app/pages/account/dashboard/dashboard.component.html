@@ -35,13 +35,21 @@ Bạn có thể xem các hoạt động gần đây bằng cách ấn vào các 
           <div class="divider"></div>
           <mat-card-content class="p-2 text-muted account-card-content">
             <p class="">Hoàn thành</p>
-            <mat-progress-bar value="75" color="primary"></mat-progress-bar>
+            <mat-progress-bar value="{{reviewDto.done}}" color="success"></mat-progress-bar>
             <p class="mt-1">Đang xử lí</p>
-            <mat-progress-bar value="25" color="accent"></mat-progress-bar>
+            <mat-progress-bar value="{{reviewDto.processing}}" color="accent"></mat-progress-bar>
             <p class="mt-1">Đang vận chuyển</p>
-            <mat-progress-bar value="65" color="warn"></mat-progress-bar>
+            <mat-progress-bar value="{{reviewDto.delivering}}" color="primary"></mat-progress-bar>
             <p class="mt-1">Hủy</p>
-            <mat-progress-bar value="25" color="primary"></mat-progress-bar>
+            <mat-progress-bar value="{{reviewDto.cancel}}" color="primary"></mat-progress-bar>
+            <!-- <p class="">Hoàn thành</p>
+            <mat-progress-bar value="12" color="success"></mat-progress-bar>
+            <p class="mt-1">Đang xử lí</p>
+            <mat-progress-bar value="30" color="accent"></mat-progress-bar>
+            <p class="mt-1">Đang vận chuyển</p>
+            <mat-progress-bar value="60" color="primary"></mat-progress-bar>
+            <p class="mt-1">Hủy</p>
+            <mat-progress-bar value="70" color="warn"></mat-progress-bar> -->
           </mat-card-content>
         </mat-card>
     </div>

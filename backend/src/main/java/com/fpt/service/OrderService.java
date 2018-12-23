@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fpt.dto.request.OrderDTO;
+import com.fpt.dto.response.ReviewOrderResponse;
 import com.fpt.entity.Order;
 import com.fpt.entity.OrderDetail;
 import com.fpt.entity.Product;
@@ -26,9 +27,9 @@ public class OrderService {
 	private OrderDetailRepository orderDetailRepository;
 	@Autowired
 	private ProductRepository productRepository;
-     @Autowired
-     private UserRepository userRepository;
-@Autowired
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
 	private PromotionService promotionService;
 
 	public Order create(OrderDTO orderdto) {
@@ -57,30 +58,34 @@ public class OrderService {
 			}
 			orderDetail.setTotalPrice(orderDetail.getPrice() * orderDetail.getQuantity());
 			totalPrice += orderDetail.getTotalPrice();
+
+			Integer quantity = product.getQuantity() - orderDetail.getQuantity();
+			product.setQuantity(quantity);
+			productRepository.save(product);
+
 		}
 		order.setTotalPrice(totalPrice);
 		orderDetailRepository.saveAll(orderdto.getOrderDetails());
 		// TODO Auto-generated method stub
 		return orderRepository.save(order);
 	}
-	
-	public Page<Order> getall(Pageable pageable){
+
+	public Page<Order> getall(Pageable pageable) {
 		return orderRepository.findAll(pageable);
 	}
 
 	public List<Order> findOrder(Long id) {
 		// TODO Auto-generated method stub
-		 
+
 		return orderRepository.findOrderByUserIdOrderByAddAtDesc(id);
 	}
-	
 
 	public List<OrderDetail> findOrderDetailsByOrderId(Long id) {
 		// TODO Auto-generated method stub
 		return orderDetailRepository.findOrderDetailByOrderId(id);
 	}
 
-	public Page<Order> getall(String phone,String status, Pageable pageable) {
+	public Page<Order> getall(String phone, String status, Pageable pageable) {
 		return orderRepository.findByPhoneContainingAndStatusContaining(phone, status, pageable);
 	}
 
@@ -92,8 +97,26 @@ public class OrderService {
 	public Order changeStatus(Long id, String status) {
 		Order order = getById(id);
 		order.setStatus(status);
+		if (status.equals("Hủy")) {
+			List<OrderDetail> orderDetails = orderDetailRepository.findOrderDetailByOrderId(id);
+			for (OrderDetail orderDetail : orderDetails) {
+				Product product = productRepository.getOne(orderDetail.getProductId());
+				Integer quantity = product.getQuantity() + orderDetail.getQuantity();
+				product.setQuantity(quantity);
+				productRepository.save(product);
+			}
+		}
 		order = orderRepository.save(order);
 		return order;
+	}
+
+	public Object getReviewOrder(Long userId) {
+		ReviewOrderResponse orderResponse = new ReviewOrderResponse();
+		orderResponse.setDone(orderRepository.getAmountOfProductByStatus("Hoàn thành", userId));
+		orderResponse.setDelivering(orderRepository.getAmountOfProductByStatus("Đang giao hàng", userId));
+		orderResponse.setProcessing(orderRepository.getAmountOfProductByStatus("Đang xử lý", userId));
+		orderResponse.setCancel(orderRepository.getAmountOfProductByStatus("Hủy", userId));
+		return orderResponse;
 	}
 
 }
