@@ -2,53 +2,54 @@
     <div fxFlex="100" fxFlex.gt-xs="33.3">
         <div fxLayout="column" fxLayoutAlign="center center" class="text-center">
             <mat-icon color="primary" class="mat-icon-lg">home</mat-icon>
-            <h3 class="primary-text py-1">ADDRESS :</h3>
-            <span class="text-muted">2903 Avenue Z, Brooklyn, New York City</span>
+            <h3 class="primary-text py-1">Địa chỉ :</h3>
+            <span class="text-muted">25 ngõ 91,đường Hồng Hà,Phúc Xá,Ba Đình
+                Hà Nội</span>
         </div>
     </div>
     <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
         <div fxLayout="column" fxLayoutAlign="center center">
             <mat-icon color="primary" class="mat-icon-lg">call</mat-icon>
-            <h3 class="primary-text py-1">PHONES :</h3>
-            <span class="text-muted">(212) 457-2308</span>
-            <span class="text-muted">(212) 457-2309</span>
+            <h3 class="primary-text py-1">Số điện thoại liên hệ :</h3>
+            <span class="text-muted">091 257 20 78</span>
+            
         </div>
     </div>
     <div fxFlex="100" fxFlex.gt-xs="33.3" ngClass.xs="mt-2">
         <div fxLayout="column" fxLayoutAlign="center center">
             <mat-icon color="primary" class="mat-icon-lg">mail_outline</mat-icon>
             <h3 class="primary-text py-1">E-MAIL :</h3>
-            <span class="text-muted">contact@emporium.com</span>
-            <span class="text-muted">info@emporium.com</span>
+            <span class="text-muted">tramanhjp@gmail.com</span>
+            
         </div>
     </div>
     <div class="divider w-100 mt-2"></div>
-    <h3 class="w-100 text-center py-2">CONTACT US</h3>
+    <h3 class="w-100 text-center py-2">Liên hệ với chúng tôi</h3>
     
     <form [formGroup]="contactForm" (ngSubmit)="onContactFormSubmit(contactForm.value)" fxLayout="row wrap">
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Name" formControlName="name" required>
-              <mat-error *ngIf="contactForm.controls.name.errors?.required">Name is required</mat-error>
+              <input matInput placeholder="Tên" formControlName="name" required>
+              <mat-error *ngIf="contactForm.controls.name.errors?.required">Trường này không thể để trống</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
           <mat-form-field class="w-100">
               <input matInput placeholder="Email" formControlName="email" required>
-              <mat-error *ngIf="contactForm.controls.email.errors?.required">Email is required</mat-error>
-              <mat-error *ngIf="contactForm.controls.email.hasError('invalidEmail')">Invalid email address</mat-error>
+              <mat-error *ngIf="contactForm.controls.email.errors?.required">Email không được để trống</mat-error>
+              <mat-error *ngIf="contactForm.controls.email.hasError('invalidEmail')">Địa chỉ email không đúng</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" fxFlex.gt-sm="33.3" class="px-1" ngClass.sm="mt-1" ngClass.xs="mt-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Phone" formControlName="phone" required>
-              <mat-error *ngIf="contactForm.controls.phone.errors?.required">Điện thoại is required</mat-error>
+              <input matInput placeholder="Số điện thoại" formControlName="phone" required>
+              <mat-error *ngIf="contactForm.controls.phone.errors?.required">Số điện thoại không đươc để trống</mat-error>
           </mat-form-field>
         </div>
         <div fxFlex="100" class="px-1 mt-1">
           <mat-form-field class="w-100">
-              <input matInput placeholder="Message" formControlName="message" required>
-              <mat-error *ngIf="contactForm.controls.message.errors?.required">Message is required</mat-error>
+              <input matInput placeholder="Tin nhắn" formControlName="message" required>
+              <mat-error *ngIf="contactForm.controls.message.errors?.required">Tin nhắn không dược để trống</mat-error>
           </mat-form-field>
         </div> 
         <div class="w-100 py-2 text-center">

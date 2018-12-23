@@ -13,21 +13,21 @@ const routes: Routes = [
     path: '',
     component: TableListComponent,
     data: {
-      title: 'Danh sách bàn'
+      title: 'Danh sách giảm giá'
     }
   },
   {
     path: 'edit/:id',
     component: EditTableComponent,
     data: {
-      title: 'Sửa thông tin bàn'
+      title: 'Sửa thông tin giảm giá'
     }
   },
   {
     path: 'create',
     component: EditTableComponent,
     data: {
-      title: 'Tạo bàn'
+      title: 'Tạo sự kiện giảm giá'
     }
   }
 ];

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.fpt.dto.request.PromotionRequest;
@@ -27,6 +26,10 @@ public class PromotionController {
        @Autowired
        private PromotionMapper promotionMapper;
        
+       @RequestMapping(path = "{id}", method = RequestMethod.GET)
+       public ResponseEntity<?> getonePromotion(@PathVariable("id") Long id){
+    	   return new ResponseEntity<>(promotionMapper.toPromotionResponse(promotionService.getOnePromotion(id)),HttpStatus.OK);
+       }
        @RequestMapping(path = "/accept", method = RequestMethod.POST)
        @ResponseStatus(value = HttpStatus.CREATED)
    	public void create(@RequestBody PromotionRequest pr) {
@@ -35,6 +38,8 @@ public class PromotionController {
    				
    				
    	}
+      
+       
        @RequestMapping(path = "/all", method = RequestMethod.GET)
        public ResponseEntity<?> getAllPromotion(Pageable pageable){
     	   return new ResponseEntity<>(promotionMapper.toPromotionResponse(promotionService.findAll(pageable)),HttpStatus.OK);
@@ -44,10 +49,10 @@ public class PromotionController {
    		promotion.setPromotionId(id);
    		return new ResponseEntity<>(promotionService.update(promotion), HttpStatus.OK);
    	}
-       @RequestMapping(path = "", method = RequestMethod.GET)
-       public ResponseEntity<?> getPromotion(@RequestParam String code){
-    	   return new ResponseEntity<>(promotionService.getpromotion(code),HttpStatus.OK);
-       }
+//       @RequestMapping(path = "", method = RequestMethod.GET)
+//       public ResponseEntity<?> getPromotion(@RequestParam String code){
+//    	   return new ResponseEntity<>(promotionService.getpromotion(code),HttpStatus.OK);
+//       }
        @RequestMapping(path = "{id}", method = RequestMethod.DELETE)
        @ResponseStatus(value = HttpStatus.OK)
    	public void delete(@PathVariable("id") Long id) {

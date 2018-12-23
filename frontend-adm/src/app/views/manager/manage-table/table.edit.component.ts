@@ -39,12 +39,18 @@ export class EditTableComponent implements OnInit {
 
   }
   ngOnInit(): void {
-
+    this.foodService.findFood("").subscribe(data =>{
+      this.products=data;
+    })
     this.promotionId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-    this.promotionService.getPromotion(this.promotionId).subscribe(data => {
+    this.promotionService.getOnePromotion(this.promotionId).subscribe(data => {
+      let products=data.product;
       this.editorForm.get('discount').setValue(data.discount);
-      this.editorForm.get('productId').setValue(data.productId);
-      this.editorForm.get('discountCode').setValue(data.discountCode);
+      this.editorForm.get('createDate').setValue(data.createDate);
+      this.editorForm.get('exprieDate').setValue(data.exprieDate);
+      // let pro = this.products.filter((pro: any) => pro.productId == data.products.productId)
+      //   this.products = pro.length > 0 ? pro[0] : null;
+      this.editorForm.get('productName').setValue(data.product.productIds);
     });
 
     this.sanpham = concat(

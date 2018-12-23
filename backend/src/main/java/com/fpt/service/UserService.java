@@ -57,9 +57,12 @@ public class UserService {
 		// TODO Auto-generated method stub
 		return userRepository.getUserByUsername(username);
 	}
-	public Page<User> getAll(Pageable pageable){
-		return userRepository.findAll(pageable);
+	public Page<User> getUsers(String name,String phone,String role,Pageable pageable){
+		return userRepository.findUserByCondition(name, phone, role, pageable);
 	}
+//	public Page<User> getAll(Pageable pageable){
+//		return userRepository.findAll(pageable);
+//	}
 //	public List<User> getUserByphone(String phone){
 //		
 //	}

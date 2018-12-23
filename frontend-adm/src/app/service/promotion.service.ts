@@ -59,6 +59,16 @@ export class PromotionService {
                 })
             );
     }
+    getOnePromotion(id: any): Observable<any> {
+        return this.httpClient.get(environment.url + 'api/promotion/' +id)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
+                        observer.next(null);
+                    });
+                })
+            );
+    }
 
     createPromotion(params: any): Observable<any> {
         return this.httpClient.post(environment.url + '/api/promotion/accept', params)
