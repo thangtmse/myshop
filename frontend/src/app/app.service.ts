@@ -214,6 +214,20 @@ public getOrdersByUser(userId:number):  Observable<any> {
         }));
     }
 
+    public getOrderReview(userId:number): Observable<any> {
+        return this.http.get(this.API_URL + "/order/"+userId+"/review").pipe(map((reviewDto: any) => {
+            
+            return reviewDto;
+        }));
+    }
+
+    public getRankOfPrice(): Observable<any> {
+        return this.http.get(this.API_URL + "/product/getRank").pipe(map((rank: any) => {
+            
+            return rank;
+        }));
+    }
+
     public getOrderDetailsByOrder(OrderId:number): Observable<any> {
         return this.http.get(this.API_URL + "/order/"+OrderId+"/detail").pipe(map((orderDetails: any) => {
             

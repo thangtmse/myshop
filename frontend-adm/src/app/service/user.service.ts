@@ -24,8 +24,8 @@ export class UserService {
             );
     }
 
-    getUser(id: any): Observable<any> {
-        return this.httpClient.get(environment.url + 'api/users/'+id)
+    getUser(id: number): Observable<any> {
+        return this.httpClient.get(environment.url + 'api/user/'+id)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     return new Observable((observer: InnerSubscriber<any, any> ) => {
@@ -46,7 +46,7 @@ export class UserService {
     }
 
     createUsers(params: any): Observable<any> {
-        return this.httpClient.post(environment.url + 'api/users', params)
+        return this.httpClient.post(environment.url + 'api/user/acept', params)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     return new Observable((observer: InnerSubscriber<any, any> ) => {

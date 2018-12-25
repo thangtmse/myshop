@@ -3,19 +3,26 @@
         <div class="col-12">
             <form class="card" [formGroup]="editorForm" (ngSubmit)="editorFormSubmit()">
                 <div class="card-header">
-                    <strong *ngIf="!userId">Tạo nhân viên</strong>
-                    <strong *ngIf="userId">Sửa nhân viên</strong>
+                    <strong *ngIf="!userId">Tạo tài khoản</strong>
+                    <strong *ngIf="userId">Sửa thông tin tài khoản</strong>
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <div class="form-group">
                                 <label for="role">Chức vụ</label>
                                 <select class="form-control" id="role" formControlName="role">
-                                    <option value="1">ADMIN</option>
-                                    <option value="2">EMPLOYEE</option>
-                                    <option value="3">CUSTOMER</option>
+                                    <option value="ADMIN">ADMIN</option>
+                                    <option value="EMPLOYEE">EMPLOYEE</option>
+                                    <option value="CUSTOMER">CUSTOMER</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="email"> email</label>
+                                <input formControlName="email" class="form-control" id="email" placeholder="email" type="text" >
+                                
                             </div>
                         </div>
                         <!-- <div class="col-md-6">
@@ -78,6 +85,16 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="email">Email *</label>
+                                <input formControlName="email" class="form-control" id="email" placeholder="email" type="text" [ngClass]="{'is-invalid': isSubmited && editorForm.get('email').invalid}">
+                                <div class="invalid-feedback">
+                                    <span *ngIf="editorForm.get('email').errors?.required">Trường này không được bỏ trống</span>
+                                    <span *ngIf="editorForm.get('email').errors?.message">{{editorForm.get('email').errors?.message}}</span>
+                                </div>
+                            </div>
+                        </div> -->
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="address">Địa chỉ *</label>

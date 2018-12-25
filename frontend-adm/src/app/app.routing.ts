@@ -60,14 +60,14 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'food',
+        path: 'product',
         loadChildren: './views/manager/manage-food/manage.food.module#ManageFoodModule',
         data: {
           roles: ['ADMIN']
         }
       },
       {
-        path: 'table',
+        path: 'promotion',
         loadChildren: './views/manager/manage-table/manage.table.module#ManageTableModule',
         data: {
           roles: ['ADMIN']
@@ -95,7 +95,7 @@ export const routes: Routes = [
         }
       },
       {
-        path: 'cashier',
+        path: 'orders',
         loadChildren: './views/cashier/cashier.module#CashierModule',
         data: {
           roles: ['EMPLOYEE','ADMIN']

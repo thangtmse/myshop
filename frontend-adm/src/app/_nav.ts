@@ -1,12 +1,12 @@
 export const navItems = [
   {
-    name: 'Dashboard',
+    name: 'Thống kê',
     url: '/manage/dashboard',
     icon: 'icon-speedometer',
     roles: ['ADMIN'],
   },
   {
-    name: 'Nhân viên',
+    name: 'Tài khoản',
     url: '/manage/user',
     icon: 'icon-puzzle',
     roles: ['ADMIN'],
@@ -25,18 +25,18 @@ export const navItems = [
   },
   {
     name: 'Quản lý giảm giá',
-    url: '/manage/table',
+    url: '/manage/promotion',
     icon: 'icon-puzzle',
     roles: ['ADMIN'],
     children: [
       {
         name: 'Danh sách giảm giá',
-        url: '/manage/table',
+        url: '/manage/promotion',
         icon: 'icon-people'
       },
       {
         name: 'Tạo sự kiện giảm giá',
-        url: '/manage/table/create',
+        url: '/manage/promotion/create',
         icon: 'icon-table-follow'
       }
     ]
@@ -79,18 +79,18 @@ export const navItems = [
   },
   {
     name: 'Quản lý sản phẩm',
-    url: '/manage/food',
+    url: '/manage/product',
     icon: 'icon-puzzle',
     roles: ['ADMIN'],
     children: [
       {
         name: 'Danh sách sản phẩm',
-        url: '/manage/food/list',
+        url: '/manage/product/list',
         icon: 'icon-docs'
       },
       {
         name: 'Tạo sản phẩm',
-        url: '/manage/food/create',
+        url: '/manage/product/create',
         icon: 'icon-doc'
       }
     ]
@@ -108,20 +108,8 @@ export const navItems = [
     roles: ['CUSTOMER','WAITER']
   },
   {
-    name: 'Trang Chủ',
-    url: '/homepage',
-    icon: 'icon-home',
-    roles: ['CUSTOMER']
-  },
-  {
-    name: 'Các sản phẩm',
-    url: '/manage/chef',
-    icon: 'icon-fire',
-    roles: ['CHEF','WAITER']
-  },
-  {
     name: 'Quản lí hóa đơn',
-    url: '/manage/cashier',
+    url: '/manage/orders',
     icon: 'icon-paypal',
     roles: ['ADMIN', 'EMPLOYEE']
   }

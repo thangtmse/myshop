@@ -57,10 +57,14 @@ public class ProductController {
 
 	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<?> delete(@PathVariable("id") Long id) {
-		//Product product = productMapper.toProduct(productRequest);
-		
-		return new ResponseEntity<>(productMapper.toProductResponse(productService.delete(id)),
-				HttpStatus.OK);
+		// Product product = productMapper.toProduct(productRequest);
+
+		return new ResponseEntity<>(productMapper.toProductResponse(productService.delete(id)), HttpStatus.OK);
+	}
+
+	@RequestMapping(path = "getRank", method = RequestMethod.GET)
+	public ResponseEntity<?> getRankOfPrice() {
+		return new ResponseEntity<>(productService.getRankOfPrice(), HttpStatus.OK);
 	}
 
 }

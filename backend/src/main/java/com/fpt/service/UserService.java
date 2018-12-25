@@ -58,13 +58,12 @@ public class UserService {
 		return userRepository.getUserByUsername(username);
 	}
 	public Page<User> getUsers(String name,String phone,String role,Pageable pageable){
-		return userRepository.findUserByCondition(name, phone, role, pageable);
+		return userRepository.findAllByUsernameContainingOrPhoneContainingOrRoleContaining(name, phone, role, pageable);
 	}
-//	public Page<User> getAll(Pageable pageable){
-//		return userRepository.findAll(pageable);
-//	}
-//	public List<User> getUserByphone(String phone){
-//		
-//	}
 
-}
+	
+	}
+
+
+
+

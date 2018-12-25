@@ -27,7 +27,7 @@ const routes: Routes = [
     path: 'create',
     component: UserEditorComponent,
     data: {
-      title: 'Tạo nhân viên'
+      title: 'Tạo tài khoản'
     }
   }
 ];

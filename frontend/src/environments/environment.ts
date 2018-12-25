@@ -6,4 +6,5 @@
 export const environment = {
   production: false,
   API_URL: '/proxy/api'
+  //API_URL: '/api'
 };

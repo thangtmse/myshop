@@ -40,23 +40,29 @@ export class EditTableComponent implements OnInit {
   }
   ngOnInit(): void {
     this.foodService.findFood("").subscribe(data =>{
-      this.products=data;
+      //this.products=data;
     })
     this.promotionId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     this.promotionService.getOnePromotion(this.promotionId).subscribe(data => {
-      let products=data.product;
+     console.log(data.product);
+      this.products=data.product;
       this.editorForm.get('discount').setValue(data.discount);
-      this.editorForm.get('createDate').setValue(data.createDate);
-      this.editorForm.get('exprieDate').setValue(data.exprieDate);
+      this.editorForm.get('createDate').setValue(new Date(data.createDate));
+      this.editorForm.get('exprieDate').setValue(new Date(data.exprieDate));
       // let pro = this.products.filter((pro: any) => pro.productId == data.products.productId)
       //   this.products = pro.length > 0 ? pro[0] : null;
-      this.editorForm.get('productName').setValue(data.product.productIds);
+     // this.editorForm.get('productName').setValue(data.product.productName);
+           
+          // this.editorForm.setValue(data.product.productName);
+     // console.log(data.product);
+    // this.products.push('ádasd');
+      //console.log(data.product);
     });
 
     this.sanpham = concat(
       of([]),
       this.sanphamInput.pipe(
-        tap(() => this.sanphamLoading = true),
+        tap(() => this.sanphamLoading = true),    
         switchMap(term => this.foodService.findFood({ name: term }).pipe(
           map(item => {
             return item.content;

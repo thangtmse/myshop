@@ -20,8 +20,8 @@ export class UserEditorComponent implements OnInit {
     repassword: new FormControl('', Validators.required),
     phone: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
-    role: new FormControl(4),
-    status: new FormControl('ACTIVE')
+    role: new FormControl(),
+    email: new FormControl(),
   });
   constructor(private route: ActivatedRoute,
     private userService: UserService,
@@ -32,13 +32,14 @@ export class UserEditorComponent implements OnInit {
     this.userId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     if (!Number.isNaN(this.userId)) {
       this.userService.getUser(this.userId).subscribe(data => {
+        console.log(data.user);
         this.editorForm.get('username').disable();
         this.editorForm.get('username').setValue(data.username);
-        this.editorForm.get('fullname').setValue(data.fullname);
+        this.editorForm.get('fullname').setValue(data.fullName);
         this.editorForm.get('phone').setValue(data.phone);
         this.editorForm.get('address').setValue(data.address);
-        this.editorForm.get('role').setValue(data.role.id);
-        this.editorForm.get('status').setValue(data.status);
+        this.editorForm.get('role').setValue(data.role);
+        this.editorForm.get('email').setValue(data.email);
       });
     }
   }
@@ -48,11 +49,11 @@ export class UserEditorComponent implements OnInit {
     let data = {
       username: this.editorForm.get('username').value,
       password: this.editorForm.get('password').value,
-      fullname: this.editorForm.get('fullname').value,
+      fullName: this.editorForm.get('fullname').value,
       phone: this.editorForm.get('phone').value,
       address: this.editorForm.get('address').value,
-      roleId: this.editorForm.get('role').value,
-      status: this.editorForm.get('status').value,
+      role: this.editorForm.get('role').value,
+      email:this.editorForm.get('email').value,
     }
     if (!this.validateByRegex(data.username, '^[a-zA-Z0-9_-]{3,100}$')) {
       this.editorForm.get('username').setErrors({ message: 'Tài khoản không đúng định dạng' })
@@ -68,7 +69,7 @@ export class UserEditorComponent implements OnInit {
         this.editorForm.get('repassword').setErrors({ message: 'Mật khẩu không trùng nhau' })
       }
    }
-    if (!this.validateByRegex(data.fullname, '^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*){3,255}')) {
+    if (!this.validateByRegex(data.fullName, '^[a-zA-Z]+(([\',. -][a-zA-Z ])?[a-zA-Z]*){3,255}')) {
       this.editorForm.get('fullname').setErrors({ message: 'Họ và tên không đúng định dạng' })
     }
     if (!this.validateByRegex(data.phone, '^\\+?\\d{1,3}?[- .]?\\(?(?:\\d{2,3})\\)?[- .]?\\d\\d\\d[- .]?\\d\\d\\d\\d$')) {
@@ -81,7 +82,7 @@ export class UserEditorComponent implements OnInit {
       if (Number.isNaN(this.userId)) {
         this.userService.createUsers(data).subscribe(
           data => {
-            this.toastr.success('Tạo nhân viên thành công.');
+            this.toastr.success('Tạo thành công.');
             this.router.navigate(['/manage/user']);
           },
           error => {

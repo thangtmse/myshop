@@ -4,14 +4,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpt.entity.User;
+import com.fpt.repository.UserRepository;
 import com.fpt.service.UserService;
 import com.fpt.utils.PasswordUtils;
 
@@ -22,6 +26,8 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private PasswordUtils passwordUtils;
+	@Autowired
+	private UserRepository userRepository;
 
 	@RequestMapping(path = "authenticate", method = RequestMethod.POST)
 	public ResponseEntity<?> authenticate(@RequestBody User user) throws Exception {
@@ -57,6 +63,11 @@ public class UserController {
 		User profile = userService.getProfile();
 		return new ResponseEntity<>(profile, HttpStatus.OK);
 	}
+	@RequestMapping(path = "{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getOne(@PathVariable("id")Long id) throws Exception {
+		
+		return new ResponseEntity<>(userRepository.getOne(id), HttpStatus.OK);
+	}
 
 	@RequestMapping(path = "", method = RequestMethod.POST)
 	public ResponseEntity<?> register(@RequestBody User user) throws Exception {
@@ -71,8 +82,25 @@ public class UserController {
 		user = userService.save(user);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
-//	@RequestMapping(path = "all", method = RequestMethod.GET)
-//	public ResponseEntity<?> getAllUser(Pageable pageable){
-//		return new ResponseEntity<>(userService.getAll(pageable),HttpStatus.OK);
-//	}
+	@RequestMapping(path = "all", method = RequestMethod.GET)
+	public ResponseEntity<?> getAllUser(Pageable pageable,
+			@RequestParam(value="name",required=false,defaultValue="")String name,
+			@RequestParam(value="phone",required=false,defaultValue="")String phone,
+			@RequestParam(value="role",required=false,defaultValue="")String role){
+		return new ResponseEntity<>(userService.getUsers(name, phone, role, pageable),HttpStatus.OK);
+	}
+	@RequestMapping(path = "/acept", method = RequestMethod.POST)
+	public ResponseEntity<?> createAcount(@RequestBody User user) throws Exception {
+		 
+		User curUser = userService.getByUserName(user.getUsername());
+		Map<String, Object> message = new HashMap<>();
+		if (curUser != null && user.getUserId() == null) {
+			message.put("isSuccess", false);
+			message.put("error", "Tên tài khoản đã tồn tại");
+			return new ResponseEntity<>(message, HttpStatus.OK);
+		}
+		
+		user = userService.save(user);
+		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
 }
