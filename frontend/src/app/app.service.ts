@@ -41,7 +41,7 @@ export class AppService {
                     number: ele.orderId,
                     date: new Date(ele.addAt),
                     status: ele.status,
-                    total: ele.totalPrice + ' cho ' + ele.amount + ' sản phẩm',
+                    total: ele.totalPrice.toLocaleString('vi', {style : 'currency', currency : 'VND'}) + '  cho ' + ele.amount + ' sản phẩm',
                     invoice: true
                 }
             })
