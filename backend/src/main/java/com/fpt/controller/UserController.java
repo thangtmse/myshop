@@ -98,10 +98,29 @@ public class UserController {
 			message.put("isSuccess", false);
 			message.put("error", "Tên tài khoản đã tồn tại");
 			return new ResponseEntity<>(message, HttpStatus.OK);
-		}
+		}else {
+		message.put("isSuccess", true);
+		user = userService.save(user);}
+		return new ResponseEntity<>(message, HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "{id}", method = RequestMethod.PUT)
+	public ResponseEntity<?> UpdateAcount(@PathVariable("id")Long id,@RequestBody User user) throws Exception {
+		 
+		User curUser = userService.getByUserName(user.getUsername());
+		curUser.setAddress(user.getAddress());
+		curUser.setEmail(user.getEmail());
+		curUser.setFullName(user.getFullName());
+		curUser.setPassword(user.getPassword());
+		curUser.setPhone(user.getPhone());
 		
-		user = userService.save(user);
+		
+		user = userService.save(curUser);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
-   
+	@RequestMapping(path = "/acc", method = RequestMethod.GET)
+	public ResponseEntity<?> geByUser(@RequestParam("username") String name) throws Exception {
+		
+		return new ResponseEntity<>(userService.getByUserName(name), HttpStatus.OK);
+	}
 }

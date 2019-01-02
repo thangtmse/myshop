@@ -30,9 +30,26 @@ public class ProductController {
 			@RequestParam(value = "name", required = false, defaultValue = "") String name,
 			@RequestParam(value = "categoryid", required = false) Long category,
 			@RequestParam(value = "min", required = false) Double min,
+			@RequestParam(value = "max", required = false) Double max,
+			@RequestParam(value = "deleted", required = false) Boolean deleted) throws Exception {
+		if(deleted == null) deleted = false;
+		Page<Product> pd = productService.findProducts(category, name, min, max, deleted, pageable);
+		return new ResponseEntity<>(productMapper.toProductResponse(pd), HttpStatus.OK);
+	}
+	
+	@RequestMapping(path = "/slide", method = RequestMethod.GET)
+	public ResponseEntity<?> getSlide(Pageable pageable,
+			@RequestParam(value = "name", required = false, defaultValue = "") String name,
+			@RequestParam(value = "categoryid", required = false) Long category,
+			@RequestParam(value = "min", required = false) Double min,
 			@RequestParam(value = "max", required = false) Double max) throws Exception {
 
-		Page<Product> pd = productService.findProducts(category, name, min, max, pageable);
+		Page<Product> pd = productService.getSlide(category, name, min, max, pageable);
+		return new ResponseEntity<>(productMapper.toProductResponse(pd), HttpStatus.OK);
+	}
+	@RequestMapping(path = "/deleted", method = RequestMethod.GET)
+	public ResponseEntity<?> getDeletedProducts(Pageable pageable){
+		Page<Product> pd = productService.getDeletedProduct( pageable);
 		return new ResponseEntity<>(productMapper.toProductResponse(pd), HttpStatus.OK);
 	}
 
@@ -52,6 +69,7 @@ public class ProductController {
 	public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody ProductRequest productRequest) {
 		Product product = productMapper.toProduct(productRequest);
 		product.setProductId(id);
+		product.setDeleted(false);
 		return new ResponseEntity<>(productMapper.toProductResponse(productService.update(product)), HttpStatus.OK);
 	}
 

@@ -1,5 +1,5 @@
 import { Injectable, EventEmitter } from '@angular/core';
-import { HttpClient,HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { MatSnackBar } from '@angular/material';
 import { Category, Product, User } from './app.models';
@@ -10,7 +10,7 @@ import { prepareProfile } from 'selenium-webdriver/firefox';
 
 export class Data {
     constructor(public categories: Category[],
-        public user:User[],
+        public user: User[],
         public compareList: Product[],
         public wishList: Product[],
         public cartList: Product[],
@@ -33,19 +33,21 @@ export class AppService {
     constructor(public http: HttpClient, public snackBar: MatSnackBar,
         private httpClient: HttpClient) { }
 
-public getOrdersByUser(userId:number):  Observable<any> {
-    return this.http.get<any[]>(this.API_URL + '/order/user/'+userId).pipe(map((response: any) => {
-       
-        let data = response.map(ele => {
-            return { number: ele.orderId, 
-            date: new Date(ele.addAt), 
-            status: ele.status, 
-            total: ele.totalPrice +' cho ' +ele.amount+ ' sản phẩm', 
-            invoice: true }
-        })
-        return data;
-    }));
-}
+    public getOrdersByUser(userId: number): Observable<any> {
+        return this.http.get<any[]>(this.API_URL + '/order/user/' + userId).pipe(map((response: any) => {
+
+            let data = response.map(ele => {
+                return {
+                    number: ele.orderId,
+                    date: new Date(ele.addAt),
+                    status: ele.status,
+                    total: ele.totalPrice + ' cho ' + ele.amount + ' sản phẩm',
+                    invoice: true
+                }
+            })
+            return data;
+        }));
+    }
 
     public getCategories(): Observable<Category[]> {
         return this.http.get<any[]>(this.API_URL + '/category').pipe(map((cate: any) => {
@@ -62,70 +64,83 @@ public getOrdersByUser(userId:number):  Observable<any> {
         }));
     }
 
-    
+
 
     public login(data: any): Observable<any> {
         return this.http.post<any[]>(this.API_URL + '/user/authenticate', data).pipe(map((data: any) => {
-                console.log('end');
-                if (data.token) {
-                    localStorage.setItem('authToken', data.token);
-                    localStorage.setItem('userInfo', JSON.stringify(data.userInfo));
-                    this.Data.user = data.userInfo;
-                    console.log(data);
-                    return data;
-                }
-                return null;
+            console.log('end');
+            if (data.token) {
+                localStorage.setItem('authToken', data.token);
+                localStorage.setItem('userInfo', JSON.stringify(data.userInfo));
+                this.Data.user = data.userInfo;
+                console.log(data);
+                return data;
+            }
+            return null;
         })).pipe(
             catchError((error: HttpErrorResponse) => {
-                return new Observable((observer: InnerSubscriber<any, any> ) => {
+                return new Observable((observer: InnerSubscriber<any, any>) => {
                     observer.next(null)
                 });
             })
-            );
+        );
     }
 
     public register(data: any): Observable<any> {
         return this.http.post<any[]>(this.API_URL + '/user', data).pipe(map((data: any) => {
-                console.log('end');
-               
-                return data;
+            console.log('end');
+
+            return data;
         })).pipe(
             catchError((error: HttpErrorResponse) => {
-                return new Observable((observer: InnerSubscriber<any, any> ) => {
+                return new Observable((observer: InnerSubscriber<any, any>) => {
                     observer.next(null)
                 });
             })
-            );
+        );
+    }
+    public createReport(data: any): Observable<any> {
+        return this.http.post<any[]>(this.API_URL + '/report', data).pipe(map((data: any) => {
+            console.log('end');
+
+            return data;
+        })).pipe(
+            catchError((error: HttpErrorResponse) => {
+                return new Observable((observer: InnerSubscriber<any, any>) => {
+                    observer.next(null)
+                });
+            })
+        );
     }
     public changePassword(data: any): Observable<any> {
         return this.http.post<any[]>(this.API_URL + '/user/change-password', data).pipe(map((data: any) => {
-    
-                return data;
+
+            return data;
         })).pipe(
             catchError((error: HttpErrorResponse) => {
-                return new Observable((observer: InnerSubscriber<any, any> ) => {
+                return new Observable((observer: InnerSubscriber<any, any>) => {
                     observer.next(null)
                 });
             })
-            );
+        );
     }
 
 
     public getAccountInfo(): Observable<any> {
         let token = sessionStorage.getItem('authToken') || localStorage.getItem('authToken');
         let myheaders = new HttpHeaders().set('Content-Type', 'application/json')
-        .set('authorization', 'Bearer ' + token).set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS')
-        .set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+            .set('authorization', 'Bearer ' + token).set('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,PATCH,OPTIONS')
+            .set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
         return this.httpClient.get(this.API_URL + "/user/profile", { headers: myheaders }).pipe(map((user: any) => {
             console.log(user);
             let data = {
-               
+
             };
             return data;
         }));
     }
 
-   
+
 
     public checkout(cart): Observable<any> {
         return this.http.post<any[]>(this.API_URL + '/order', cart).pipe(map((data: any) => {
@@ -133,15 +148,15 @@ public getOrdersByUser(userId:number):  Observable<any> {
             console.log(data);
             return data;
         })).pipe(
-        catchError((error: HttpErrorResponse) => {
-            return new Observable((observer: InnerSubscriber<any, any> ) => {
-                observer.next(null)
-            });
-        })
+            catchError((error: HttpErrorResponse) => {
+                return new Observable((observer: InnerSubscriber<any, any>) => {
+                    observer.next(null)
+                });
+            })
         );
     }
 
-    public getProducts(name: any, cateId: any, min: any, max: any, page: any, size: any, sort: any=false): Observable<Product[]> {
+    public getProducts(name: any, cateId: any, min: any, max: any, page: any, size: any, sort: any = false): Observable<Product[]> {
         let url = this.API_URL + '/product?name=' + name;
         if (cateId) {
             url += "&categoryid=" + cateId
@@ -151,22 +166,22 @@ public getOrdersByUser(userId:number):  Observable<any> {
             url += "&max=" + max;
         }
         url += "&page=" + page + "&size=" + size;
-        if(sort){
-            url += "&sort="+sort;
+        if (sort) {
+            url += "&sort=" + sort;
         }
         return this.http.get<Product[]>(url).pipe(map((data: any) => {
-            
+
             let maxPrice = 0;
             let minPrice = 50000000;
-            
+
             data.content = data.content.map(pro => {
-                if(pro.priceOut < minPrice){
+                if (pro.priceOut < minPrice) {
                     minPrice = pro.priceOut;
                 }
-                if(pro.priceOut > maxPrice){
+                if (pro.priceOut > maxPrice) {
                     maxPrice = pro.priceOut;
                 }
-                let hasPromotion = (pro.discount != null); 
+                let hasPromotion = (pro.discount != null);
                 return {
                     id: pro.productId,
                     name: pro.productName,
@@ -177,13 +192,62 @@ public getOrdersByUser(userId:number):  Observable<any> {
                             big: this.API_URL + "/image/" + image.imageId
                         }
                     }),
-                    oldPrice: hasPromotion? pro.priceOut: null,
-                    newPrice: pro.priceOut*((100-pro.discount)/100),
+                    oldPrice: hasPromotion ? pro.priceOut : null,
+                    newPrice: pro.priceOut * ((100 - pro.discount) / 100),
+                    discount: pro.discount,
+                    description: pro.description,
+                    quantity: pro.quantity
+                }
+            })
+            data.minPrice = (minPrice == 50000000) ? 0 : minPrice;
+            data.maxPrice = maxPrice;
+            return data;
+        }));
+    }
+
+    public getSlide(name: any, cateId: any, min: any, max: any, page: any, size: any, sort: any = false): Observable<Product[]> {
+        let url = this.API_URL + '/product/slide?name=' + name;
+        if (cateId) {
+            url += "&categoryid=" + cateId
+        }
+        if (min && max) {
+            url += "&min=" + min;
+            url += "&max=" + max;
+        }
+        url += "&page=" + page + "&size=" + size;
+        if (sort) {
+            url += "&sort=" + sort;
+        }
+        return this.http.get<Product[]>(url).pipe(map((data: any) => {
+
+            let maxPrice = 0;
+            let minPrice = 50000000;
+
+            data.content = data.content.map(pro => {
+                if (pro.priceOut < minPrice) {
+                    minPrice = pro.priceOut;
+                }
+                if (pro.priceOut > maxPrice) {
+                    maxPrice = pro.priceOut;
+                }
+                let hasPromotion = (pro.discount != null);
+                return {
+                    id: pro.productId,
+                    name: pro.productName,
+                    images: pro.images.map(image => {
+                        return {
+                            small: this.API_URL + "/image/" + image.imageId,
+                            medium: this.API_URL + "/image/" + image.imageId,
+                            big: this.API_URL + "/image/" + image.imageId
+                        }
+                    }),
+                    oldPrice: hasPromotion ? pro.priceOut : null,
+                    newPrice: pro.priceOut * ((100 - pro.discount) / 100),
                     discount: pro.discount,
                     description: pro.description
                 }
             })
-            data.minPrice = (minPrice == 50000000)? 0:minPrice;
+            data.minPrice = (minPrice == 50000000) ? 0 : minPrice;
             data.maxPrice = maxPrice;
             console.log(maxPrice);
             console.log(minPrice);
@@ -193,7 +257,7 @@ public getOrdersByUser(userId:number):  Observable<any> {
 
     public getProductById(id): Observable<any> {
         return this.http.get<any>(this.API_URL + "/product/" + id).pipe(map((pro: any) => {
-            let hasPromotion = (pro.discount != null); 
+            let hasPromotion = (pro.discount != null);
             let data = {
                 id: pro.productId,
                 name: pro.productName,
@@ -204,8 +268,8 @@ public getOrdersByUser(userId:number):  Observable<any> {
                         big: this.API_URL + "/image/" + image.imageId
                     }
                 }),
-                oldPrice: hasPromotion? pro.priceOut: null,
-                newPrice: pro.priceOut*((100-pro.discount)/100),
+                oldPrice: hasPromotion ? pro.priceOut : null,
+                newPrice: pro.priceOut * ((100 - pro.discount) / 100),
                 discount: pro.discount,
                 description: pro.description,
                 availibilityCount: pro.quantity
@@ -214,23 +278,28 @@ public getOrdersByUser(userId:number):  Observable<any> {
         }));
     }
 
-    public getOrderReview(userId:number): Observable<any> {
-        return this.http.get(this.API_URL + "/order/"+userId+"/review").pipe(map((reviewDto: any) => {
-            
+    public getOrderReview(userId: number): Observable<any> {
+        return this.http.get(this.API_URL + "/order/" + userId + "/review").pipe(map((reviewDto: any) => {
+
             return reviewDto;
         }));
     }
 
     public getRankOfPrice(): Observable<any> {
         return this.http.get(this.API_URL + "/product/getRank").pipe(map((rank: any) => {
-            
+
             return rank;
         }));
     }
+    public getOrderDetailsByOrderDungNA(OrderId: number): Observable<any> {
+        return this.http.get(this.API_URL + "/order/" + OrderId ).pipe(map((orderDetails: any) => {
+            orderDetails.addAt = new Date(orderDetails.addAt)
+            return orderDetails;
+        }));
+    }
+    public getOrderDetailsByOrder(OrderId: number): Observable<any> {
+        return this.http.get(this.API_URL + "/order/" + OrderId + "/detail").pipe(map((orderDetails: any) => {
 
-    public getOrderDetailsByOrder(OrderId:number): Observable<any> {
-        return this.http.get(this.API_URL + "/order/"+OrderId+"/detail").pipe(map((orderDetails: any) => {
-            
             return orderDetails;
         }));
     }
@@ -289,7 +358,7 @@ public getOrdersByUser(userId:number):  Observable<any> {
             this.Data.totalPrice = null;
             this.Data.cartList.push(product);
             this.Data.cartList.forEach(product => {
-                this.Data.totalPrice = this.Data.totalPrice + (product.newPrice*product.quantity);
+                this.Data.totalPrice = this.Data.totalPrice + (product.newPrice * product.quantity);
             })
             message = 'Sản phẩm ' + product.name + ' đã được thêm vào giỏ hàng';
             status = 'success';
@@ -586,8 +655,8 @@ public getOrdersByUser(userId:number):  Observable<any> {
 
     public getDeliveryMethods() {
         return [
-            { value: 'free', name: 'Giao hàng miễn phí(trong Hà Nội) trong 2 đến 3 ngày', desc: '/50.000 đ(với các tỉnh ngoài Hà Nội)  Giao hàng trong 5 đến 7 ngày ' },
-            { value: 'standard', name: 'Giao hàng nhanh:30 000 đ(khu vực Hà Nội trong vòng 1 ngày )', desc: ' /  75.000 đ(dành cho các tỉnh ngoài Hà Nội giao hàng trong 3 đến 4 ngày làm việc' },
+            { value: 'free', name: 'Giao hàng miễn phí trong 2 đến 3 ngày', desc: '' },
+            // { value: 'standard', name: 'Giao hàng nhanh:30 000 đ(khu vực Hà Nội trong vòng 1 ngày )', desc: ' /  75.000 đ(dành cho các tỉnh ngoài Hà Nội giao hàng trong 3 đến 4 ngày làm việc' },
             //{ value: 'express', name: 'Chuyển phát nhanh', desc: '$29.99 / Giao hàng trong 1 ngày làm việc' }
         ]
     }

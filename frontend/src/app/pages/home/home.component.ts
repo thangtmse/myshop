@@ -39,17 +39,17 @@ export class HomeComponent implements OnInit {
   }
 
   public initSlide() {
-    this.appService.getProducts("", null, null, null, 0, 5).subscribe((data: any) => {
+    this.appService.getSlide("", null, null, null, 0, 5).subscribe((data: any) => {
       let products: any = data.content;
+      let top:number = 0;
       products.forEach(element => {
-        console.log(element);
+        top++;
         let slide: any = {
           title: element.name,
-          subtitle: element.description,
+          subtitle: "Top "+ top,
           image: element.images[0].big,
           id: element.id
         }
-        console.log(slide);
         this.slides.push(slide);
       });
     })

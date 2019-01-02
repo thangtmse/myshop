@@ -61,7 +61,6 @@ export class ProductComponent implements OnInit {
   }
 
   public getProductById(id) {
-    console.log(id)
     this.appService.getProductById(id).subscribe(data => {
       this.product = data;
       this.image = data.images[0].medium;

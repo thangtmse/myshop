@@ -128,7 +128,7 @@ export class FoodEditorComponent implements OnInit {
         this.foodService.createNewFood(this.data).subscribe(
           data => {
             this.toastr.success('thêm mới thành công');
-            this.router.navigate(['/manage/food/list']);
+            this.router.navigate(['/manage/product/list']);
           },
           error => {
             this.toastr.error(error.error.message);
@@ -140,7 +140,7 @@ export class FoodEditorComponent implements OnInit {
         this.foodService.updateFood(this.proID, this.data).subscribe(
           data => {
             this.toastr.success('cập nhật thành công');
-            this.router.navigate(['/manage/food/list']);
+            this.router.navigate(['/manage/product/list']);
           },
           error => {
             this.toastr.error(error.error.message);

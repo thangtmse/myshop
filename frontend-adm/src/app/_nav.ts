@@ -92,6 +92,11 @@ export const navItems = [
         name: 'Tạo sản phẩm',
         url: '/manage/product/create',
         icon: 'icon-doc'
+      },
+      {
+        name: 'Danh sách đã xóa',
+        url:'/manage/product/listdeleted',
+        icon: 'icon-docs'
       }
     ]
   },

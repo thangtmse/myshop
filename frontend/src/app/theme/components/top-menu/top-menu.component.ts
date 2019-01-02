@@ -25,9 +25,7 @@ export class TopMenuComponent implements OnInit {
   ngOnInit() {
     this.currency = this.currencies[0];
     this.flag = this.flags[0];
-    console.log('start get user info');
     this.userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    console.log(this.userInfo);
   }
 
   public changeCurrency(currency){
@@ -41,7 +39,6 @@ export class TopMenuComponent implements OnInit {
   public signOut(){
     this.userInfo = null;
     localStorage.setItem('userInfo',null);
-    console.log("xoa user Info thanh cong")
     this.router.navigate(['/sign-in']);
   }
 

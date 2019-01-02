@@ -9,6 +9,18 @@ import { InnerSubscriber } from 'rxjs/internal/InnerSubscriber';
     providedIn: 'root'
 })
 export class OrderService {
+    getStaticLine(type: number): any {
+        let query = environment.url + "api/order/staticsLine?"
+        query = query + "type=" + type;
+        return this.httpClient.get(query)
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any>) => {
+                        observer.error(error)
+                    });
+                })
+            );
+    }
 
     constructor(private httpClient: HttpClient) {
     }
@@ -145,8 +157,8 @@ export class OrderService {
             );
     }
 
-    changeStatus(id: number, status: string ): Observable<any> {
-        let query = environment.url + 'api/order/'+id+'/status/?status='+status;
+    changeStatus(id: number, status: string): Observable<any> {
+        let query = environment.url + 'api/order/' + id + '/status/?status=' + status;
         return this.httpClient.post(query, "")
             .pipe(
                 catchError((error: HttpErrorResponse) => {

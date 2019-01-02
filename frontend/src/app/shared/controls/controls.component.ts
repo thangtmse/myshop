@@ -19,7 +19,7 @@ export class ControlsComponent implements OnInit {
 
   ngOnInit() {
     if(this.product){
-     // console.log(this.product);
+     this.count = this.product.quantity;
     }  
     this.layoutAlign(); 
   }
@@ -39,7 +39,6 @@ export class ControlsComponent implements OnInit {
 
 
   public increment(count){
-    console.log(this.product);
     if(this.count < this.product.availibilityCount){
       this.count++;
       let obj = {
@@ -69,19 +68,16 @@ export class ControlsComponent implements OnInit {
   }
 
   public addToCompare(product:Product){
-    console.log(product);
     product.quantity = this.count;
     this.appService.addToCompare(product);
   }
 
   public addToWishList(product:Product){
-    console.log(product);
     product.quantity = this.count;
     this.appService.addToWishList(product);
   }
 
   public addToCart(product:Product){
-    console.log(product);
     product.quantity = this.count;
     this.appService.addToCart(Object.assign({},product));
   }

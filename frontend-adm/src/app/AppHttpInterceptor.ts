@@ -16,11 +16,12 @@ export class AppHttpInterceptor implements HttpInterceptor {
         }
       });
     }
-    return next.handle(request).pipe(catchError((error, caught) => {
-      //intercept the respons error and displace it to the console
-      console.log(error);
-      // this.handleAuthError(error);
-      return of(null);
-    }));;
+    return next.handle(request);
+    // .pipe(catchError((error, caught) => {
+    //   //intercept the respons error and displace it to the console
+    //   console.log(error);
+    //   // this.handleAuthError(error);
+    //   return of(null);
+    // }));;
   }
 }

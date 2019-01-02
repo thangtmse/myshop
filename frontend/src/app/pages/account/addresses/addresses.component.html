@@ -77,7 +77,7 @@
             </form>
         </div>
     </mat-tab>
-    <mat-tab label="Địa chỉ giao hàng">
+    <!-- <mat-tab label="Địa chỉ giao hàng">
         <div class="p-2 mt-1">
             <form [formGroup]="shippingForm" (ngSubmit)="onShippingFormSubmit(shippingForm.value)">     
               <div fxLayout="row wrap">
@@ -124,7 +124,7 @@
                     </mat-select>
                     <mat-error *ngIf="shippingForm.controls.country.errors?.required">Đất nước ( không được bỏ trống )</mat-error>
                   </mat-form-field>
-                </div> -->
+                </div> --
                 <div fxFlex="100" fxFlex.gt-sm="50" class="px-1">
                   <mat-form-field class="w-100">
                       <input matInput placeholder="Thành phố" formControlName="city" required>
@@ -141,7 +141,7 @@
                       <input matInput placeholder="Mã bưu cục" formControlName="zip" required>
                       <mat-error *ngIf="shippingForm.controls.zip.errors?.required">Mã bưu cục ( không được bỏ trống )</mat-error>
                   </mat-form-field>
-                </div> -->
+                </div> --
                 <div fxFlex="100" class="px-1">
                   <mat-form-field class="w-100">
                       <input matInput placeholder="Địa chỉ (Đường phố, Căn hộ, Tòa nhà...v.v)" formControlName="address" required>
@@ -154,5 +154,5 @@
               </div>
             </form>
         </div>
-    </mat-tab>
+    </mat-tab> -->
 </mat-tab-group>

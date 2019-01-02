@@ -13,7 +13,7 @@
                     <mat-error *ngIf="loginForm.controls.password.hasError('minlength')">Mật khẩu không đủ độ dài ( ít nhất 6 ký tự )</mat-error>
                 </mat-form-field> 
                 <div class="text-center mt-2">
-                    <button mat-fab color="primary" class="mat-elevation-z6" (click)="onLoginFormSubmit(loginForm.value)">
+                    <button mat-fab color="primary" class="mat-elevation-z6">
                         <mat-icon>exit_to_app</mat-icon>
                     </button>
                 </div> 
@@ -77,7 +77,7 @@
                   <mat-error *ngIf="registerForm.controls.confirmPassword.hasError('mismatchedPasswords')">Mật khẩu không khớp</mat-error>
                 </mat-form-field>
                 <div class="text-center mt-2">
-                    <button mat-fab color="primary" class="mat-elevation-z6" (click)="onRegisterFormSubmit(registerForm.value)">
+                    <button mat-fab color="primary" class="mat-elevation-z6">
                         <mat-icon>person_add</mat-icon>
                     </button>
                 </div>

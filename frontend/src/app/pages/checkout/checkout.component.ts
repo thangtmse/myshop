@@ -49,7 +49,6 @@ export class CheckoutComponent implements OnInit {
     });
     let user: any;
     user = JSON.parse(localStorage.getItem('userInfo'));
-    console.log(user);
     if(user == null) {
       this.router.navigate(['/sign-in']);
     }
@@ -67,11 +66,8 @@ export class CheckoutComponent implements OnInit {
   }
 
   public placeOrder(){
-    console.log('start build order');
     let order :any =  this.buildOrder();
-    console.log('start checkout');
     this.appService.checkout(order).subscribe(data=>{
-      console.log(data);
     });
     this.horizontalStepper._steps.forEach(step => step.editable = false);
     this.verticalStepper._steps.forEach(step => step.editable = false);
@@ -91,13 +87,11 @@ export class CheckoutComponent implements OnInit {
         userId: user.userId,
         deliveryMethod: JSON.stringify(this.deliveryForm.get(['deliveryMethod']).value)
     };
-    console.log(order);
     this.appService.Data.cartList.forEach(product=>{
       let orderDetail : any ={
           productId: product.id,
           quantity: product.quantity
         }
-        console.log(product);
         order.orderDetails.push(orderDetail);
     })
     

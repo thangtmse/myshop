@@ -13,6 +13,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 export class UserEditorComponent implements OnInit {
   isSubmited: boolean = false;
   userId: number = Number.NaN;
+  userCheck: any;
   editorForm = new FormGroup({
     username: new FormControl('', Validators.required),
     fullname: new FormControl('', Validators.required),
@@ -46,6 +47,7 @@ export class UserEditorComponent implements OnInit {
 
   editorFormSubmit() {
     this.isSubmited = true;
+   
     let data = {
       username: this.editorForm.get('username').value,
       password: this.editorForm.get('password').value,
@@ -55,6 +57,7 @@ export class UserEditorComponent implements OnInit {
       role: this.editorForm.get('role').value,
       email:this.editorForm.get('email').value,
     }
+   
     if (!this.validateByRegex(data.username, '^[a-zA-Z0-9_-]{3,100}$')) {
       this.editorForm.get('username').setErrors({ message: 'Tài khoản không đúng định dạng' })
     }
@@ -75,19 +78,31 @@ export class UserEditorComponent implements OnInit {
     if (!this.validateByRegex(data.phone, '^\\+?\\d{1,3}?[- .]?\\(?(?:\\d{2,3})\\)?[- .]?\\d\\d\\d[- .]?\\d\\d\\d\\d$')) {
       this.editorForm.get('phone').setErrors({ message: 'Số điện thoại không đúng định dạng' })
     }
-    if (this.editorForm.valid) {
+    if (this.editorForm.valid && this.userCheck!=0) {
       if((data.password||'').trim().length>0){
         data.password = Md5.hashStr(data.password);
       }
       if (Number.isNaN(this.userId)) {
         this.userService.createUsers(data).subscribe(
           data => {
-            this.toastr.success('Tạo thành công.');
-            this.router.navigate(['/manage/user']);
+            if(data.isSuccess==true){
+
+              this.toastr.success('Tạo thành công.');
+              this.router.navigate(['/manage/user']);
+            }if(data.isSuccess==false) {
+              this.toastr.error(data.error);
+            }
+              
+            
+           
+            
+            
+            //this.toastr.success('Tạo thành công.');
+            
           },
-          error => {
-            this.toastr.error(error.error.message);
-          }
+          // error => {
+          //   this.toastr.error(error.error.message);
+          // }
         )
       } else {
         console.log('in in in in in ');

@@ -45,7 +45,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
         console.log(data.status);
         this.showDanggiaohang=true;
         this.showHoanThanh=true;
-      }  if(data.status=="Đang xử lý"){
+      }  if(data.status=="Đang xử lí"){
         this.showDanggiaohang=false;
         this.showHuy=true;
         this.showHoanThanh=true;
@@ -71,7 +71,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
        
       this.showDanggiaohang=true;
       this.showHoanThanh=true;
-    }  if(status=="Đang xử lý"){
+    }  if(status=="Đang xử lí"){
       this.showDanggiaohang=false;
       this.showHuy=true;
       this.showHoanThanh=true;

@@ -15,7 +15,8 @@
                             <label for="status">Trạng thái</label>
                             <select formControlName="status" id="status" name="status" class="form-control" required>
                                 <option [value]="''">Tất cả</option>
-                                <option [value]="'Đang xử lý'">Đang xử lý</option>
+                                <option [value]="'Chờ xử lí'">Chờ xử lí</option>
+                                <option [value]="'Đang xử lí'">Đang xử lí</option>
                                 <option [value]="'Đang giao hàng'">Đang giao hàng</option>
                                 <option [value]="'Hoàn thành'">Hoàn thành</option>
                                 <option [value]="'Hủy'">Hủy</option>
@@ -83,7 +84,7 @@
         </ngx-datatable-column>
         <ngx-datatable-column name="Thành tiền" maxWidth="250">
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-                {{row.totalPrice}}
+                {{row.totalPrice | number: '1.0-0'}} đ
             </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Trạng thái" maxWidth="250">

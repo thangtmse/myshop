@@ -34,7 +34,7 @@ export class TableListComponent implements OnInit {
       this.page.pageNumber = pagedData.number;
       this.page.size = pagedData.size;
       this.rows = pagedData.content;
-      if(pagedData.number >= pagedData.totalPages) {
+      if(pagedData.number > pagedData.totalPages) {
         this.setPage({ offset: 0 });
       }
     });

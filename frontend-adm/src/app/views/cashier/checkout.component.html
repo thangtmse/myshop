@@ -38,8 +38,8 @@
 						<td class="center">{{i + 1}}</td>
 						<td class="left">{{detail.product.productName}}</td>
 						<td class="center">{{detail.quantity}}</td>
-						<td class="right">{{detail.product.priceOut | number: '1.0-0'}}</td>
-						<td class="right">{{detail.totalprice | number: '1.0-0'}}</td>
+						<td class="right">{{detail.product.priceOut | number: '1.0-0'}} đ</td>
+						<td class="right">{{detail.totalprice | number: '1.0-0'}} đ</td>
 					</tr>
 				</tbody>
 			</table>
@@ -53,7 +53,7 @@
 						<tbody>
 							<tr>
 								<td class="left">
-									<label for="total">Tổng chi phí: <strong>{{total | number: '1.0-0'}}</strong></label>
+									<label for="total">Tổng chi phí: <strong>{{total | number: '1.0-0'}} đ</strong></label>
 								</td>
 							</tr>
 						</tbody>
@@ -65,14 +65,14 @@
 				<button class="mx-2 btn btn-danger" (click)="changeStatus('Hủy')" *ngIf="showHuy==false" >
 					Hủy
 				</button> 
-				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lý')"*ngIf="showDangXuly==true" disabled >
-					Đang xử lý
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lí')"*ngIf="showDangXuly==true" disabled >
+					Đang xử lí
 				</button> 
-				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lý')"*ngIf="showDangXuly==false"  >
-					Đang xử lý
+				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lí')"*ngIf="showDangXuly==false"  >
+					Đang xử lí
 				</button>
-				<!-- <button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lý')"*ngIf="showDanggiaohang==true" disabled>
-					Đang xử lý
+				<!-- <button class="mx-2 btn btn-success" (click)="changeStatus('Đang xử lí')"*ngIf="showDanggiaohang==true" disabled>
+					Đang xử lí
 				</button>  -->
 				<button class="mx-2 btn btn-success" (click)="changeStatus('Đang giao hàng')"  *ngIf="showDanggiaohang==true" disabled >
 					Đang giao hàng

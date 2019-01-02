@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,8 @@ import com.fpt.repository.CategoryRepository;
 public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Value("${myshop.data.dir}")
+	private String imageDir;
 
 	public List<Category> findAll() {
 		return categoryRepository.findAll();
@@ -58,8 +61,7 @@ public class CategoryService {
 		if (strings.length >= 2) {
 			// delete file cu
 			byte[] imageByte = Base64.decodeBase64(strings[1]);
-			String directory = this.getClass().getClassLoader().getResource("").getPath() + "../../../images/cat-";
-			String fileName = directory + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
+			String fileName = imageDir + "cat-" + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
 			File file = new File(fileName);
 			try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
 				outputStream.write(imageByte);
@@ -79,8 +81,7 @@ public class CategoryService {
 		if (strings.length >= 2) {
 			// delete file cu
 			byte[] imageByte = Base64.decodeBase64(strings[1]);
-			String directory = this.getClass().getClassLoader().getResource("").getPath() +"../../../images/cat-";
-			String fileName = directory + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
+			String fileName = imageDir + "cat-" + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
 			File file = new File(fileName);
 			try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
 				outputStream.write(imageByte);
@@ -91,7 +92,8 @@ public class CategoryService {
 		}
 		return categoryRepository.save(category);
 	}
-	//"../../../images/cat-
+
+	// "../../../images/cat-
 	public Category delete(Long id) {
 		Category category = categoryRepository.getOne(id);
 		category.setDeleted(true);

@@ -43,6 +43,7 @@ public class PromotionService {
 	}
 
 	public Page<Promotion> findAll(Pageable pageable) {
+		promotionRepository.removeOutDatePromotions(new Date().getTime());
 		return promotionRepository.findAll(pageable);
 	}
 

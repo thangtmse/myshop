@@ -23,8 +23,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	public Page<Product> findProductByCondition(@Param("name") String name, @Param("id") List<Long> id,
 			@Param("other") Boolean other, @Param("deleted") Boolean deleted, @Param("minPrice") Double minPrice,
 			@Param("maxPrice") Double maxPrice, Pageable pageable);
+	
+	@Query("from Product p where p.productId in (:productIds) and p.deleted =:deleted")
+	public Page<Product> findProductByCondition(@Param("productIds")List<Long> productIds,@Param("deleted")Boolean deleted, Pageable pageable);
 
 	@Query(value = " select max(p.priceOut) as maxPrice, min(p.priceOut) as minPrice from Product p")
 	public RangOfProductPrice getRankOfPrice();
+    @Query("from Product p where p.deleted=:deleted")
+	public Page<Product> findDeletedProduct(Pageable pageable,@Param("deleted")Boolean deleted);
 
 }

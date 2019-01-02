@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fpt.dto.request.OrderDTO;
+import com.fpt.dto.response.ChartDTO;
 import com.fpt.entity.Order;
 import com.fpt.entity.OrderDetail;
 import com.fpt.mapper.OrderDetailMapper;
@@ -79,5 +80,15 @@ public class OrderController {
 
 		return new ResponseEntity<>(orderService.getReviewOrder(userId), HttpStatus.OK);
 	}
+	
+	@RequestMapping(path = "staticsLine", method = RequestMethod.GET)
+	protected ResponseEntity<?> getStaticsLine(
+			@RequestParam(value = "type", required = true) int type) throws Exception {
+		
+		ChartDTO chartDTO = orderService.getStaticsLine(type);
+		
+		return new ResponseEntity<>(chartDTO ,HttpStatus.OK);
+	} 
+	
 
 }

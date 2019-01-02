@@ -98,7 +98,7 @@ export class EditTableComponent implements OnInit {
         this.promotionService.createPromotion(data).subscribe(
           data => {
             this.toastr.success(' tạo thành công.');
-            this.router.navigate(['/manage/table/list']);
+            this.router.navigate(['/manage/promotion']);
           },
           error => {
             this.toastr.error(error.message);

@@ -36,19 +36,20 @@ export class SignInComponent implements OnInit {
   }
 
   public onLoginFormSubmit(values:Object):void {
-    console.log('start login');
     if (this.loginForm.valid) {
       let user : any = {};
       user.username = this.loginForm.get(['username']).value;
       user.password = this.loginForm.get(['password']).value; 
-      console.log(user);
       this.appService.login(user).subscribe(data => {
-        if(data.message!= null){
-          this.snackBar.open(data.message, '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
+        if(!data || data.message!= null){
+          this.snackBar.open('Sai mật khẩu hoặc tài khoản', '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
         } else {
           location.reload();
           this.router.navigate(['/']);
         }
+      },error=> {
+        this.snackBar.open('Sai mật khẩu hoặc tài khoản', '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
+
       });
      // this.router.navigate(['/']);
     }
@@ -60,20 +61,25 @@ export class SignInComponent implements OnInit {
       let check = true;
       user.username = this.registerForm.get(['username']).value;
       user.password = this.registerForm.get(['password']).value;
-      user.firstName = this.registerForm.get(['firstName']).value; 
-      user.lastName = this.registerForm.get(['lastName']).value;
+      user.fullName = this.registerForm.get(['firstName']).value; 
+      user.fullName +=' '+ this.registerForm.get(['lastName']).value;
       user.phone = this.registerForm.get(['phone']).value;
       user.email = this.registerForm.get(['email']).value;
+      user.address = '';
+      user.role = 'CUSTOMER';
       this.appService.register(user).subscribe(data => {
         check = false;
         if(data.error!= null){
-          this.snackBar.open('Dang ky thanh con1g', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
+          this.snackBar.open('Đăng ký thành công', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
         } else {
-          this.snackBar.open('Dang ky thanh cong', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
+          this.snackBar.open('Đăng ký thành công', '×', { panelClass: 'success', verticalPosition: 'top', duration: 3000 });
         }
+        this.loginForm.get('username').setValue(user.username);
+        this.loginForm.get('password').setValue(user.password);
+        this.onLoginFormSubmit({});
       });
       if(check){
-        this.snackBar.open("tai khoan da ton tai", '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
+        this.snackBar.open("Tài khoản đã tồn tại", '×', { panelClass: 'error', verticalPosition: 'top', duration: 3000 });
       }
     }
   }

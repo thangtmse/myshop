@@ -17,8 +17,6 @@ export class BannersComponent implements OnInit {
   }
 
   public getBgImage(index){
-    console.log(this.banners);
-    console.log('log'+index, this.banners[index]);
     
     let bgImage = {
       'background-image': index != null ? "url(" + this.banners[index].image + ")" : "url(https://via.placeholder.com/600x400/ff0000/fff/)"

@@ -18,14 +18,12 @@ export class OrdersComponent implements OnInit {
   public orders = null;
   public userInfo = JSON.parse(localStorage.getItem('userInfo'));
   ngOnInit() {
-    console.log('start call list order');
     this.appService.getOrdersByUser(this.userInfo.userId).subscribe(data=>{
       this.orders = data;
     })
   }
 
   public openOrderDetail(order){  
-    console.log(order); 
     let dialogRef = this.dialog.open(ProductDialogComponent, {
         data: order.number,
         panelClass: 'product-dialog'

@@ -1,5 +1,6 @@
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Component, Input } from '@angular/core';
+import { OrderService } from '../../../service/order.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +10,7 @@ export class DashboardComponent {
 
   rows = [];
 
-  constructor(private modalService: BsModalService) {
+  constructor(private orderService: OrderService) {
 
   }
 
@@ -45,64 +46,6 @@ export class DashboardComponent {
   public chartHovered(e: any): void {
     console.log(e);
   }
-
-  // bieu do 2
-  public barChartOptions: any = {
-    scaleShowVerticalLines: false,
-    responsive: true,
-  };
-  public barChartLabels: string[] = ['mon 1', 'mon 2', 'mon 3', 'mon 4', 'mon 5'];
-  public barChartType: string = 'horizontalBar';
-  public barChartLegend: boolean = true;
-
-  public barChartData: any[] = [
-    { data: [65, 59, 30, 20, 10, 3], label: 'Số lượng đặt' }
-  ];
-
-  public barChartColors: any[] = [
-    {
-      backgroundColor: [
-        'rgba(65,105,225 ,1)',
-        'rgba(65,105,225 ,0.8)',
-        'rgba(65,105,225 ,0.6)',
-        'rgba(65,105,225 ,0.4)',
-        'rgba(65,105,225 ,0.2)',
-      ]
-    }
-  ];
-
-  //bieu do 3
-  // public barChartOptions2:any = {
-  //   scaleShowVerticalLines: false,
-  //   responsive: true,
-  // };
-  // public barChartLabels2:string[] = ['1h-4h', '4h-8h', '8h-12h', '12h-16h', '16h-20h','20h-24h'];
-  // public barChartType2:string = 'radar';
-  // public barChartLegend2:boolean = true;
-
-  // public barChartData2:any[] = [
-  //   {data: [65, 59, 30, 20, 10,3,5], label: 'Số lượng đặt'}
-  // ];
-
-  // public barChartColors2:any[] =[
-  //   { // grey
-  //     backgroundColor: [
-  //       'rgba(255, 185, 15,1)',
-  //       'rgba(255, 185, 15,0.8)',
-  //       'rgba(255, 185, 15,0.6)',
-  //       'rgba(255, 185, 15,0.4)',
-  //       'rgba(255, 185, 15,0.2)',
-  //     ]
-  //   }
-  // ];
-  // Doughnut
-  // PolarArea
-  public polarAreaChartLabels: string[] = ['1h-4h', '4h-8h', '8h-12h', '12h-16h', '16h-20h', '20h-24h'];
-  public polarAreaChartData: any[] = [
-    { data: [65, 59, 30, 20, 10, 3] }
-  ];
-  public polarAreaLegend: boolean = true;
-  public polarAreaChartType: string = 'polarArea';
   activeToggle0: String = "btn btn-outline-secondary";
   activeToggle1: String = "btn btn-outline-secondary";
   activeToggle2: String = "btn btn-outline-secondary";
@@ -111,7 +54,6 @@ export class DashboardComponent {
 
   ngOnInit(): void {
     this.getStaticsLine(1);
-    this.getRankByDate(-1);
   }
 
   public getStaticsLine(type: number) {
@@ -130,17 +72,14 @@ export class DashboardComponent {
     } else {
       this.activeToggle2 = "btn btn-outline-secondary";
     }
+
+    this.orderService.getStaticLine(type).subscribe(data => {
+      this.lineChartLabels = data.labels; 
+      this.lineChartData[0].data = data.datasets[0];
+      this.lineChartData[1].data = data.datasets[1];
+      this.orderTotal = data.orderTotal;
+      this.incomeTotal = data.incomeTotal;
+    });
   }
-  public getRankByDate(month: number) {
-    if (month == -1) {
-      this.activeToggle3 = "btn btn-outline-secondary active";
-    } else {
-      this.activeToggle3 = "btn btn-outline-secondary";
-    }
-    if (month == -12) {
-      this.activeToggle4 = "btn btn-outline-secondary active";
-    } else {
-      this.activeToggle4 = "btn btn-outline-secondary";
-    }
-  }
+
 }

@@ -3,7 +3,7 @@ import { Food } from '../../../model/food';
 import { FoodService } from '../../../service/food.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { Router } from '@angular/router';
+import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -19,9 +19,10 @@ import { map } from 'rxjs/operators';
   page = new Page();
   @ViewChild('productTable') table: any;
   @ViewChild('deleteModal') deleteModal: TemplateRef<any>;
+  @ViewChild('restoreModal') restoreModal: TemplateRef<any>;
   modalRef: BsModalRef;
   rows = [];
-  imagePath = environment.url+'api/image/'
+  imagePath = environment.url + 'api/image/'
   productcategory: ProductCategory[] = []
   filterForm = new FormGroup({
     search: new FormControl(''),
@@ -29,17 +30,22 @@ import { map } from 'rxjs/operators';
   });
   deleteRow: any = {};
   request: any = {}
-
-  constructor(private foodService: FoodService,
+  isDeleted = false;
+  constructor(
+    private route: ActivatedRoute,
+    private foodService: FoodService,
     private modalService: BsModalService,
     private toastr: ToastrService) { }
 
   ngOnInit(): void {
+    if (this.route.snapshot.data.isDelete) {
+      this.isDeleted = true;
+    }
     this.setPage({ offset: 0 });
 
     this.foodService.getAllCategory().pipe(
-      map(content=>{
-        return content.filter(cat=>!cat.deleted);
+      map(content => {
+        return content.filter(cat => !cat.deleted);
       })
     ).subscribe(data => {
       this.productcategory = data;
@@ -50,9 +56,10 @@ import { map } from 'rxjs/operators';
     let name = this.filterForm.get('search').value;
     this.request.page = pageInfo.offset;
     this.foodService.findFood({
-      name: name.replace(/ +(?= )/g,''),
+      name: name.replace(/ +(?= )/g, ''),
       categoryid: this.filterForm.get('category').value,
       page: this.request.page,
+      deleted: this.isDeleted,
       size: 9
     }).subscribe(pageData => {
       this.page.totalElements = pageData.totalElements;
@@ -60,7 +67,7 @@ import { map } from 'rxjs/operators';
       this.page.size = pageData.size;
       this.rows = pageData.content;
     });
-  
+
   }
 
   ngOnChanges() {
@@ -74,9 +81,29 @@ import { map } from 'rxjs/operators';
     this.deleteRow = row;
     this.modalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' });
   }
-
+  openRestoreModal(row: any){
+    this.deleteRow = row;
+    this.modalRef = this.modalService.show(this.restoreModal, { class: 'modal-sm' });
+  }
   decline() {
     this.modalRef.hide();
+  }
+
+  confirmRestore() {
+    this.deleteRow.categoryID = this.deleteRow.category.categoryId;
+    this.deleteRow.supplierId = this.deleteRow.supplier.supplierId;
+    this.foodService.updateFood(this.deleteRow.productId, this.deleteRow)
+      .subscribe(data => {
+        this.toastr.success('Phục hồi thành công');
+        this.modalRef.hide();
+        this.setPage({ offset: 0 });
+      },
+        error => {
+          this.toastr.error(error.error.message);
+          this.modalRef.hide();
+          this.setPage({ offset: 0 });
+        }
+      );
   }
 
   confirm() {

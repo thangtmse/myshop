@@ -17,7 +17,6 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     let userInfo =  JSON.parse(localStorage.getItem('userInfo'));
     this.appService.getOrderReview(userInfo.userId).subscribe(data=>{
-      console.log(data)
       this.reviewDto = data;
     })
   }

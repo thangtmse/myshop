@@ -8,6 +8,15 @@ const routes: Routes = [
     path: 'list',
     component: ManageFoodComponent,
     data: {
+      isDelete: false,
+      title: 'Danh sách sản phẩm'
+    }
+  },
+  {
+    path: 'listdeleted',
+    component: ManageFoodComponent,
+    data: {
+      isDelete: true,
       title: 'Danh sách sản phẩm'
     }
   },

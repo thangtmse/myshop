@@ -19,7 +19,7 @@ import { SharedService } from '../../service/shared.service';
 
   filterForm = new FormGroup({
     search: new FormControl(''),
-    status: new FormControl('')
+    status: new FormControl('Chờ xử lí')
   });
   request: any = {}
 

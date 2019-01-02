@@ -41,7 +41,11 @@ export class LoginComponent implements OnInit {
         } else {
           this.errorMessage = "Tài khoản hoặc mật khẩu không đúng";
         }
-      });
+      }),error=>{
+        console.log(error)
+        this.errorMessage = "Tài khoản hoặc mật khẩu không đúng";
+
+      };
     }
   }
 }

@@ -16,7 +16,10 @@ export class ProductDialogComponent implements OnInit {
               public dialogRef: MatDialogRef<ProductDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public product: Product) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    console.log('12378t6 dgshgf',this.product);
+    
+  }
 
   ngAfterViewInit(){
     this.config = {

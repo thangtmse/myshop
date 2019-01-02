@@ -55,7 +55,7 @@ public class UserService {
 
 	public User getByUserName(String username) {
 		// TODO Auto-generated method stub
-		return userRepository.getUserByUsername(username);
+		return userRepository.findUserByUsername(username);
 	}
 	public Page<User> getUsers(String name,String phone,String role,Pageable pageable){
 		return userRepository.findAllByUsernameContainingOrPhoneContainingOrRoleContaining(name, phone, role, pageable);

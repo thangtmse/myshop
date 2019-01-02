@@ -12,19 +12,27 @@ import { Data, AppService } from '../../../../app.service';
 export class ProductDialogComponent implements OnInit {
   public config: SwiperConfigInterface = {};
   public orderdetails :any = [];
+  public orderInfo={
+    user:{
+      username:{},
+      fullName:{}
+    },
+    addAt:{},
+    phone:{},
+    address:{}
+  };
   constructor(public appService:AppService, 
               public dialogRef: MatDialogRef<ProductDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public orderId: any) { }
 
   ngOnInit() { 
-    console.log(this.orderId);
-    
+    this.appService.getOrderDetailsByOrderDungNA(this.orderId).subscribe(data=>{
+      this.orderInfo = data;
+    })
     this.appService.getOrderDetailsByOrder(this.orderId).subscribe(orderDetails => {
       this.orderdetails = orderDetails;
-      console.log( this.orderdetails);
       
     });
-    console.log("thanh cong");
   }
 
   ngAfterViewInit(){

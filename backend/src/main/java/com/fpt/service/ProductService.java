@@ -12,6 +12,7 @@ import java.util.Random;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,7 @@ import org.springframework.util.CollectionUtils;
 import com.fpt.dto.response.RangOfProductPrice;
 import com.fpt.entity.Image;
 import com.fpt.entity.Product;
+import com.fpt.repository.OrderDetailRepository;
 import com.fpt.repository.ProductRepository;
 
 @Service
@@ -27,9 +29,13 @@ public class ProductService {
 	@Autowired
 	private ProductRepository productRepository;
 	@Autowired
+	private OrderDetailRepository orderDetailRepository;
+	@Autowired
 	private CategoryService categoryService;
 	@Autowired
 	private ImageService imageService;
+	@Value("${myshop.data.dir}")
+	private String imageDir;
 
 	public Product delete(Long id) {
 		Product p = productRepository.getOne(id);
@@ -37,13 +43,13 @@ public class ProductService {
 		return productRepository.save(p);
 	}
 
-	public Page<Product> findProducts(Long id, String q, Double min, Double max, Pageable pageable) throws Exception {
+	public Page<Product> findProducts(Long id, String q, Double min, Double max, Boolean deleted, Pageable pageable) throws Exception {
 		min = (min == null ? Double.MIN_VALUE : min);
 		max = (max == null ? Double.MAX_VALUE : max);
 		q = "%" + q.trim() + "%";
 		List<Long> cateid = categoryService.findCategoryId(id);
 		if (!CollectionUtils.isEmpty(cateid)) {
-			return productRepository.findProductByCondition(q, cateid, false, false, min, max, pageable);
+			return productRepository.findProductByCondition(q, cateid, false, deleted, min, max, pageable);
 		}
 		// if (id != null) {
 		// return productRepository.findProductByCategoryIdAndDeleted(id, false,
@@ -52,7 +58,15 @@ public class ProductService {
 		// TODO Auto-generated method stub
 		// return productRepository.findByProductNameContainingAndDeleted(q, false,
 		// pageable);
-		return productRepository.findProductByCondition(q, null, true, false, min, max, pageable);
+		return productRepository.findProductByCondition(q, null, true, deleted, min, max, pageable);
+	}
+	
+	public Page<Product> getSlide(Long id, String q, Double min, Double max, Pageable pageable) throws Exception {
+		min = (min == null ? Double.MIN_VALUE : min);
+		max = (max == null ? Double.MAX_VALUE : max);
+		q = "%" + q.trim() + "%";
+		List<Long> productIds = orderDetailRepository.findProductIdHotTop5().subList(0, 4);
+		return productRepository.findProductByCondition(productIds,false, pageable);
 	}
 
 	public Product findOne(Long id) {
@@ -74,8 +88,7 @@ public class ProductService {
 			}
 			String[] strings = image.getImageUrl().split(",");
 			byte[] imageByte = Base64.decodeBase64(strings[1]);
-			String directory = this.getClass().getClassLoader().getResource("").getPath() + "../../../images/";
-			String fileName = directory + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
+			String fileName = imageDir + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
 			File file = new File(fileName);
 			try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
 				outputStream.write(imageByte);
@@ -104,6 +117,7 @@ public class ProductService {
 		p.setProductName(product.getProductName());
 		p.setQuantity(product.getQuantity());
 		p.setSupplierId(product.getSupplierId());
+		p.setDeleted(product.getDeleted());
 		List<Image> imgs = product.getImages();
 		p.setImages(null);
 		List<Image> imgs2 = new ArrayList<>();
@@ -116,8 +130,7 @@ public class ProductService {
 			}
 			String[] strings = image.getImageUrl().split(",");
 			byte[] imageByte = Base64.decodeBase64(strings[1]);
-			String directory = this.getClass().getClassLoader().getResource("").getPath() + "../../../images/";
-			String fileName = directory + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
+			String fileName = imageDir + new Date().getTime() + "" + new Random().nextInt() + ".jpg";
 			File file = new File(fileName);
 			try (OutputStream outputStream = new BufferedOutputStream(new FileOutputStream(file))) {
 				outputStream.write(imageByte);
@@ -145,6 +158,11 @@ public class ProductService {
 	public RangOfProductPrice getRankOfPrice() {
 
 		return productRepository.getRankOfPrice();
+	}
+
+	public Page<Product> getDeletedProduct(Pageable pageable) {
+		// TODO Auto-generated method stub
+		return productRepository.findDeletedProduct(pageable,true);
 	}
 
 	// public Page<Product> findProductByCategory(Long id, Pageable pageable) {

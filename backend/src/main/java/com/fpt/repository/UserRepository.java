@@ -13,8 +13,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	List<User> findAllByUsernameAndPassword(String username, String password);
 
 	User getUserByUsernameAndPassword(String username, String password);
-
-	User getUserByUsername(String username);
+	
+	User findUserByUsername(String username);
 
 //	@Query("from User u where u.username like :name and u.phone =:phone and u.role= :role")
 //	public Page<User> findUserByCondition(@Param("name") String name, @Param("phone") String phone,

@@ -4,6 +4,14 @@
     </button>
 </div>
 <div mat-dialog-content>
+    <div class="row">
+        <div class="col">
+            <p><strong>Tài khoản:</strong> {{orderInfo?.user?.username}} - {{orderInfo?.user?.fullName}}</p>
+            <p><strong>Ngày đặt hàng:</strong> {{orderInfo?.addAt | date:'dd/MM/yyyy hh:mm'}}</p>
+            <p><strong>Số điện thoại:</strong> {{orderInfo?.phone}}</p>
+            <p><strong>Địa chỉ: </strong> {{orderInfo?.address}}</p>
+        </div>
+    </div>
     <div fxLayout="row wrap">
         <!-- <div fxFlex="100" fxFlex.gt-sm="50">
             <div class="swiper-container h-100" [swiper]="config">

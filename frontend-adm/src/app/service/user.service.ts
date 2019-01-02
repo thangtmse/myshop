@@ -23,6 +23,16 @@ export class UserService {
                 })
             );
     }
+    getUserByName(params: any): Observable<any> {
+        return this.httpClient.get(environment.url + 'api/user/acc', { params: params })
+            .pipe(
+                catchError((error: HttpErrorResponse) => {
+                    return new Observable((observer: InnerSubscriber<any, any> ) => {
+                        observer.next(null)
+                    });
+                })
+            );
+    }
 
     getUser(id: number): Observable<any> {
         return this.httpClient.get(environment.url + 'api/user/'+id)
@@ -57,7 +67,7 @@ export class UserService {
     }
 
     updateUsers(id: any, params: any): Observable<any> {
-        return this.httpClient.put(environment.url + 'api/users/' + id, params)
+        return this.httpClient.put(environment.url + 'api/user/' + id, params)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     return new Observable((observer: InnerSubscriber<any, any> ) => {
