@@ -58,7 +58,13 @@ public class UserService {
 		return userRepository.findUserByUsername(username);
 	}
 	public Page<User> getUsers(String name,String phone,String role,Pageable pageable){
-		return userRepository.findAllByUsernameContainingAndPhoneContainingAndRoleContaining(name, phone, role, pageable);
+		name = '%'+name+'%';
+		phone = '%'+phone+'%';
+		role = '%'+role+'%';
+		System.out.println(name);
+		System.out.println(phone);
+		System.out.println(role);
+		return userRepository.findAllByRoleContainingAndUsernameContainingOrPhoneContaining(name, phone, role, pageable);
 	}
 
 	public void delete(Long id) {

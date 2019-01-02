@@ -50,7 +50,7 @@ export class PromotionService {
     }
 
     getPromotion(id: any): Observable<any> {
-        return this.httpClient.get(environment.url + 'api/promotion/all' )
+        return this.httpClient.get(environment.url + 'api/promotion/all' ,{params: id})
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     return new Observable((observer: InnerSubscriber<any, any>) => {

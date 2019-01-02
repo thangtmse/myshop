@@ -41,8 +41,8 @@ public class PromotionController {
       
        
        @RequestMapping(path = "/all", method = RequestMethod.GET)
-       public ResponseEntity<?> getAllPromotion(Pageable pageable){
-    	   return new ResponseEntity<>(promotionMapper.toPromotionResponse(promotionService.findAll(pageable)),HttpStatus.OK);
+       public ResponseEntity<?> getAllPromotion(String name,Pageable pageable) throws Exception{
+    	   return new ResponseEntity<>(promotionMapper.toPromotionResponse(promotionService.findAll(name, pageable)),HttpStatus.OK);
        }
        @RequestMapping(path = "{id}", method = RequestMethod.PUT)
    	public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody Promotion promotion) {

@@ -1,5 +1,9 @@
 package com.fpt.repository;
 
+import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,4 +25,7 @@ public interface PromotionRepository extends JpaRepository<Promotion, Long> {
     @Transactional
     @Query("delete Promotion p where p.exprieDate <= :exprieDate")
 	public void removeOutDatePromotions(long exprieDate);
+    
+//    @Query(" from Promotion p where p.productId=:id")
+    public Page<Promotion> findAllByProductIdIn(List<Long> id,Pageable pageable);
 }

@@ -1,5 +1,6 @@
 package com.fpt.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.fpt.entity.Product;
 import com.fpt.entity.Promotion;
 import com.fpt.repository.PromotionRepository;
 
@@ -15,6 +17,8 @@ import com.fpt.repository.PromotionRepository;
 public class PromotionService {
 	@Autowired
 	private PromotionRepository promotionRepository;
+	@Autowired
+	private ProductService productService;
 
 	public void create(List<Promotion> lp) {
 
@@ -42,9 +46,14 @@ public class PromotionService {
 		return promotionRepository.getPromotionByProductIdAndDate(productId, new Date().getTime());
 	}
 
-	public Page<Promotion> findAll(Pageable pageable) {
+	public Page<Promotion> findAll(String q,Pageable pageable) throws Exception {
 		promotionRepository.removeOutDatePromotions(new Date().getTime());
-		return promotionRepository.findAll(pageable);
+		Page<Product> ps = productService.findProducts(null, q, null,null, false, pageable);
+		List<Long> ids = new ArrayList<>();
+		for (Product product : ps.getContent()) {
+			ids.add(product.getProductId());
+		}
+		return promotionRepository.findAllByProductIdIn(ids, pageable);
 	}
 
 	public Promotion update(Promotion p) {

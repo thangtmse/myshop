@@ -16,7 +16,7 @@ export class UserListComponent implements OnInit {
   rows = [];
   filterForm = new FormGroup({
     search: new FormControl(''),
-    role: new FormControl(-1),
+    role: new FormControl(''),
    
   });
   deleteRow: any = {};
@@ -27,9 +27,17 @@ export class UserListComponent implements OnInit {
   }
 
   setPage(pageInfo) {
+     this.request.page = pageInfo.offset;
+    // console.log(this.request);
+    let search=this.filterForm.get('search').value;
     this.request.page = pageInfo.offset;
-    console.log(this.request);
-    this.userService.getAllUser(this.request).subscribe(pagedData => {
+    this.userService.getAllUser({
+      name:search,
+      phone:search,
+      role:this.filterForm.get('role').value,
+      page: this.request.page,
+      size: 9
+    }).subscribe(pagedData => {
       this.page.totalElements = pagedData.totalElements;
       this.page.pageNumber = pagedData.number;
       this.page.size = pagedData.size;
@@ -49,9 +57,9 @@ export class UserListComponent implements OnInit {
   }
 
   filterFormSubmit() {
-    this.request.search = this.filterForm.get('search').value;
-    this.request.status = this.filterForm.get('status').value;
-    this.request.role = this.filterForm.get('role').value;
+    // this.request.search = this.filterForm.get('search').value;
+    
+    // this.request.role = this.filterForm.get('role').value;
     this.setPage({ offset: 0 });
   }
 

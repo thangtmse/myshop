@@ -23,11 +23,12 @@ export class TableListComponent implements OnInit {
   constructor(private modalService: BsModalService, private promotionService: PromotionService, private toastr: ToastrService) { 
   } // step 2
   ngOnInit(): void {
-    console.log(1278612789361298763)
+    
     this.setPage({ offset: 0 });
   }
 
   setPage(pageInfo) {
+    this.request.name = this.filterForm.get('search').value;
     this.request.page = pageInfo.offset;
     this.promotionService.getPromotion(this.request).subscribe(pagedData => {
       this.page.totalElements = pagedData.totalElements;

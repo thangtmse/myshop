@@ -44,8 +44,8 @@ export class UserService {
                 })
             );
     }
-    getAllUser(id: any): Observable<any> {
-        return this.httpClient.get(environment.url + 'api/user/all')
+    getAllUser(params: any): Observable<any> {
+        return this.httpClient.get(environment.url + 'api/user/all',{params:params})
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     return new Observable((observer: InnerSubscriber<any, any> ) => {
