@@ -7,7 +7,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="name">Tìm kiếm</label>
-                                <input formControlName="search" class="form-control" id="name" placeholder="Nhập tên hoặc số điện thoại" type="text">
+                                <input formControlName="search" class="form-control" id="name" placeholder="Nhập số điện thoại" type="text">
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -126,7 +126,7 @@
             <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
                 <div class="row">
                     <button type="button" class="btn btn-sm btn-secondary mx-2" routerLink="/manage/user/edit/{{row.userId}}">Sửa</button>
-                    <button type="button" class="btn btn-sm btn-danger mx-2" (click)="openModal(row)">Xóa</button>
+                    <button type="button" class="btn btn-sm btn-danger mx-2" (click)="openModal(row)" *ngIf="row.role!='ADMIN'">Xóa</button>
                 </div>
             </ng-template>
         </ngx-datatable-column>

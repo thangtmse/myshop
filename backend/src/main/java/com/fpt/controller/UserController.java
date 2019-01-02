@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.fpt.entity.User;
 import com.fpt.repository.UserRepository;
@@ -122,5 +123,10 @@ public class UserController {
 	public ResponseEntity<?> geByUser(@RequestParam("username") String name) throws Exception {
 		
 		return new ResponseEntity<>(userService.getByUserName(name), HttpStatus.OK);
+	}
+	@RequestMapping(path = "{id}", method = RequestMethod.DELETE)
+    @ResponseStatus(value = HttpStatus.OK)
+	public void delete(@PathVariable("id") Long id) {
+		userService.delete(id);
 	}
 }

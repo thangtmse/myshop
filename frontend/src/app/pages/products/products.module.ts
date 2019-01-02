@@ -14,6 +14,7 @@ export const routes = [
   { path: '', component: ProductsComponent, pathMatch: 'full' },
   { path: 'cate/:id/:name', component: ProductsComponent },
   { path: 'search/:id/:name/:search', component: ProductsComponent },
+  { path: 'search/:id/:name', component: ProductsComponent },
   { path: ':id/:name', component: ProductComponent }
 ];
 

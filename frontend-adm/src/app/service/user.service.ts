@@ -78,7 +78,7 @@ export class UserService {
     }
 
     deleteUsers(id: any): Observable<any> {
-        return this.httpClient.delete(environment.url + 'api/users/' + id)
+        return this.httpClient.delete(environment.url + 'api/user/' + id)
             .pipe(
                 catchError((error: HttpErrorResponse) => {
                     return new Observable((observer: InnerSubscriber<any, any> ) => {

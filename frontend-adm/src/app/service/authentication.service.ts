@@ -38,6 +38,12 @@ export class AuthenticationService implements CanActivate, CanActivateChild {
                     this.userProfile = res;
                     SharedService.userLogin.next();
                     return res;
+                }),
+
+                catchError(data=>{
+                    return new Observable((observer: InnerSubscriber<any, any> ) => {
+                        observer.next(this.userProfile)
+                    });
                 })
             );
     }
@@ -48,7 +54,7 @@ export class AuthenticationService implements CanActivate, CanActivateChild {
             if (profile!=null) {
                 return true;
             } else {
-                this.router.navigate(['/403']);
+                this.router.navigate(['/login']);
                 return false;
             }
         }));

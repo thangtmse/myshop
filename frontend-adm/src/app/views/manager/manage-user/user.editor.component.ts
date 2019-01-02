@@ -33,7 +33,7 @@ export class UserEditorComponent implements OnInit {
     this.userId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
     if (!Number.isNaN(this.userId)) {
       this.userService.getUser(this.userId).subscribe(data => {
-        console.log(data.user);
+        this.editorForm.get('role').disable();
         this.editorForm.get('username').disable();
         this.editorForm.get('username').setValue(data.username);
         this.editorForm.get('fullname').setValue(data.fullName);

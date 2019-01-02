@@ -59,7 +59,7 @@
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="quantity">Số lượng *</label>
-                                <input formControlName="quantity" class="form-control" id="quantity" placeholder="số lượng"
+                                <input formControlName="quantity" class="form-control" id="quantity" placeholder="số lượng" min="0"
                                     type="number" [ngClass]="{'is-invalid': isSubmited && editorForm.get('quantity').invalid}">
                                 <div class="invalid-feedback">
                                     <span *ngIf="editorForm.get('quantity').errors?.required">Trường này không thể để

@@ -58,7 +58,14 @@ public class UserService {
 		return userRepository.findUserByUsername(username);
 	}
 	public Page<User> getUsers(String name,String phone,String role,Pageable pageable){
-		return userRepository.findAllByUsernameContainingOrPhoneContainingOrRoleContaining(name, phone, role, pageable);
+		return userRepository.findAllByUsernameContainingAndPhoneContainingAndRoleContaining(name, phone, role, pageable);
+	}
+
+	public void delete(Long id) {
+		// TODO Auto-generated method stub
+		User user=userRepository.getOne(id);
+		
+		 userRepository.delete(user);
 	}
 
 	

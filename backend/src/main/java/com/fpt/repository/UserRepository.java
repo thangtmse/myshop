@@ -19,6 +19,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 //	@Query("from User u where u.username like :name and u.phone =:phone and u.role= :role")
 //	public Page<User> findUserByCondition(@Param("name") String name, @Param("phone") String phone,
 //			@Param("role") String role, Pageable pageable);
-	public Page<User> findAllByUsernameContainingOrPhoneContainingOrRoleContaining(String ussername, String phone, String role,Pageable pageable);
+	public Page<User> findAllByUsernameContainingAndPhoneContainingAndRoleContaining(String ussername, String phone, String role,Pageable pageable);
 	// public Page<User> findByuserNameOrphoneOrrole(String s,Pageable pageable);
 }

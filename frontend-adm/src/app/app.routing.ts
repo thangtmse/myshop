@@ -19,7 +19,7 @@ import { P403Component } from './views/error/403.component';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'manage',
     pathMatch: 'full',
   },
   {

@@ -60,7 +60,7 @@ export class UserListComponent implements OnInit {
   }
 
   confirm() {
-    this.userService.deleteUsers(this.deleteRow.id)
+    this.userService.deleteUsers(this.deleteRow.userId)
       .subscribe(data => {
         this.toastr.success('Xóa thành công.');
         this.modalRef.hide();
