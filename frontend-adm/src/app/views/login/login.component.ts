@@ -13,6 +13,8 @@ import { Md5 } from 'ts-md5/dist/md5';
 export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
+    localStorage.clear();
+    sessionStorage.clear();
   }
 
   errorMessage: String;

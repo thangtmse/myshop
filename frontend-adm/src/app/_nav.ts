@@ -101,18 +101,6 @@ export const navItems = [
     ]
   },
   {
-    name: 'Danh sách bàn trống',
-    url: '/manage/view-available-table',
-    icon: 'icon-cursor',
-    roles: ['CUSTOMER','WAITER']
-  },
-  {
-    name: 'Quản lý đặt bàn',
-    url: '/manage/manage-table-booking',
-    icon: 'cui-list',
-    roles: ['CUSTOMER','WAITER']
-  },
-  {
     name: 'Quản lí hóa đơn',
     url: '/manage/orders',
     icon: 'icon-paypal',

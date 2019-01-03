@@ -28,9 +28,15 @@ export const routes: Routes = [
     canActivate: [AuthenticationService],
     canActivateChild: [AuthenticationService],
     data: {
+      roles: ['ADMIN','EMPLOYEE'],
       title: 'Home'
     },
     children: [
+      {
+        path: '',
+        redirectTo: 'orders',
+        pathMatch: 'full',
+      },
       {
         path: 'dashboard',
         loadChildren: './views/manager/dashboard/dashboard.module#DashboardModule',
@@ -77,21 +83,21 @@ export const routes: Routes = [
         path: 'view-available-table',
         loadChildren: './views/waiter/view-available-table/manage.available_table.module#ManageAvailableTableModule',
         data: {
-          roles: ['WAITER','CUSTOMER']
+          roles: ['WAITER','ADMIN']
         }
       },
       {
         path: 'manage-table-booking',
         loadChildren: './views/waiter/manage-table-booking/manage.table_booking.module#ManageTableBookingModule',
         data: {
-          roles: ['ADMIN','CUSTOMER']
+          roles: ['ADMIN','ADMIN']
         }
       },
       {
         path: 'order',
         loadChildren: './views/waiter/manage-order/manage.order.module#ManageOrderModule',
         data: {
-          roles: ['ADMIN','CUSTOMER']
+          roles: ['ADMIN','ADMIN']
         }
       },
       {
