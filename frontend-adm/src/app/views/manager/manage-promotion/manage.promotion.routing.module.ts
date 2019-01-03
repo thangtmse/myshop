@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TableListComponent } from './table.list.component';
-import { EditTableComponent } from './table.edit.component';
+import { PromotionListComponent } from './promotion.list.component';
+import { EditPromotionComponent } from './promotion.edit.component';
 
 const routes: Routes = [
   {
@@ -11,21 +11,21 @@ const routes: Routes = [
   },
   {
     path: '',
-    component: TableListComponent,
+    component: PromotionListComponent,
     data: {
       title: 'Danh sách giảm giá'
     }
   },
   {
     path: 'edit/:id',
-    component: EditTableComponent,
+    component: EditPromotionComponent,
     data: {
       title: 'Sửa thông tin giảm giá'
     }
   },
   {
     path: 'create',
-    component: EditTableComponent,
+    component: EditPromotionComponent,
     data: {
       title: 'Tạo sự kiện giảm giá'
     }
@@ -36,4 +36,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ManageTableRoutingModule { }
+export class ManagePromotionRoutingModule { }

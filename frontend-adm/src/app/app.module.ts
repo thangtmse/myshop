@@ -25,7 +25,6 @@ import { P403Component } from './views/error/403.component';
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
-import { RegisterComponent } from './views/register/register.component';
 import { ModalModule } from 'ngx-bootstrap';
 
 const APP_CONTAINERS = [
@@ -48,12 +47,9 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
-import { CustomerProfileComponent } from './views/customer-profile/customer.profile.component';
 import { LogoutComponent } from './views/logout/logout.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AboutusComponent } from './views/aboutus/aboutus.component';
-import { OrderStatusComponent } from './views/chef/order.status.component';
 import { AgmCoreModule } from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction'
 
@@ -89,11 +85,7 @@ import { AgmDirectionModule } from 'agm-direction'
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent,
-    CustomerProfileComponent,
-    LogoutComponent,
-    AboutusComponent,
-    OrderStatusComponent
+    LogoutComponent
   ],
   providers: [{
     provide: LocationStrategy,

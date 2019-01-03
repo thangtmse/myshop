@@ -4,19 +4,18 @@ import { FormGroup } from '@angular/forms';
 import { FormControl } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { PromotionService } from '../../../service/promotion.service';
-import { Table } from '../../../model/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, Subject, concat, of } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap, switchMap, catchError, map } from 'rxjs/operators';
-import { FoodService } from '../../../service/food.service';
+import { ProductService } from '../../../service/product.service';
 
 @Component({
   selector: 'app-edit-table',
-  templateUrl: './table.edit.component.html',
-  styleUrls: ['./table.edit.component.scss']
+  templateUrl: './promotion.edit.component.html',
+  styleUrls: ['./promotion.edit.component.scss']
 })
-export class EditTableComponent implements OnInit {
+export class EditPromotionComponent implements OnInit {
   products = [];
   sanpham: Observable<any[]>;
   sanphamInput = new Subject<string>();
@@ -33,13 +32,13 @@ export class EditTableComponent implements OnInit {
   listSupplierParent: any[] = [];
   constructor(private route: ActivatedRoute,
     private promotionService: PromotionService,
-    private foodService: FoodService,
+    private productService: ProductService,
     private router: Router,
     private toastr: ToastrService) {
 
   }
   ngOnInit(): void {
-    this.foodService.findFood("").subscribe(data =>{
+    this.productService.findProduct("").subscribe(data =>{
       //this.products=data;
     })
     this.promotionId = Number.parseInt(this.route.snapshot.paramMap.get('id'));
@@ -63,7 +62,7 @@ export class EditTableComponent implements OnInit {
       of([]),
       this.sanphamInput.pipe(
         tap(() => this.sanphamLoading = true),    
-        switchMap(term => this.foodService.findFood({ name: term }).pipe(
+        switchMap(term => this.productService.findProduct({ name: term }).pipe(
           map(item => {
             return item.content;
           }),

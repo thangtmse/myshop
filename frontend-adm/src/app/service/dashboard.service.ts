@@ -14,8 +14,8 @@ export class DashboardService {
   constructor(private httpClient: HttpClient) {
     }
 
-    getFoodRankDashboard(limit:number, month:number): Observable<any> {
-        let query = environment.url + "dashboard/foodrank?"  
+    getProductRankDashboard(limit:number, month:number): Observable<any> {
+        let query = environment.url + "dashboard/productrank?"  
         query = query + "limit=" + limit;
         query = query + "&month="+ month;
         return this.httpClient.get(query)
@@ -28,8 +28,8 @@ export class DashboardService {
             );
     }
 
-    getFoodRankWithQuantity(limit:number, month:number): Observable<any> {
-        let query = environment.url + "dashboard/foodRankByQuantity?"  
+    getProductRankWithQuantity(limit:number, month:number): Observable<any> {
+        let query = environment.url + "dashboard/productRankByQuantity?"  
         query = query + "limit=" + limit;
         query = query + "&month="+ month;
         return this.httpClient.get(query)

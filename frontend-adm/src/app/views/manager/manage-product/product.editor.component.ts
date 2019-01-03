@@ -4,7 +4,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FoodService } from '../../../service/food.service';
+import { ProductService } from '../../../service/product.service';
 import { ProductCategory } from '../../../model/productCategory';
 import { CategoryService } from '../../../service/category.service';
 import { from } from 'rxjs';
@@ -14,9 +14,9 @@ import { map } from 'rxjs/operators';
 var self;
 
 @Component({
-  templateUrl: 'food.editor.component.html'
+  templateUrl: 'product.editor.component.html'
 })
-export class FoodEditorComponent implements OnInit {
+export class ProductEditorComponent implements OnInit {
   productsupplier: ProductSupplier[] = []
   productcategory: ProductCategory[] = []
   category: any;
@@ -39,7 +39,7 @@ export class FoodEditorComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
     private categoryService: CategoryService,
-    private foodService: FoodService,
+    private productService: ProductService,
     private router: Router,
     private toastr: ToastrService) {
 
@@ -48,11 +48,11 @@ export class FoodEditorComponent implements OnInit {
   ngOnInit(): void {
     self = this;
     this.proID = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-    this.foodService.getAllSupplier().subscribe(data => {
+    this.productService.getAllSupplier().subscribe(data => {
       this.productsupplier = data;
       console.log(this.productsupplier);
     })
-    this.foodService.getAllCategory().pipe(
+    this.productService.getAllCategory().pipe(
       map(content=>{
         return content.filter(cat=>!cat.deleted);
       })
@@ -62,7 +62,7 @@ export class FoodEditorComponent implements OnInit {
 
     });
     if (!Number.isNaN(this.proID)) {
-      this.foodService.getOneFood(this.proID).subscribe(data => {
+      this.productService.getOneProduct(this.proID).subscribe(data => {
         console.log(data);
         this.editorForm.get('productId').setValue(data.productId);
         this.editorForm.get('productName').setValue(data.productName);
@@ -125,7 +125,7 @@ export class FoodEditorComponent implements OnInit {
     if (this.editorForm.valid) {
       if (Number.isNaN(this.proID)) {
 
-        this.foodService.createNewFood(this.data).subscribe(
+        this.productService.createNewProduct(this.data).subscribe(
           data => {
             this.toastr.success('thêm mới thành công');
             this.router.navigate(['/manage/product/list']);
@@ -137,7 +137,7 @@ export class FoodEditorComponent implements OnInit {
       } else {
         this.data.id = this.proID;
         console.log(this.data);
-        this.foodService.updateFood(this.proID, this.data).subscribe(
+        this.productService.updateProduct(this.proID, this.data).subscribe(
           data => {
             this.toastr.success('cập nhật thành công');
             this.router.navigate(['/manage/product/list']);

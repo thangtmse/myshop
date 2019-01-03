@@ -2,11 +2,11 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { ManageTableRoutingModule } from './manage.table.routing.module';
-import { TableListComponent } from './table.list.component';
+import { ManagePromotionRoutingModule } from './manage.promotion.routing.module';
+import { PromotionListComponent } from './promotion.list.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ModalModule, BsDatepickerModule } from 'ngx-bootstrap';
-import { EditTableComponent } from './table.edit.component';
+import { EditPromotionComponent } from './promotion.edit.component';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { FormsModule, ReactiveFormsModule  }   from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
@@ -16,7 +16,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
   imports: [
     CommonModule,
     NgxDatatableModule,
-    ManageTableRoutingModule,
+    ManagePromotionRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     NgSelectModule,
@@ -25,8 +25,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     BsDatepickerModule.forRoot()
   ],
   declarations: [
-    TableListComponent,
-    EditTableComponent
+    PromotionListComponent,
+    EditPromotionComponent
   ],
 })
-export class ManageTableModule { }
+export class ManagePromotionModule { }

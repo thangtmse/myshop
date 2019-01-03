@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ManageFoodComponent } from './manage.food.component';
-import { FoodEditorComponent } from './food.editor.component';
+import { ManageProductComponent } from './manage.product.component';
+import { ProductEditorComponent } from './product.editor.component';
 
 const routes: Routes = [
   {
     path: 'list',
-    component: ManageFoodComponent,
+    component: ManageProductComponent,
     data: {
       isDelete: false,
       title: 'Danh sách sản phẩm'
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'listdeleted',
-    component: ManageFoodComponent,
+    component: ManageProductComponent,
     data: {
       isDelete: true,
       title: 'Danh sách sản phẩm'
@@ -22,14 +22,14 @@ const routes: Routes = [
   },
   {
     path: 'edit/:id',
-    component: FoodEditorComponent,
+    component: ProductEditorComponent,
     data: {
       title: 'Cập nhật sản phẩm'
     }
   },
   {
     path: 'create',
-    component: FoodEditorComponent,
+    component: ProductEditorComponent,
     data: {
       title: 'Tạo sản phẩm'
     }
@@ -40,4 +40,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ManageFoodRoutingModule { }
+export class ManageProductRoutingModule { }

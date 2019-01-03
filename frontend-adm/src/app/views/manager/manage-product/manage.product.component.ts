@@ -1,6 +1,5 @@
 import { Component, OnInit, OnChanges, ViewChild, TemplateRef } from '@angular/core';
-import { Food } from '../../../model/food';
-import { FoodService } from '../../../service/food.service';
+import { ProductService } from '../../../service/product.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { Router, ActivatedRouteSnapshot, ActivatedRoute } from '@angular/router';
@@ -13,8 +12,8 @@ import { ProductCategory } from '../../../model/productCategory';
 import { map } from 'rxjs/operators';
 
 @Component({
-  templateUrl: './manage.food.component.html'
-}) export class ManageFoodComponent implements OnInit, OnChanges {
+  templateUrl: './manage.product.component.html'
+}) export class ManageProductComponent implements OnInit, OnChanges {
 
   page = new Page();
   @ViewChild('productTable') table: any;
@@ -33,7 +32,7 @@ import { map } from 'rxjs/operators';
   isDeleted = false;
   constructor(
     private route: ActivatedRoute,
-    private foodService: FoodService,
+    private productService: ProductService,
     private modalService: BsModalService,
     private toastr: ToastrService) { }
 
@@ -43,7 +42,7 @@ import { map } from 'rxjs/operators';
     }
     this.setPage({ offset: 0 });
 
-    this.foodService.getAllCategory().pipe(
+    this.productService.getAllCategory().pipe(
       map(content => {
         return content.filter(cat => !cat.deleted);
       })
@@ -55,7 +54,7 @@ import { map } from 'rxjs/operators';
   setPage(pageInfo) {
     let name = this.filterForm.get('search').value;
     this.request.page = pageInfo.offset;
-    this.foodService.findFood({
+    this.productService.findProduct({
       name: name.replace(/ +(?= )/g, ''),
       categoryid: this.filterForm.get('category').value,
       page: this.request.page,
@@ -92,7 +91,7 @@ import { map } from 'rxjs/operators';
   confirmRestore() {
     this.deleteRow.categoryID = this.deleteRow.category.categoryId;
     this.deleteRow.supplierId = this.deleteRow.supplier.supplierId;
-    this.foodService.updateFood(this.deleteRow.productId, this.deleteRow)
+    this.productService.updateProduct(this.deleteRow.productId, this.deleteRow)
       .subscribe(data => {
         this.toastr.success('Phục hồi thành công');
         this.modalRef.hide();
@@ -107,7 +106,7 @@ import { map } from 'rxjs/operators';
   }
 
   confirm() {
-    this.foodService.deleteFood(this.deleteRow.productId)
+    this.productService.deleteProduct(this.deleteRow.productId)
       .subscribe(data => {
         this.toastr.success('xóa thành công');
         this.modalRef.hide();

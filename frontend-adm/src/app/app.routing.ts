@@ -2,17 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
-import { DefaultLayoutComponent, CustomerLayoutComponent } from './containers';
+import { DefaultLayoutComponent } from './containers';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
-import { RegisterComponent } from './views/register/register.component';
-import { CustomerProfileComponent } from './views/customer-profile/customer.profile.component';
 import { LogoutComponent } from './views/logout/logout.component';
-import { ManageFoodComponent } from './views/manager/manage-food/manage.food.component';
-import { AboutusComponent } from './views/aboutus/aboutus.component';
-import { OrderStatusComponent } from './views/chef/order.status.component';
 import { AuthenticationService } from './service/authentication.service';
 import { P403Component } from './views/error/403.component';
 
@@ -67,52 +62,23 @@ export const routes: Routes = [
       },
       {
         path: 'product',
-        loadChildren: './views/manager/manage-food/manage.food.module#ManageFoodModule',
+        loadChildren: './views/manager/manage-product/manage.product.module#ManageProductModule',
         data: {
           roles: ['ADMIN']
         }
       },
       {
         path: 'promotion',
-        loadChildren: './views/manager/manage-table/manage.table.module#ManageTableModule',
+        loadChildren: './views/manager/manage-promotion/manage.promotion.module#ManagePromotionModule',
         data: {
           roles: ['ADMIN']
         }
       },
       {
-        path: 'view-available-table',
-        loadChildren: './views/waiter/view-available-table/manage.available_table.module#ManageAvailableTableModule',
-        data: {
-          roles: ['WAITER','ADMIN']
-        }
-      },
-      {
-        path: 'manage-table-booking',
-        loadChildren: './views/waiter/manage-table-booking/manage.table_booking.module#ManageTableBookingModule',
-        data: {
-          roles: ['ADMIN','ADMIN']
-        }
-      },
-      {
-        path: 'order',
-        loadChildren: './views/waiter/manage-order/manage.order.module#ManageOrderModule',
-        data: {
-          roles: ['ADMIN','ADMIN']
-        }
-      },
-      {
         path: 'orders',
-        loadChildren: './views/cashier/cashier.module#CashierModule',
+        loadChildren: './views/order/order.module#OrderModule',
         data: {
           roles: ['EMPLOYEE','ADMIN']
-        }
-      },
-      {
-        path: 'chef',
-        component: OrderStatusComponent,
-        data: {
-          title: 'Danh sách trạng thái sản phẩm',
-          roles: ['WAITER','CHEF']
         }
       }
     ]

@@ -2,8 +2,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
-import { CashierRoutingModule } from './cashier.routing.module';
-import { CashierComponent } from './cashier.component';
+import { OrderRoutingModule } from './order.routing.module';
+import { OrderComponent } from './order.component';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ModalModule } from 'ngx-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -18,14 +18,14 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     ReactiveFormsModule,
     NgxDatatableModule,
-    CashierRoutingModule,
+    OrderRoutingModule,
     NgSelectModule,
     ModalModule.forRoot(),
     ToastrModule.forRoot()
   ],
   declarations: [
     CheckOutComponent,
-    CashierComponent
+    OrderComponent
   ]
 })
-export class CashierModule { }
+export class OrderModule { }

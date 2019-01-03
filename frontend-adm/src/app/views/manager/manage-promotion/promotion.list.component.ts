@@ -1,17 +1,16 @@
 import { Component, OnInit, ViewChild, TemplateRef } from '@angular/core';
 import { Page } from '../../../model/page';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { Table } from '../../../model/table';
 import { PromotionService } from '../../../service/promotion.service';
 import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
-  templateUrl: 'table.list.component.html'
+  templateUrl: 'promotion.list.component.html'
 })
-export class TableListComponent implements OnInit {
+export class PromotionListComponent implements OnInit {
   page = new Page();
-  @ViewChild('tableTable') table: any;
+  @ViewChild('categoryTable') table: any;
   @ViewChild('deleteModal') deleteModal: TemplateRef<any>;
   modalRef: BsModalRef;
   rows = [];

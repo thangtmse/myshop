@@ -181,9 +181,9 @@ export class OrderService {
             );
     }
 
-    getRecommend(foods: String, size: number): Observable<any> {
-        foods = foods.substr(3, foods.length);
-        let query = environment.url + 'api/recommend/?food=' + foods + '&size=' + size;
+    getRecommend(products: String, size: number): Observable<any> {
+        products = products.substr(3, products.length);
+        let query = environment.url + 'api/recommend/?product=' + products + '&size=' + size;
         return this.httpClient.get(query)
             .pipe(
                 catchError((error: HttpErrorResponse) => {

@@ -10,8 +10,8 @@ import { OrderService } from '../../service/order.service';
 import { SharedService } from '../../service/shared.service';
 
 @Component({
-  templateUrl: './cashier.component.html'
-})export class CashierComponent implements OnInit {
+  templateUrl: './order.component.html'
+})export class OrderComponent implements OnInit {
 
   @ViewChild('orderTable') table: any;
   page = new Page();
@@ -30,7 +30,7 @@ import { SharedService } from '../../service/shared.service';
 
   ngOnInit(): void {
 
-    SharedService.foodStatusChange.subscribe(() => {
+    SharedService.productStatusChange.subscribe(() => {
       this.setPage({ offset: 0 });
     });
 

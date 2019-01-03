@@ -32,7 +32,7 @@ export class CommonService {
             );
     }
 
-    getFoodCategory(): Observable<any> {    
+    getProductCategory(): Observable<any> {    
         return this.httpClient.get(environment.url + 'api/categories/')
             .pipe(
                 catchError((error:HttpErrorResponse) => {
@@ -54,9 +54,9 @@ export class CommonService {
             );
     }
 
-    getFoodByPageAndCategory(CategoryId:number, page:number): Observable<any> {    
-        console.log("api/foods?page="+page +"&category="+CategoryId);
-        return this.httpClient.get(environment.url + "api/foods?page="+page +"&category="+CategoryId)
+    getProductByPageAndCategory(CategoryId:number, page:number): Observable<any> {    
+        console.log("api/products?page="+page +"&category="+CategoryId);
+        return this.httpClient.get(environment.url + "api/products?page="+page +"&category="+CategoryId)
             .pipe(
                 catchError((error:HttpErrorResponse) => {
                     return new Observable((observer:InnerSubscriber<any, any> )=>{
